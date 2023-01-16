@@ -1,2 +1,2 @@
-# pikinco_old
+# pikin.co
 piKin.co
