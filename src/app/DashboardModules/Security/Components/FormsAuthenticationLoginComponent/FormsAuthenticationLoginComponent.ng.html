@@ -1,0 +1,30 @@
+﻿<article class="pk-component FormsAuthenticationLoginComponent">
+  <form name="FormsAuthenticationLoginForm">
+    <div class="pk-inputform">
+      <label>
+        {{Localise(LocalisationService.CaptionConstants.Username)}}
+        <input type="email" name="Username" [(ngModel)]="FormsAuthenticationLoginModel.Username" placeholder="{{Localise(LocalisationService?.CaptionConstants.Username)}}" size="35" disabled="disabled" readonly="readonly" style="background-color:#aaa !important"  />
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label>
+        {{Localise(LocalisationService.CaptionConstants.Password)}}
+        <input type="password" name="Password" [(ngModel)]="FormsAuthenticationLoginModel.Password" placeholder="{{Localise(LocalisationService.CaptionConstants.Password)}}" size="35" />
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label class="pk-label-for">
+        <input type="checkbox" name="RememberMe" title="{{Localise(LocalisationService.CaptionConstants.RememberMe)}}" [(ngModel)]="FormsAuthenticationLoginModel.RememberMe" />
+        {{Localise(LocalisationService.CaptionConstants.RememberMe)}}
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <input type="submit" name="LogIn" value="{{Localise(LocalisationService.CaptionConstants.LogIn)}}" (click)="OnLogin()" />      
+    </div>
+    <a routerLink="/register">{{Localise(this.LocalisationService.CaptionConstants.Register)}}</a>
+    <a routerLink="/resetpassword">{{Localise(this.LocalisationService.CaptionConstants.ResetPassword)}}</a>
+    <div class="pk-jumborton error" *ngIf="ErrorMessage">
+      <h2>{{ErrorMessage}}</h2>
+    </div>
+  </form>
+</article>

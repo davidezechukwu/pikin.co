@@ -1,0 +1,21 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'>{{Localise(LocalisationService.CaptionConstants.PageNotFound)}}</h1></nav>    
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>    
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+    </section>
+    <table>
+      <tr>
+        <td>
+          <img src="../../../../assets/images/404.gif" />
+        </td>
+        <td>
+          <h3>{{Localise(LocalisationService.CaptionConstants.ThereIsNoOneHere)}}</h3>
+          <h3><a routerLink="/home">{{Localise(LocalisationService.CaptionConstants.YouCanFindUsHere)}}</a></h3>
+          <div class="pk-jumbotron">
+            <h2>You might have clicked on a link to a page under construction!</h2>            
+          </div>
+        </td>
+      </tr>      
+    </table>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

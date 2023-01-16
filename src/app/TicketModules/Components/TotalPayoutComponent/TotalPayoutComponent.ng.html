@@ -1,0 +1,3 @@
+﻿<article class="pk-component TotalPayoutComponent">    
+    <h3 *ngIf="TotalPrizes"><a routerLink="/winningtickets" *ngIf="TotalPrizes"><span [innerHTML]="GlobalisationService.FormatCurrency(TotalPrizes, true) | safe"></span></a> {{Localise(LocalisationService.CaptionConstants.TotalPrizesPaidOutSoFarTo)}} <a routerLink="/winningtickets">{{Localise(LocalisationService.CaptionConstants.TotalWinningTickets, null, TotalWinningTickets)}} </a></h3>
+</article>

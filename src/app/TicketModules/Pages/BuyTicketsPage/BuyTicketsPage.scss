@@ -1,0 +1,50 @@
+﻿.BuyTicketsPage {
+  h2,
+  h2 label {
+    color: white;
+  }
+
+  .pk-day-options {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+
+    li {
+      display: inline;
+    }
+  }
+
+  .pk-weeks {
+    padding: 0.5rem 2rem 0.5rem 1rem  !important;
+  }
+
+  .pk-select-draws-form {
+    padding-right: 3rem;
+    margin-top: 0;
+    padding-top: 0;
+
+    label {
+      white-space: nowrap;
+    }
+
+    .pk-day-options {
+      padding-left: 0;
+      margin-left: 0;
+
+      li {
+        display: inline;
+      }
+    }
+  }
+
+  .pk-your-order {
+    margin-top: 2rem;
+  }
+
+  .pk-ticket-list {
+  }
+
+  .pk-buy-tickets-button {
+    margin-top: 2rem;
+  }
+}

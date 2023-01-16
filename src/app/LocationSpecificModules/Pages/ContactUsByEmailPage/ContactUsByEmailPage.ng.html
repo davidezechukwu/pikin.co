@@ -1,0 +1,20 @@
+﻿<nav>
+  <h1 class='pk-h1 pk-breadcrumb'>
+    <a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}">{{SessionService.Session.CurrentLocation.Name}}</a>
+    | <a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{LocalisationService.CaptionConstants.LocationSpecificContactUs}}</a>
+    | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span>
+  </h1>
+</nav>
+
+<main class='pk-main-content HomePage' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <div class="pk-jumbotron">      
+      <h2>{{Localise(LocalisationService.CaptionConstants.PageIsUnderConstruction)}}</h2>
+      <h2><a href="#">Local General Email Address</a></h2>      
+      <h2><a href="#">Local Business Email Address</a></h2>      
+      <h2><a href="#">Local Account Email Address</a></h2>
+    </div>    
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

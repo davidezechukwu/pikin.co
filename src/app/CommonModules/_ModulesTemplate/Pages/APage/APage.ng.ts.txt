@@ -1,0 +1,18 @@
+import { Component, Input, Injector } from '@angular/core';
+import SuperPage from '../../SuperModules/SuperPage/SuperPage.ng';
+import { PageAnimations } from '../../CoreModules/Animations/PageAnimations';
+
+@Component({
+    selector: 'APage',
+    templateUrl: './APage.ng.html',
+    animations: PageAnimations
+})
+export default class APage extends SuperPage {
+    constructor(        
+        protected Injector: Injector
+    ) {
+        super(Injector);
+        //this.PageDoesNotRequiresAuthentication = true;
+        //this.PageIsForAuthentication = false;
+    }  
+}

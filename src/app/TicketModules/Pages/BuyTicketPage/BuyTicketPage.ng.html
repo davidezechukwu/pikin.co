@@ -1,0 +1,83 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/play">{{Localise(LocalisationService.CaptionConstants.Play)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content BuyTicketPage' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <article *ngIf="Game">
+      <div *ngIf="HasEnoughFunds">
+        <h2>{{Localise(LocalisationService.CaptionConstants.YourOrder)}}</h2>
+        <div *ngIf="TicketOrders && TicketOrders.length > 0">
+          <kendo-grid [data]="TicketOrders"
+                      [pageSize]="State.take"
+                      [skip]="State.skip"
+                      [sort]="State.sort"
+                      [sortable]="true"
+                      [pageable]="true"
+                      [scrollable]="'none'"
+                      (dataStateChange)="OnDataStateChange($event)"
+                      class="pk-list">
+            <kendo-grid-column field="ID" [hidden]="true">
+            </kendo-grid-column>
+            <kendo-grid-column field="TicketOrderStatus" [hidden]="true"></kendo-grid-column>
+            <kendo-grid-column field="PickedNumbers">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+                {{Localise(LocalisationService.CaptionConstants.Numbers)}}
+              </ng-template>
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <a routerLink="/play">{{dataItem.PickedNumbers}}</a>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="GameDisplayName">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+                {{Localise(LocalisationService.CaptionConstants.Game)}}
+              </ng-template>
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <span>{{Localise(dataItem.GameDisplayName)}}</span>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="GamePrice">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+                {{Localise(LocalisationService.CaptionConstants.Price)}}
+              </ng-template>
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">                
+                <span [innerHTML]="GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(dataItem.GamePrice), true) | safe"></span>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="GameDrawDateUTC">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+                {{Localise(LocalisationService.CaptionConstants.DrawDate)}}
+              </ng-template>
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                <span [innerHTML]="GlobalisationService.FormatDate(dataItem.GameDrawDateUTC) | safe"></span>
+              </ng-template>
+            </kendo-grid-column>            
+            <kendo-grid-column field="TicketOrderStatusDisplayName">
+              <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+                {{Localise(LocalisationService.CaptionConstants.Status)}}
+              </ng-template>
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                {{Localise(dataItem.TicketOrderStatusDisplayName)}}
+              </ng-template>
+            </kendo-grid-column>
+          </kendo-grid>
+        </div>
+        <form name="BuyTicketForm">
+          <input class="pk-buy-ticket-button" type="submit" value="{{Localise(LocalisationService.CaptionConstants.BuyTicketNow, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Game.Price)))}}" (click)="OnBuyTicket()" [disabled]="!HasEnoughFunds" />
+        </form>
+        <div class="pk-jumbotron">
+          <h2 class="pk-sentence" [innerHTML]="Localise(LocalisationService.CaptionConstants.LastClosingValueOn, null, GlobalisationService.FormatDate(LastClosingDateUTC), LastClosingNumbers) | safe"></h2>
+          <h2 class="pk-sentence" *ngIf="Numbers" [innerHTML]="Localise(LocalisationService.CaptionConstants.CurrentValueAsOf, null, GlobalisationService.FormatDate(CurrentTime), Numbers) | safe"></h2>
+          <h2 class="pk-sentence" *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, null, RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h2>          
+        </div>
+      </div>
+      <div *ngIf="!HasEnoughFunds">
+        <div class="pk-jumbotron">
+          <h2 class="pk-sentence" *ngIf="Balance"><a routerLink="/dashboard/funding/viewstatement">{{Localise(LocalisationService.CaptionConstants.YouHaveABalanceOf, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Balance)))}}</a></h2>
+          <h2 class="pk-sentence" *ngIf="RequiredAmount">{{Localise(LocalisationService.CaptionConstants.YouNeedToAddAtLeastToYourAccount, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(RequiredAmount)))}}</h2>
+          <h2 class="pk-sentence"><a routerLink="/dashboard/funding/addfunds"><span>{{Localise(LocalisationService.CaptionConstants.AddFunds)}}</span></a></h2>
+          <h2 class="pk-sentence"><a routerLink="/play">{{Localise(LocalisationService.CaptionConstants.ChooseAnotherGame)}}</a></h2>          
+        </div>
+      </div>      
+    </article>    
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

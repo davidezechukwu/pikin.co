@@ -1,0 +1,10 @@
+import { Injectable } from '@angular/core';
+import  * as _ from 'lodash';
+import { _Models } from '../Models/_Models';
+import SuperService from '../../../../SuperModules/Services/SuperService.ng';
+
+@Injectable()
+export default class AService extends SuperService {    
+    constructor() {};    
+}
+

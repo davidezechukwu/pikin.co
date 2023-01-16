@@ -1,0 +1,14 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a> | <a routerLink="/dashboard/correspondence/home">{{Localise(LocalisationService.CaptionConstants.CorrespondenceHome)}}</a> | <a routerLink="/dashboard/correspondence/preferences">{{Localise(LocalisationService.CaptionConstants.CorrespondencePreferences)}}</a> || <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+        <div class="pk-jumbotron">
+          <h2>Can we contact on offers you might like?</h2>          
+          <h2>We wont send you Junk emails or text. All our offers are only sent to your system inbox</h2>
+          <h2>There is Reward System for Referrals</h2>
+          <h2>There is Reward System for taking up Offers from our partners</h2>
+          <h2>Help when you win so that you can manage your winnings responsibly? Links to Charities and government bodies, links to online guides</h2>
+        </div>
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

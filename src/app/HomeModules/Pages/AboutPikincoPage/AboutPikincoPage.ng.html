@@ -1,0 +1,19 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation] [innerHtml]="PageTitle | safe"></span></h1></nav>
+<main class='pk-main-content HomePage' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <div class="pk-jumbotron" style="padding:8rem !important; text-align:justify !important;">
+      <br />
+      <h2>
+        {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM1)}}        
+        {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM2)}}        
+        {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM3)}}        
+        {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM4)}}        
+        {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM5)}}        
+      </h2>
+      <br />      
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>     
+    </div>
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

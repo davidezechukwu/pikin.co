@@ -1,0 +1,49 @@
+﻿.k-grid {
+  th {
+    border-left: solid 1px #224 !important;
+  }
+
+  th:first-of-type {
+    border-left: none !important;
+  }
+  
+  .k-filter-row {
+    .k-filtercell {
+      .k-textbox {
+        padding: 2.5rem 2rem;
+      }
+    }
+  }
+
+  .k-grid-pager {
+    background-color: #000;
+  }
+
+  .k-pager-numbers .k-state-selected,
+  .k-pager-numbers .k-state-selected:hover {
+  }
+
+  .k-pager-numbers {
+    .k-state-selected,
+    .k-state-selected:hover {
+      border: #3366ff !important;
+      background-color: #3366ff !important;
+    }
+  }
+
+  .k-link.k-pager-nav {
+    background-color: #111 !important;
+  }
+
+  .k-link.k-pager-nav.k-state-disabled {
+  }
+
+  .k-pager-wrap .k-link,
+  .k-pager-wrap .k-state-selected {
+    background-color: #111 !important;
+  }
+
+  .k-link.k-state-selected {
+    border-bottom: solid 2px #3366ff !important;
+  }
+}

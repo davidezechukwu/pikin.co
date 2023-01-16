@@ -1,0 +1,66 @@
+﻿@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.AComponent{
+}
+
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) {
+  .AComponent{
+  }
+}
+
+//Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) {
+  .AComponent{
+    }
+}
+
+//Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+  .AComponent{
+  }
+}
+
+//Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) {
+  .AComponent{
+  }
+}
+
+//Extra large devices (large desktops)
+@include media-breakpoint-down(xl) {
+.AComponent{
+  }
+}
+
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-up(xs) {
+.AComponent{
+  }
+}
+
+//Small devices (landscape phones, 576px and up)
+@include media-breakpoint-up(sm) {
+.AComponent{
+  }
+}
+
+//Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+.AComponent{
+  }
+}
+
+//Large devices (desktops, 992px and up)
+@include media-breakpoint-up(lg) {
+.AComponent{
+  }
+}
+
+//Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-up(xl) {
+.AComponent{
+  }
+}
+
+

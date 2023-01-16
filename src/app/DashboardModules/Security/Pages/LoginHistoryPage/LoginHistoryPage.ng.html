@@ -1,0 +1,34 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a> | <a routerLink="/dashboard/security/home">{{Localise(LocalisationService.CaptionConstants.SecurityHome)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+      <div class="pk-jumbotron">
+        <h2>{{Localise(LocalisationService.CaptionConstants.PageIsUnderConstruction)}}</h2>
+        <h2>Two factor Authentication</h2>
+        <h2>Tell me where else I am signed in</h2>
+        <h2>Remote logout</h2>
+        <h2>Contact us if this was not you.</h2>
+        <p>
+          
+          System detected unusual login attempts on your account.
+          Please verify account to avoid suspension.
+
+          Date : 15 August 2017 12:01 AM
+          Device : Apple IPhone 6s
+          IP Address : 108.179.222.117
+          Location : Evergreen Terrace , Springfield , US of A
+
+          View your recent account activity. If you notice an unfamiliar device or location.
+
+          Note: Location and device types reflect our best guesses based on your ISP or wireless carrier.
+
+          Thanks
+          Contact us if this was not you.
+
+        </p>
+      </div>        
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+
+

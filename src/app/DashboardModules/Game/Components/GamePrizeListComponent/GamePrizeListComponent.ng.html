@@ -1,0 +1,9 @@
+﻿<article class="pk-component GamePrizeListComponent">
+    <div *ngIf="Game">
+        <div *ngIf="Prizes">
+            <div *ngFor="let prize of Prizes; let i=index">                
+                <h3 [innerHTML]="GetPrizeCaption(prize) | safe"></h3>                
+            </div>
+        </div>
+    </div>
+</article>

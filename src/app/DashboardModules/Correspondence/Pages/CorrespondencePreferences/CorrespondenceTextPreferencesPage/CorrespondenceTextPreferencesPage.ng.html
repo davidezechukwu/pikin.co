@@ -1,0 +1,11 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a> | <a routerLink="/dashboard/correspondence/home">{{Localise(LocalisationService.CaptionConstants.CorrespondenceHome)}}</a> | <a routerLink="/dashboard/correspondence/preferences">{{Localise(LocalisationService.CaptionConstants.CorrespondencePreferences)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+        <div class="pk-jumbotron">
+          <h2>Send me a text message whenever I win. Charges may apply.</h2>
+          <h2>A System Message Would Always Be Sent To Your Internal Inbox Anyways</h2>
+        </div>
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

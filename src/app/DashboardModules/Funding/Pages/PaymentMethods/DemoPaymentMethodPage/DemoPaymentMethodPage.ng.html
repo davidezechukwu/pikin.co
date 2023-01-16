@@ -1,0 +1,28 @@
+﻿<nav>
+  <h1 class='pk-h1 pk-breadcrumb'>
+    <a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a>
+    | <a routerLink="/dashboard/funding/home">{{Localise(LocalisationService.CaptionConstants.FundingHome)}}</a>
+    | <a routerLink="/dashboard/funding/addfunds">{{Localise(LocalisationService.CaptionConstants.AddFunds)}}</a>
+    | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span>
+  </h1>
+</nav>
+<main class='pk-main-content' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <form #AddFunding="ngForm">
+      <label>
+        <strong>{{Localise(LocalisationService.CaptionConstants.Amount)}} {{SessionService.Session.CurrentCurrency.Symbol}}</strong>
+        <input type="number" required="required" name="FundingAmountForm"
+               [min]="MinimumPaymentAmount"
+               [max]="MaximumPaymentAmount"
+               [(ngModel)]="FundingAmount" />
+        <input type="submit" (click)="OnAddFunds()" value="{{Localise(LocalisationService.CaptionConstants.Submit)}}" />
+      </label>
+    </form>
+    <div class="pk-jumbotron">
+      <h2>{{Localise(LocalisationService.CaptionConstants.PageIsUnderConstruction)}}</h2>
+    </div>      
+  </section>
+
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

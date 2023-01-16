@@ -1,0 +1,57 @@
+﻿@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.PlayPage {
+  .pk-logon-container {
+    float: right;
+    padding-bottom: 3em;
+    padding-right: 3em;
+  }
+}
+
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) {
+}
+
+//Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) {
+  .PlayPage {
+    .pk-logon-container {
+      float: none !important;
+      padding-bottom: 3em;
+      padding-right: 2em !important;
+    }
+  }
+}
+
+//Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+}
+
+//Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) {
+}
+
+//Extra large devices (large desktops)
+@include media-breakpoint-down(xl) {
+}
+
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-up(xs) {
+}
+
+//Small devices (landscape phones, 576px and up)
+@include media-breakpoint-up(sm) {
+}
+
+//Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+}
+
+//Large devices (desktops, 992px and up)
+@include media-breakpoint-up(lg) {
+}
+
+//Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-up(xl) {
+}
+

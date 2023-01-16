@@ -1,0 +1,88 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <div class="pk-dashboard-level-0">
+      <ul class="pk-dashboard-level-1">
+        <li>
+          <h3><a routerLink="/dashboard/settings/home">{{Localise(LocalisationService.CaptionConstants.Settings)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/settings/home">{{Localise(LocalisationService.CaptionConstants.SettingsHome)}}</a></li>
+            <li><a routerLink="/dashboard/settings/location">{{Localise(LocalisationService.CaptionConstants.Location)}}</a></li>
+            <li><a routerLink="/dashboard/settings/currency">{{Localise(LocalisationService.CaptionConstants.Currency)}}</a></li>
+            <li><a routerLink="/dashboard/settings/language">{{Localise(LocalisationService.CaptionConstants.Language)}}</a></li>
+            <li><a routerLink="/dashboard/settings/globalisation">{{Localise(LocalisationService.CaptionConstants.Globalisation)}}</a></li>
+          </ul>
+        </li>
+        <li>
+          <h3><a routerLink="/dashboard/correspondence/home">{{Localise(LocalisationService.CaptionConstants.Correspondence)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/correspondence/home">{{Localise(LocalisationService.CaptionConstants.CorrespondenceHome)}}</a></li>
+            <li>
+              <a routerLink="/dashboard/correspondence/preferences/home">{{Localise(LocalisationService.CaptionConstants.CorrespondencePreferences)}}</a>
+              <ul class="pk-dashboard-level-3">
+                <li><a routerLink="/dashboard/correspondence/preferences/text">{{Localise(LocalisationService.CaptionConstants.CorrespondenceTextPreferences)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/preferences/email">{{Localise(LocalisationService.CaptionConstants.CorrespondenceEmailPreferences)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/preferences/mail">{{Localise(LocalisationService.CaptionConstants.CorrespondenceMailPreferences)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/preferences/marketing">{{Localise(LocalisationService.CaptionConstants.CorrespondenceDirectMarketingPreferences)}}</a></li>
+              </ul>
+            </li>
+            <li>
+              <a routerLink="/dashboard/correspondence/mailbox/home">{{Localise(LocalisationService.CaptionConstants.Mailbox)}}</a>
+              <ul class="pk-dashboard-level-3">
+                <li><a routerLink="/dashboard/correspondence/mailbox/home">{{Localise(LocalisationService.CaptionConstants.MailboxHome)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/mailbox/inbox">{{Localise(LocalisationService.CaptionConstants.Inbox)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/mailbox/compose">{{Localise(LocalisationService.CaptionConstants.ComposeMessage)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/mailbox/sentmessages">{{Localise(LocalisationService.CaptionConstants.SentMessages)}}</a></li>
+              </ul>
+            </li>                        
+            <li><a routerLink="/dashboard/correspondence/emailaddress">{{Localise(LocalisationService.CaptionConstants.EmailAddress)}}</a></li>
+            <li><a routerLink="/dashboard/correspondence/telephone">{{Localise(LocalisationService.CaptionConstants.TelephoneNumber)}}</a></li>
+            <li><a routerLink="/dashboard/correspondence/address">{{Localise(LocalisationService.CaptionConstants.ResidentialAddress)}}</a></li>
+          </ul>
+        </li>
+        <li>
+          <h3><a routerLink="/dashboard/account/home">{{Localise(LocalisationService.CaptionConstants.Account)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/account/home">{{Localise(LocalisationService.CaptionConstants.AccountHome)}}</a></li>
+            <li><a routerLink="/dashboard/account/verify">{{Localise(LocalisationService.CaptionConstants.VerifyYourAccount)}}</a></li>
+            <li><a routerLink="/dashboard/account/close">{{Localise(LocalisationService.CaptionConstants.CloseYourAccount)}}</a></li>
+          </ul>
+        </li>
+        <li>
+          <h3><a routerLink="/dashboard/security/home">{{Localise(LocalisationService.CaptionConstants.Security)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/security/home">{{Localise(LocalisationService.CaptionConstants.SecurityHome)}}</a></li>
+            <li><a routerLink="/dashboard/security/logondetails">{{Localise(LocalisationService.CaptionConstants.LogonDetails)}}</a></li>
+            <li><a routerLink="/dashboard/security/loginhistory">{{Localise(LocalisationService.CaptionConstants.LoginHistory)}}</a></li>
+            <li><a routerLink="/dashboard/security/changepassword">{{Localise(LocalisationService.CaptionConstants.ChangePassword)}}</a></li>
+            <li><a routerLink="/dashboard/security/usepinauthentication">{{Localise(LocalisationService.CaptionConstants.UsePINAuthentication)}}</a></li>
+            <li><a routerLink="/dashboard/security/changepin">{{Localise(LocalisationService.CaptionConstants.ChangePIN)}}</a></li>
+            <li><a routerLink="/dashboard/security/usetwostepauthentication">{{Localise(LocalisationService.CaptionConstants.UseTwoStepAuthentication)}}</a></li>
+            <li><a routerLink="/dashboard/security/automaticsignout">{{Localise(LocalisationService.CaptionConstants.AutomaticSignOut)}}</a></li>
+          </ul>
+        </li>
+        <li>
+          <h3><a routerLink="/dashboard/funding/home">{{Localise(LocalisationService.CaptionConstants.Funding)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/funding/home">{{Localise(LocalisationService.CaptionConstants.FundingHome)}}</a></li>
+            <li><a routerLink="/dashboard/funding/viewstatement">{{Localise(LocalisationService.CaptionConstants.ViewStatement)}}</a></li>
+            <li><a routerLink="/dashboard/funding/addfunds">{{Localise(LocalisationService.CaptionConstants.AddFunds)}}</a></li>
+            <li><a routerLink="/dashboard/funding/withdrawfunds">{{Localise(LocalisationService.CaptionConstants.WithdrawFunds)}}</a></li>
+          </ul>
+        </li>
+        <li>
+          <h3><a routerLink="/dashboard/numbersystem/home">{{Localise(LocalisationService.CaptionConstants.NumberSystem)}}</a></h3>
+          <ul class="pk-dashboard-level-2">
+            <li><a routerLink="/dashboard/numbersystem/home">{{Localise(LocalisationService.CaptionConstants.NumberSystemHome)}}</a></li>
+            <li><a routerLink="/dashboard/numbersystem/current">{{Localise(LocalisationService.CaptionConstants.AboutTheCurrentNumberSystem)}}</a></li>
+            <li><a routerLink="/dashboard/numbersystem/change">{{Localise(LocalisationService.CaptionConstants.ChangeNumberSystem)}}</a></li>
+          </ul>
+        </li>        
+      </ul>
+    </div>
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+
+

@@ -1,0 +1,42 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/tickets">{{Localise(LocalisationService.CaptionConstants.MyTickets)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <article *ngIf="Ticket">
+      <h2>{{Localise(LocalisationService.CaptionConstants.Ticket)}}</h2>
+      <table class="pk-details-view">
+        <tr>
+          <td>{{Localise(LocalisationService.CaptionConstants.Numbers)}}</td>
+          <td>{{Ticket.PickedNumbers}}</td>
+        </tr>
+        <tr>
+          <td>{{Localise(LocalisationService.CaptionConstants.Game)}}</td>
+          <td>{{Ticket.GameDisplayName}}</td>
+        </tr>
+        <tr>
+          <td>{{Localise(LocalisationService.CaptionConstants.Price)}}</td>
+          <td><span class="pk-value" [innerHTML]="GlobalisationService.FormatCurrency(Ticket.GamePrice, true) | safe"></span></td>
+        </tr>
+        <tr>
+          <td>{{Localise(LocalisationService.CaptionConstants.DrawDate)}}</td>
+          <td>{{GlobalisationService.FormatDate(Ticket.GameDrawDateUTC)}}</td>
+        </tr>
+        <tr>
+          <td>{{Localise(LocalisationService.CaptionConstants.Outcome)}}</td>
+          <td>{{Ticket.TicketStatus}}</td>
+        </tr>
+      </table>
+    </article>
+    
+    <div class="pk-jumbotron">      
+      <h2 class="pk-no-item-in-list">{{Localise(LocalisationService.CaptionConstants.GoodLuck, null)}}</h2>    
+      <!--<h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/aboutus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAboutUs)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/AboutpiKinco"><span [innerHTML]="Localise(LocalisationService.CaptionConstants.AboutpiKinco)| safe"></span></a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>-->
+      <!--<h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/rules">{{Localise(LocalisationService.CaptionConstants.GamePlayRules)}}</a></h2>-->      
+    </div>
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+

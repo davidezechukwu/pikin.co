@@ -1,0 +1,19 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+        <div class="pk-dashboard-level-0">
+            <ul class="pk-dashboard-level-1">
+                <li><a routerLink="/dashboard/security/logondetails">{{Localise(LocalisationService.CaptionConstants.LogonDetails)}}</a></li>
+                <li><a routerLink="/dashboard/security/loginhistory">{{Localise(LocalisationService.CaptionConstants.LoginHistory)}}</a></li>
+                <li><a routerLink="/dashboard/security/changepassword">{{Localise(LocalisationService.CaptionConstants.ChangePassword)}}</a></li>
+                <li><a routerLink="/dashboard/security/usepinauthentication">{{Localise(LocalisationService.CaptionConstants.UsePINAuthentication)}}</a></li>
+                <li><a routerLink="/dashboard/security/changepin">{{Localise(LocalisationService.CaptionConstants.ChangePIN)}}</a></li>
+                <li><a routerLink="/dashboard/security/usetwostepauthentication">{{Localise(LocalisationService.CaptionConstants.UseTwoStepAuthentication)}}</a></li>
+                <li><a routerLink="/dashboard/security/automaticsignout">{{Localise(LocalisationService.CaptionConstants.AutomaticSignOut)}}</a></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+

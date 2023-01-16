@@ -1,0 +1,15 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-play-page pk-main-content PlayPage'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>        
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+        <ng-container *ngIf="!AuthenticationService.IsAuthenticated">
+            <div class="pk-logon-container">
+                <FormsAuthenticationLoginComponent></FormsAuthenticationLoginComponent>
+            </div>
+        </ng-container>
+        <div style="clear:both;margin-top:-2em;">
+            <PlayComponent></PlayComponent>
+        </div>
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

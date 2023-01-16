@@ -1,0 +1,42 @@
+﻿<article class="pk-component FormsAuthenticationRegisterComponent">
+  <form name="FormsAuthenticationRegister">
+    <div class="pk-inputform">
+      <label>
+        {{Localise(LocalisationService.CaptionConstants.Username)}}
+        <input type="email" name="Username" [(ngModel)]="FormsAuthenticationRegisterModel.Username" placeholder="{{Localise(LocalisationService.CaptionConstants.Username)}}" readonly="readonly" disabled="disabled" style="background-color: #aaa !important"  size="40"/>
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label>
+        {{Localise(LocalisationService.CaptionConstants.Password)}}
+        <input type="password"  name="Password" [(ngModel)]="FormsAuthenticationRegisterModel.Password" placeholder="{{Localise(LocalisationService.CaptionConstants.Password)}}" size="40" />
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label>
+        {{Localise(LocalisationService.CaptionConstants.ConfirmPassword)}}
+        <input type="password" name="ConfirmPassword" [(ngModel)]="FormsAuthenticationRegisterModel.ConfirmPassword" placeholder="{{Localise(LocalisationService.CaptionConstants.ConfirmPassword)}}" size="40"/>
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label>
+        <input type="checkbox" name="RememberMe" title="{{Localise(LocalisationService.CaptionConstants.RememberMe)}}" [(ngModel)]="FormsAuthenticationRegisterModel.RememberMe" />
+        {{Localise(LocalisationService.CaptionConstants.RememberMe)}}
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <label>
+        <input type="checkbox" name="IhaveReadTheTermsAndConditions" title="{{Localise(LocalisationService.CaptionConstants.IhaveReadTheTermsAndConditions)}}" [(ngModel)]="FormsAuthenticationRegisterModel.HasReadTermsAndConditions" />
+        {{Localise(LocalisationService.CaptionConstants.IhaveReadTheTermsAndConditions)}}
+      </label>
+    </div>
+    <div class="pk-inputform">
+      <input type="submit"  name="Register" value="{{Localise(LocalisationService.CaptionConstants.Register)}}" (click)="OnRegister()" />      
+    </div>
+    <a routerLink="/login">{{Localise(this.LocalisationService.CaptionConstants.LogIn)}}</a>
+    <a routerLink="/resetpassword">{{Localise(this.LocalisationService.CaptionConstants.ResetPassword)}}</a>    
+    <div class="pk-jumborton error" *ngIf="ErrorMessage">
+      <h2>{{ErrorMessage}}</h2>
+    </div>
+  </form>
+</article>

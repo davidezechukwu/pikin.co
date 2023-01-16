@@ -1,0 +1,86 @@
+﻿<article class="pk-component WinningTicketListComponent">
+  <p>
+    <select>
+      <ng-container *ngIf="AuthenticationService.IsAuthenticated">
+        <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTickets)}}</option>
+        <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastDay)}}</option>
+        <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastWeek)}}</option>
+        <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastMonth)}}</option>
+        <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastYear)}}</option>
+      </ng-container>
+      <option>{{Localise(LocalisationService.CaptionConstants.AllWinningTickets)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.AllWinningTicketsInTheLastDay)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.AllWinningTicketsInTheLastWeek)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.AllWinningTicketsInTheLastMonth)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.AllWinningTicketsInTheLastYear)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.TopWinningTickets)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.TopWinningTicketsInTheLastDay)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.TopWinningTicketsInTheLastWeek)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.TopWinningTicketsInTheLastMonth)}}</option>
+      <option>{{Localise(LocalisationService.CaptionConstants.TopWinningTicketsInTheLastYear)}}</option>
+    </select>
+  </p>
+  <!--
+  <kendo-grid [kendoGridBinding]="WinningTickets"
+              [pageSize]="5"
+              [skip]="State.skip"
+              [sort]="State.sort"
+              [sortable]="true"
+              [pageable]="{
+                                buttonCount: State.take,
+                                info: false,
+                                type: numeric,
+                                pageSizes: [5,10,20,30,90,180,365],
+                                previousNext: true
+                              }"
+              [scrollable]="none"              
+              (dataStateChange)="OnDataStateChange($event)"
+              (pageChange)="OnPageChange($event)"
+              class="pk-list">
+    <kendo-grid-column field="ID" [hidden]="true"></kendo-grid-column>
+    <kendo-grid-column field="CanContact" [hidden]="true"></kendo-grid-column>
+    <kendo-grid-column field="DrawDate">
+      <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+        {{Localise(LocalisationService.CaptionConstants.DrawDate)}}
+      </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        {{dataItem.DrawDate}}
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Amount">
+      <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+        {{Localise(LocalisationService.CaptionConstants.Amount)}}
+      </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        {{dataItem.Amount}}
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Game">
+      <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+        {{Localise(LocalisationService.CaptionConstants.Game)}}
+      </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        <span>{{Localise(dataItem.GameDisplayName)}}</span>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Match">
+      <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+        {{Localise(LocalisationService.CaptionConstants.Match)}}
+      </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        <span>{{Localise(dataItem.Match)}}</span>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Winner">
+      <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
+        {{Localise(LocalisationService.CaptionConstants.Winner)}}
+      </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+        <span>{{Localise(dataItem.Winner)}}</span>
+        ink if winner could be contacted
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-messages pagerItemsPerPage="{{Localise(LocalisationService.CaptionConstants.PagerItemsPerPage)}}"></kendo-grid-messages>
+  </kendo-grid>
+  -->
+</article>

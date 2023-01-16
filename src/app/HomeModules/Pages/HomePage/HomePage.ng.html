@@ -1,0 +1,30 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content HomePage' [@PageFlyInOutAnimation]>
+  <RootCollapserComponent></RootCollapserComponent>
+  <section class="pk-main-section collapse show" id="CollapsableSection">
+    <ng-container *ngIf="!AuthenticationService.IsAuthenticated">
+      <div class="pk-logon-container">
+        <FormsAuthenticationLoginComponent></FormsAuthenticationLoginComponent>
+      </div>
+    </ng-container>
+    <div style="clear:both;margin-top:-2em;">
+      <PlayComponent (OnGameChanged)="SelectedGame=$event"></PlayComponent>
+    </div>
+    <div class="pk-jumbotron">      
+      <h2><a routerLink="/aboutpikinco"><span [innerHTML]="Localise(LocalisationService.CaptionConstants.AboutpiKinco)| safe"></span></a></h2>
+      <h2><a name="aboutus" routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/aboutus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAboutUs)}}</a></h2>      
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>    
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/ourethos">{{Localise(LocalisationService.CaptionConstants.ExploreMoreAboutOurEthos)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/goodcauses">{{Localise(LocalisationService.CaptionConstants.ExploreOurGoodCauses)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/charities">{{Localise(LocalisationService.CaptionConstants.ExploreWaysOurCharities)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/tellusaofagoodcause">{{Localise(LocalisationService.CaptionConstants.ExploreWaysToTellUsOfAnyGoodCause)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/expenditure">{{Localise(LocalisationService.CaptionConstants.ExploreWhereTheMoneyGoes)}}</a></h2>          
+    </div>
+    <div class="pk-jumbotron">
+      <h2>{{Localise(LocalisationService.CaptionConstants.Caution, "Caution")}}</h2>
+    </div>
+  </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

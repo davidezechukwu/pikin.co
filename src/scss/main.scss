@@ -1,0 +1,299 @@
+﻿@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import 'variables.scss';
+
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  /*margin: 2rem;*/
+  /*font-size: 1.5rem;*/
+  font-family: $pk-main-font-family;
+}
+
+h1, h1 *, .pk-h1, .pk-h1 * {
+  font-family: $pk-h1-font-family;
+  /*font-size: 2.5rem;*/
+}
+
+h2, .pk-h2 {
+  font-family: $pk-h2-font-family;
+  font-weight: lighter;
+  /*font-size: 2.0rem;*/
+}
+
+h3, .pk-h3 {
+  font-family: $pk-h3-font-family;
+  font-weight: lighter;
+}
+
+h4, .pk-h4 {
+}
+
+h5, .pk-h5 {
+}
+
+h6, .pk-h6 {
+}
+
+a {
+  cursor: pointer;
+}
+
+/* everywhere else */
+* {
+  font-family: $pk-main-font-family;
+  text-transform: capitalize;
+}
+
+
+.pk-page {
+
+  a + a {
+    margin-left: 1rem;
+  }
+
+  .pk-jumbotron {
+    color: #333 !important;
+    background-color: #fff;
+    padding: 3rem;
+    margin: 7rem 0 0 0;
+
+    .pk-h1 {
+      margin-top: 0;
+      padding: 0.5rem 0 0.5rem 0.25rem;
+    }
+
+    h2, h2 > span, .pk-h2, .pk-h2 > span {
+      color: #333 !important;
+    }
+  }
+
+  .pk-breadcrumb {
+    padding: 0.25rem 0 0 2rem;
+    background-color: $pk-breadcrumb-background-color;
+    color: $pk-breadcrumb-color;
+    margin: 0 !important;
+
+    a {
+      color: $pk-breadcrumb-color;
+    }
+
+    a:hover {
+      color: $pk-breadcrumb-color-hover;
+      background-color: transparent;
+    }
+  }
+
+  .pk-main-content {
+    padding: 0 5rem;
+    background-color: $pk-main-content-background-color;
+
+    label {
+      color: $pk-main-content-label-color;
+    }
+
+    h3, .pk-h3 {
+      color: $pk-main-content-h3-color;
+    }
+
+    h4, .pk-h4 {
+      color: $pk-main-content-h4-color;
+    }
+
+    .pk-main-section {
+      padding: 2rem 0;
+
+      h2, h2 > *, .pk-h2, .pk-h2 > * {
+        font-family: $pk-h2-font-family
+      }
+
+      h2, h2 > span, .pk-h2, .pk-h2 > span {
+        color: $pk-main-content-h2-color;
+      }
+    }
+  }
+}
+
+
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-down(xs) {
+  /*body {
+    font-size: 1.1rem;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .pk-main-content {
+    padding: 4rem 2rem !important;
+
+    .pk-main-section {
+      padding: 0 !important;
+    }
+  }
+
+  .pk-breadcrumb {
+    padding: 0.25rem 0 0 2rem;
+  }*/
+}
+
+//Small devices (landscape phones, less than 768px)
+@include media-breakpoint-down(sm) {
+  $pk-main-content-left-padding: 2rem;
+
+  body {
+    font-size: 1.3rem;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .pk-main-content {
+    padding: 4rem $pk-main-content-left-padding !important;
+
+    .pk-main-section {
+      padding: 0 !important;
+    }
+  }
+
+  .pk-breadcrumb {
+    padding: 0.25rem 0 0 $pk-main-content-left-padding;
+  }
+}
+
+//Medium devices (tablets, less than 992px)
+@include media-breakpoint-down(md) {
+}
+//Large devices (desktops, less than 1200px)
+@include media-breakpoint-down(lg) {
+}
+//Extra large devices (large desktops)
+@include media-breakpoint-down(xl) {
+}
+//Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-up(xs) {
+}
+//Small devices (landscape phones, 576px and up)
+@include media-breakpoint-up(sm) {
+  
+}
+
+//Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+  $pk-main-content-left-padding: 5rem;
+
+  body {
+    margin: 2rem;
+    font-size: 1.5rem;
+    font-family: $pk-main-font-family;
+  }
+
+  h1, h1 *, .pk-h1, .pk-h1 * {
+    font-family: $pk-h1-font-family;
+    font-size: 2.5rem;
+  }
+
+  h2, .pk-h2 {
+    font-family: $pk-h2-font-family;
+    font-weight: lighter;
+    font-size: 2.0rem;
+  }
+
+  h3, .pk-h3 {
+    font-family: $pk-h3-font-family;
+    font-weight: lighter;
+  }
+
+  h4, .pk-h4 {
+  }
+
+  h5, .pk-h5 {
+  }
+
+  h6, .pk-h6 {
+  }
+
+  a {
+    cursor: pointer;
+  }
+  /* everywhere else */
+  * {
+    font-family: $pk-main-font-family;
+    text-transform: capitalize;
+  }
+
+
+  .pk-page {
+
+    a + a {
+      margin-left: 1rem;
+    }
+
+    .pk-jumbotron {
+      color: #333 !important;
+      background-color: #fff;
+      padding: 3rem;
+      margin: 7rem 0 0 0;
+
+      .pk-h1 {
+        margin-top: 0;
+        padding: 0.5rem 0 0.5rem 0.25rem;
+      }
+
+      h2, h2 > span, .pk-h2, .pk-h2 > span {
+        color: #333 !important;
+      }
+    }
+
+    .pk-breadcrumb {
+      padding: 0.25rem 0 0 $pk-main-content-left-padding;
+      background-color: $pk-breadcrumb-background-color;
+      color: $pk-breadcrumb-color;
+      margin: 0 !important;
+
+      a {
+        color: $pk-breadcrumb-color;
+      }
+
+      a:hover {
+        color: $pk-breadcrumb-color-hover;
+        background-color: transparent;
+      }
+    }
+
+    .pk-main-content {
+      padding: 0 $pk-main-content-left-padding;
+      background-color: $pk-main-content-background-color;
+
+      label {
+        color: $pk-main-content-label-color;
+      }
+
+      h3, .pk-h3 {
+        color: $pk-main-content-h3-color;
+      }
+
+      h4, .pk-h4 {
+        color: $pk-main-content-h4-color;
+      }
+
+      .pk-main-section {
+        padding: 2rem 0;
+
+        h2, h2 > *, .pk-h2, .pk-h2 > * {
+          font-family: $pk-h2-font-family
+        }
+
+        h2, h2 > span, .pk-h2, .pk-h2 > span {
+          color: $pk-main-content-h2-color;
+        }
+      }
+    }
+  }
+}
+//Large devices (desktops, 992px and up)
+@include media-breakpoint-up(lg) {
+}
+//Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-up(xl) {
+}

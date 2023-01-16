@@ -1,0 +1,14 @@
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/dashboard">{{Localise(LocalisationService.CaptionConstants.Dashboard)}}</a> | <a routerLink="/dashboard/correspondence/home">{{Localise(LocalisationService.CaptionConstants.CorrespondenceHome)}}</a>  | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+<main class='pk-main-content'  [@PageFlyInOutAnimation]>
+    <RootCollapserComponent></RootCollapserComponent>
+    <section class="pk-main-section collapse show"  id="CollapsableSection">
+        <div class="pk-dashboard-level-0">
+            <ul class="pk-dashboard-level-1">
+                <li><a routerLink="/dashboard/correspondence/mailbox/inbox">{{Localise(LocalisationService.CaptionConstants.Inbox)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/mailbox/compose">{{Localise(LocalisationService.CaptionConstants.ComposeMessage)}}</a></li>
+                <li><a routerLink="/dashboard/correspondence/mailbox/sentmessages">{{Localise(LocalisationService.CaptionConstants.SentMessages)}}</a></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

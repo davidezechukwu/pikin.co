@@ -1,0 +1,18 @@
+﻿import * as _ from 'lodash';
+import  AModel from '../Models/AModel';
+import SuperModelMockDataBuilder from '../../../SuperModules/_MockModules/SuperModelMockDataBuilder';
+
+export default class AModelMockDataBuilder extends SuperModelMockDataBuilder {    
+    constructor() { }    
+
+	 BuildMock(): AModel[] {        
+        var aModel = new AModel();
+		aModel.ID = "1 for example";
+		AModelsMock = [
+			aModel
+		];
+		return AModelsMock;
+    }
+}
+
+export var AModelsMock: AModel[];
