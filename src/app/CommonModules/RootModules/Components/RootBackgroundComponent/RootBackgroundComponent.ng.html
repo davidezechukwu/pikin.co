@@ -1,5 +1,5 @@
 ﻿<figure class="pk-component RootBackgroundComponent">
-    <div class="pk-fullscreen-background" *ngIf="SessionService.Session.IsOnLowSpeedConnection===false">        
+    <div class="pk-fullscreen-background" *ngIf="SessionService.Session!.IsOnLowSpeedConnection! === false">        
         <video loop muted autoplay class="pk-fullscreen-background-video">
             <source [src]="BackgroundVideoUrl" type="video/mp4">            
         </video>

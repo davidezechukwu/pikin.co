@@ -1,14 +1,11 @@
-﻿import { Injector, Injectable } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
-import * as _ from 'lodash';
+﻿import { timer } from 'rxjs';
+import { Injector, Injectable } from '@angular/core';
 import { SessionService } from './SessionService.ng';
 import { CachingService } from './CachingService.ng';
-import CaptionModel from '../Models/CaptionModel';
-import EntityCaptionsModel from '../Models/EntityCaptionsModel';
-import CaptionConstantsModel from '../Models/CaptionConstantsModel';
-import { HttpHeaders } from '@angular/common/http';
+import { CaptionModel } from '../Models/CaptionModel';
+import { EntityCaptionsModel } from '../Models/EntityCaptionsModel';
+import { CaptionConstantsModel } from '../Models/CaptionConstantsModel';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -25,31 +22,31 @@ export class LocalisationService {
     public CaptionConstants: CaptionConstantsModel = new CaptionConstantsModel();
     constructor(
         protected Injector: Injector,
-        protected Http: Http,
+        protected Http: HttpClient,
         ) {
             this.SessionService = this.Injector.get(SessionService);
             this.CachingService = this.Injector.get(CachingService);
-            let translateRefreshTimer = Observable.timer(0, 1000);
-            translateRefreshTimer.subscribe(t => {
+            let translateRefreshTimer = timer(0, 1000);
+            translateRefreshTimer.subscribe((t : any) => {
                 this.DebugTranslate();
             });
         };
         
         DebugTranslate() {
-            _.forEach(this.EntityCaptions, entityCaptions => {
-                _.forEach(entityCaptions.Captions, caption => {
-                    var ext = "(" + this.SessionService.Session.CurrentLanguage.ISO639_1Code + ")";
-                    var triedAlready = "[" + this.SessionService.Session.CurrentLanguage.ISO639_1Code + "]";
-                    if (caption.DisplayName.indexOf(triedAlready) < 0 && this.SessionService.Session.CurrentLanguage.ISO639_1Code != "en" && caption.Language_ISO639_1Code != "en" && caption.DisplayName.indexOf(ext) > 0) {
+            this.EntityCaptions.forEach((entityCaptions: any) => {
+                entityCaptions.Captions.forEach((caption: any) => {
+                    var ext = "(" + this.SessionService.Session?.CurrentLanguage!.ISO639_1Code + ")";
+                    var triedAlready = "[" + this.SessionService.Session?.CurrentLanguage!.ISO639_1Code + "]";
+                    if (caption.DisplayName.indexOf(triedAlready) < 0 && this.SessionService.Session?.CurrentLanguage!.ISO639_1Code != "en" && caption.Language_ISO639_1Code != "en" && caption.DisplayName.indexOf(ext) > 0) {
                         var sourceLang = "en";
-                        var targetLang = this.SessionService.Session.CurrentLanguage.ISO639_1Code;  
+                        var targetLang = this.SessionService.Session?.CurrentLanguage!.ISO639_1Code;  
                         var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + sourceLang + "&tl=" + targetLang + "&dt=t&q=" + encodeURI(caption.DisplayName.replace(ext, ""));
                         this.Http.get(url)
                         .toPromise()
-                        .then(response => {
-                            var rawData = response.json();                            
+                        .then((response: any) => {
+                            var rawData = response;                            
                             if (!rawData[0] || !rawData[0][0] || !rawData[0][0][0] || rawData[0][0][0] == caption.DisplayName) {
-                                console.log("Unable to translate " + caption.DisplayName + " into " + this.SessionService.Session.CurrentLanguage.DisplayName);
+                                console.log("Unable to translate " + caption.DisplayName + " into " + this.SessionService.Session?.CurrentLanguage!.DisplayName);
                                 caption.DisplayName = caption.DisplayName.replace(ext, triedAlready);
                                 return;
                             }                        
@@ -64,7 +61,7 @@ export class LocalisationService {
         }
         
         DebugSetCaptions(entityName: string): EntityCaptionsModel {
-            var entityCaptions = _.find(this.EntityCaptions, _entityCaptions => { return _entityCaptions.Name == entityName; });
+            var entityCaptions = this.EntityCaptions.find((_entityCaptions: any) => { return _entityCaptions.Name == entityName; });
             if (!entityCaptions) {
                 entityCaptions = new EntityCaptionsModel();
                 entityCaptions.Name = entityName;
@@ -75,23 +72,23 @@ export class LocalisationService {
         }
         
         DebugSetCaption(entityName: string, name: string, displayName: string): CaptionModel {
-            var entityCaptions = _.find(this.EntityCaptions, _entityCaptions => { return _entityCaptions.Name == entityName; });
+            var entityCaptions = this.EntityCaptions.find((_entityCaptions: any) => { return _entityCaptions.Name == entityName; });
             if (!entityCaptions) {
                 entityCaptions = this.DebugSetCaptions(entityName);
             }
-            var caption = _.find(entityCaptions.Captions, caption => { return caption.Name == name && caption.LanguageID == this.SessionService.Session.CurrentLanguage.ID });
+            var caption = entityCaptions.Captions.find((caption: any) => { return caption.Name == name && caption.LanguageID == this.SessionService.Session?.CurrentLanguage!.ID });
             if (!caption) {
                 caption = new CaptionModel();
                 caption.ID = (++this.CurrentID).toString();
                 caption.Name = name;
                 var ext = "";
-                if (this.SessionService.Session.CurrentLanguage.ISO639_1Code != "en") {
-                    ext = "(" + this.SessionService.Session.CurrentLanguage.ISO639_1Code + ")";
+                if (this.SessionService.Session?.CurrentLanguage?.ISO639_1Code != "en") {
+                    ext = "(" + this.SessionService.Session?.CurrentLanguage!.ISO639_1Code + ")";
                 }
                 caption.DisplayName = displayName + ext;
-                caption.LanguageID = this.SessionService.Session.CurrentLanguage.ID;
-                caption.Language_ISO639_1Code = this.SessionService.Session.CurrentLanguage.ISO639_1Code;
-                caption.Language_ISO639_2Code = this.SessionService.Session.CurrentLanguage.ISO639_2Code;
+                caption.LanguageID = this.SessionService.Session!.CurrentLanguage!.ID;
+                caption.Language_ISO639_1Code = this.SessionService!.Session!.CurrentLanguage!.ISO639_1Code;
+                caption.Language_ISO639_2Code = this.SessionService!.Session!.CurrentLanguage!.ISO639_2Code;
                 entityCaptions.Captions.push(caption);
             }
             return caption;
@@ -116,7 +113,7 @@ export class LocalisationService {
                 if (!name) {
                     reject("Entity name is null or undefined ");
                 }
-                var entityCaption = _.find(me.EntityCaptions, _entityCaption => { return _entityCaption.Name == name; });
+                var entityCaption = me.EntityCaptions.find((_entityCaption: any) => { return _entityCaption.Name == name; });
                 if (!entityCaption) {
                     entityCaption = this.DebugSetCaptions(name);
                     if (!entityCaption) {
@@ -139,24 +136,24 @@ export class LocalisationService {
                     reject("Name is null or undefined for the entity named: " + entityName);
                 }
                 me.GetCaptions(entityName).then(entityCaptions => {
-                    var caption = _.find(entityCaptions.Captions, caption => { return caption.Name == name; });
+                    var caption = entityCaptions.Captions.find((caption: any) => { return caption.Name == name; });
                     if (!caption) {
                         if (!caption) {
                             reject("No caption matching the name(" + name + ") exists");
                         }
                     }
-                    resolve(caption);
+                    resolve(caption!);
                 });
             });
         }
         
-        GetCaptionNow(entityName: string, name: string, displayName: string): string {
+        GetCaptionNow(entityName: string, name?: string , displayName?: string): string {
             //TODO: Use a NON-ASYNC HTML5 local storage service or any other CLOUD Session service, ensure that nothing sensitive is cached        
             if (!entityName) {
                 throw "Entity name is null or undefined for the caption named: " + name;
             }
             if (!name) {
-                if (!displayName) {
+                if (!displayName) {                    
                     throw "No Display Name was provided for the caption named: " + name + " on the entity: " + entityName;
                 }
                 name = this.GetNameFromDisplayName(displayName);
@@ -165,12 +162,12 @@ export class LocalisationService {
                 throw "Display Name is null or undefined for the entity named: " + entityName + " andfor the caption named: " + name;
             }
             var me = this;
-            var entityCaptions = _.find(this.EntityCaptions, _entityCaptions => { return _entityCaptions.Name == entityName; });
+            var entityCaptions = this.EntityCaptions.find((_entityCaptions: any) => { return _entityCaptions.Name == entityName; });
             if (!entityCaptions) {
                 //TODO: remove later
                 entityCaptions = this.DebugSetCaptions(entityName);
             }
-            var caption = _.find(entityCaptions.Captions, caption => { return caption.Name == name && caption.LanguageID == this.SessionService.Session.CurrentLanguage.ID; });
+            var caption = entityCaptions.Captions.find((caption: any) => { return caption.Name == name && caption.LanguageID == this.SessionService.Session?.CurrentLanguage!.ID; });
             if (!caption) {
                 //TODO: remove later
                 caption = this.DebugSetCaption(entityName, name, displayName);

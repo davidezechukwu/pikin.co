@@ -1,17 +1,21 @@
-﻿import { Component, Injector,OnInit } from '@angular/core';
-import SuperPage from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+﻿import { Component, Injector } from '@angular/core';
+import  { SuperPage }  from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'CorrespondenceTelephoneNumberPage',
-    templateUrl: './CorrespondenceTelephoneNumberPage.ng.html',
-    animations: PageAnimations
+    templateUrl: 'CorrespondenceTelephoneNumberPage.ng.html',
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule]
 })
-export default class CorrespondenceTelephoneNumberPage extends SuperPage {
+export class CorrespondenceTelephoneNumberPage extends SuperPage {
     constructor(
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
     }
         
 }

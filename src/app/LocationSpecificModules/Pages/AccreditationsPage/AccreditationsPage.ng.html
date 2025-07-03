@@ -1,4 +1,4 @@
-﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}">{{SessionService.Session.CurrentLocation.Name}}</a> |<a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws">{{LocalisationService.CaptionConstants.LocationSpecificLaws}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}">{{SessionService.Session?.CurrentLocation?.Name}}</a> |<a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws">{{LocalisationService.CaptionConstants.LocationSpecificLaws}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1></nav>
 <main class='pk-main-content HomePage' [@PageFlyInOutAnimation]>
   <RootCollapserComponent></RootCollapserComponent>
   <section class="pk-main-section collapse show" id="CollapsableSection">
@@ -8,4 +8,4 @@
     </div>    
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

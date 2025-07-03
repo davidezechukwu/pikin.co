@@ -1,22 +1,17 @@
-﻿import * as _ from 'lodash';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-import { CurrenciesMock } from '../../../CommonModules/CoreModules/_MockModules/CurrencyModelMockDataBuilder';
-import CurrencyModel from '../../../CommonModules/CoreModules/Models/CurrencyModel';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import GameModel from '../Models/GameModel';
+﻿import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { CurrencyModel } from '../../../CommonModules/CoreModules/Models/CurrencyModel';
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { GameModel } from '../Models/GameModel';
 import { NumberSystemsMock } from './NumberSystemModelMockDataBuilder';
-import GameDrawModelMockDataBuilder from './GameDrawModelMockDataBuilder';
-import { NumberSystemService } from '../Services/NumberSystemService.ng';
 
-export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{        
+export class GameModelMockDataBuilder extends SuperModelMockDataBuilder{        
     constructor() {        
         super();                
     }
 
-    BuildMocksFor10NumberSystem(): GameModel[] {        
-        //debugger;
+    BuildMocksFor10NumberSystem(): GameModel[] {                
         var me = this;
-        let NumberSystem10 = _.find(NumberSystemsMock, function (numberSystem) { return numberSystem.Name.toLowerCase() ==me.GlobalProperties.DefaultNumberSystemName.toLowerCase() });             
+        let NumberSystem10 = NumberSystemsMock.find(function (numberSystem: any) { return numberSystem.Name.toLowerCase() ==me.GlobalProperties.DefaultNumberSystemName.toLowerCase() });             
         if (!NumberSystem10) {
             throw "NumberSystem10 could not be found";
         }
@@ -37,7 +32,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game1.Name = "Pick1";
         game1.DisplayName = "Pick the last number";
         game1.Description = "Pick the last number";
-        game1.Price = new CurrencyAmountModel(game1Price, this.DefaultCurrency);        
+        game1.Price = new CurrencyAmountModel(game1Price, this.DefaultCurrency!);        
         game1.RequiredMatches = 1;
         game1.NumberSystemID = NumberSystem10.ID;        
 
@@ -46,7 +41,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game2.Name = "Pick2";
         game2.DisplayName = "Pick the last two numbers";
         game2.Description = "Pick the last two numbers";
-        game2.Price = new CurrencyAmountModel(game2Price, this.DefaultCurrency);       
+        game2.Price = new CurrencyAmountModel(game2Price, this.DefaultCurrency!);       
         game2.RequiredMatches = 2;
         game2.NumberSystemID = NumberSystem10.ID;        
 
@@ -55,7 +50,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game3.Name = "Pick3";
         game3.DisplayName = "Pick the last three numbers";
         game3.Description = "Pick the last three numbers";
-        game3.Price = new CurrencyAmountModel(game3Price, this.DefaultCurrency);        
+        game3.Price = new CurrencyAmountModel(game3Price, this.DefaultCurrency!);        
         game3.RequiredMatches = 3;
         game3.NumberSystemID = NumberSystem10.ID; 
 
@@ -64,7 +59,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game4.Name = "Pick4";
         game4.DisplayName = "Pick the last four numbers";
         game4.Description = "Pick the last four numbers";
-        game4.Price = new CurrencyAmountModel(game4Price, this.DefaultCurrency);        
+        game4.Price = new CurrencyAmountModel(game4Price, this.DefaultCurrency!);        
         game4.RequiredMatches = 4;
         game4.NumberSystemID = NumberSystem10.ID; 
 
@@ -73,7 +68,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game5.Name = "Pick5";
         game5.DisplayName = "Pick the last five numbers";
         game5.Description = "Pick the last five numbers";
-        game5.Price = new CurrencyAmountModel(game5Price, this.DefaultCurrency);        
+        game5.Price = new CurrencyAmountModel(game5Price, this.DefaultCurrency!);        
         game5.RequiredMatches = 5;
         game5.NumberSystemID = NumberSystem10.ID; 
 
@@ -82,7 +77,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game6.Name = "Pick6";
         game6.DisplayName = "Pick the last six numbers";
         game6.Description = "Pick the last six numbers";
-        game6.Price = new CurrencyAmountModel(game6Price, this.DefaultCurrency);        
+        game6.Price = new CurrencyAmountModel(game6Price, this.DefaultCurrency!);        
         game6.RequiredMatches = 6;
         game6.NumberSystemID = NumberSystem10.ID; 
 
@@ -91,7 +86,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game7.Name = "Pick7";
         game7.DisplayName = "Pick the last seven numbers";
         game7.Description = "Pick the last seven numbers";
-        game7.Price = new CurrencyAmountModel(game7Price, this.DefaultCurrency);        
+        game7.Price = new CurrencyAmountModel(game7Price, this.DefaultCurrency!);        
         game7.RequiredMatches = 7;
         game7.NumberSystemID = NumberSystem10.ID; 
 
@@ -100,7 +95,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game8.Name = "Pick8";
         game8.DisplayName = "Pick the last eight numbers";
         game8.Description = "Pick the last eight numbers";
-        game8.Price = new CurrencyAmountModel(game8Price, this.DefaultCurrency);        
+        game8.Price = new CurrencyAmountModel(game8Price, this.DefaultCurrency!);        
         game8.RequiredMatches = 8;
         game8.NumberSystemID = NumberSystem10.ID; 
         
@@ -109,7 +104,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game9.Name = "Pick9";
         game9.DisplayName = "Pick the last nine numbers";
         game9.Description = "Pick the last nine numbers";
-        game9.Price = new CurrencyAmountModel(game9Price, this.DefaultCurrency);        
+        game9.Price = new CurrencyAmountModel(game9Price, this.DefaultCurrency!);        
         game9.RequiredMatches = 9;
         game9.NumberSystemID = NumberSystem10.ID; 
 
@@ -118,7 +113,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game10.Name = "Pick10";
         game10.DisplayName = "Pick all ten numbers";
         game10.Description = "Pick all ten numbers";
-        game10.Price = new CurrencyAmountModel(game10Price, this.DefaultCurrency);        
+        game10.Price = new CurrencyAmountModel(game10Price, this.DefaultCurrency!);        
         game10.RequiredMatches = 10;
         game10.NumberSystemID = NumberSystem10.ID; 
 
@@ -135,9 +130,9 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
             game10
         ];
 
-        _.forEach(gamesMock, function (element1) {
+        gamesMock.forEach(function (element1) {
             let canAdd = true;
-            _.forEach(GamesMock, function (element2) {
+            GamesMock.forEach(function (element2: any) {
                 if (element2.ID === element1.ID) {
                     canAdd = false;
                 }
@@ -150,10 +145,9 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         return GamesMock;
     }
 
-    BuildEconomyClassMocksFor10NumberSystem(): GameModel[] {
-        //debugger;
+    BuildEconomyClassMocksFor10NumberSystem(): GameModel[] {        
         var me = this;
-        let NumberSystem10 = _.find(NumberSystemsMock, function (numberSystem) { return numberSystem.Name.toLowerCase() == me.GlobalProperties.DefaultNumberSystemName.toLowerCase() });
+        let NumberSystem10 = NumberSystemsMock.find(function (numberSystem: any) { return numberSystem.Name.toLowerCase() == me.GlobalProperties.DefaultNumberSystemName.toLowerCase() });
         if (!NumberSystem10) {
             throw "NumberSystem10 could not be found";
         }
@@ -175,7 +169,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game1.Name = "Pick1" + economyClassDesignator;
         game1.DisplayName = "Pick the last number";
         game1.Description = "Pick the last number";
-        game1.Price = new CurrencyAmountModel(game1Price, this.DefaultCurrency);
+        game1.Price = new CurrencyAmountModel(game1Price, this.DefaultCurrency!);
         game1.RequiredMatches = 1;
         game1.NumberSystemID = NumberSystem10.ID;
 
@@ -184,7 +178,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game2.Name = "Pick2" + economyClassDesignator;
         game2.DisplayName = "Pick the last two numbers";
         game2.Description = "Pick the last two numbers";
-        game2.Price = new CurrencyAmountModel(game2Price, this.DefaultCurrency);
+        game2.Price = new CurrencyAmountModel(game2Price, this.DefaultCurrency!);
         game2.RequiredMatches = 2;
         game2.NumberSystemID = NumberSystem10.ID;
 
@@ -193,7 +187,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game3.Name = "Pick3" + economyClassDesignator;
         game3.DisplayName = "Pick the last three numbers";
         game3.Description = "Pick the last three numbers";
-        game3.Price = new CurrencyAmountModel(game3Price, this.DefaultCurrency);
+        game3.Price = new CurrencyAmountModel(game3Price, this.DefaultCurrency!);
         game3.RequiredMatches = 3;
         game3.NumberSystemID = NumberSystem10.ID;
 
@@ -202,7 +196,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game4.Name = "Pick4" + economyClassDesignator;
         game4.DisplayName = "Pick the last four numbers";
         game4.Description = "Pick the last four numbers";
-        game4.Price = new CurrencyAmountModel(game4Price, this.DefaultCurrency);
+        game4.Price = new CurrencyAmountModel(game4Price, this.DefaultCurrency!);
         game4.RequiredMatches = 4;
         game4.NumberSystemID = NumberSystem10.ID;
 
@@ -211,7 +205,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game5.Name = "Pick5" + economyClassDesignator;
         game5.DisplayName = "Pick the last five numbers";
         game5.Description = "Pick the last five numbers";
-        game5.Price = new CurrencyAmountModel(game5Price, this.DefaultCurrency);
+        game5.Price = new CurrencyAmountModel(game5Price, this.DefaultCurrency!);
         game5.RequiredMatches = 5;
         game5.NumberSystemID = NumberSystem10.ID;
 
@@ -220,7 +214,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game6.Name = "Pick6" + economyClassDesignator;
         game6.DisplayName = "Pick the last six numbers";
         game6.Description = "Pick the last six numbers";
-        game6.Price = new CurrencyAmountModel(game6Price, this.DefaultCurrency);
+        game6.Price = new CurrencyAmountModel(game6Price, this.DefaultCurrency!);
         game6.RequiredMatches = 6;
         game6.NumberSystemID = NumberSystem10.ID;
 
@@ -229,7 +223,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game7.Name = "Pick7" + economyClassDesignator;
         game7.DisplayName = "Pick the last seven numbers";
         game7.Description = "Pick the last seven numbers";
-        game7.Price = new CurrencyAmountModel(game7Price, this.DefaultCurrency);
+        game7.Price = new CurrencyAmountModel(game7Price, this.DefaultCurrency!);
         game7.RequiredMatches = 7;
         game7.NumberSystemID = NumberSystem10.ID;
 
@@ -238,7 +232,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game8.Name = "Pick8" + economyClassDesignator;
         game8.DisplayName = "Pick the last eight numbers";
         game8.Description = "Pick the last eight numbers";
-        game8.Price = new CurrencyAmountModel(game8Price, this.DefaultCurrency);
+        game8.Price = new CurrencyAmountModel(game8Price, this.DefaultCurrency!);
         game8.RequiredMatches = 8;
         game8.NumberSystemID = NumberSystem10.ID;
 
@@ -247,7 +241,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game9.Name = "Pick9" + economyClassDesignator;
         game9.DisplayName = "Pick the last nine numbers";
         game9.Description = "Pick the last nine numbers";
-        game9.Price = new CurrencyAmountModel(game9Price, this.DefaultCurrency);
+        game9.Price = new CurrencyAmountModel(game9Price, this.DefaultCurrency!);
         game9.RequiredMatches = 9;
         game9.NumberSystemID = NumberSystem10.ID;
 
@@ -256,7 +250,7 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
         game10.Name = "Pick10" + economyClassDesignator;
         game10.DisplayName = "Pick all ten numbers";
         game10.Description = "Pick all ten numbers";
-        game10.Price = new CurrencyAmountModel(game10Price, this.DefaultCurrency);
+        game10.Price = new CurrencyAmountModel(game10Price, this.DefaultCurrency! );
         game10.RequiredMatches = 10;
         game10.NumberSystemID = NumberSystem10.ID;
 
@@ -273,9 +267,9 @@ export default class GameModelMockDataBuilder extends SuperModelMockDataBuilder{
             game10
         ];
 
-        _.forEach(gamesMock, function (element1) {
+        gamesMock.forEach(function (element1) {
             let canAdd = true;
-            _.forEach(GamesMock, function (element2) {
+            GamesMock.forEach(function (element2) {
                 if (element2.ID === element1.ID) {
                     canAdd = false;
                 }

@@ -1,12 +1,9 @@
-﻿@import "../../../../../../node_modules/bootstrap/scss/bootstrap.scss";
+﻿
+@use "../../../../../assets/scss/variables" as *;
 
 .TopMenuComponent {
   background-color: rgba(5, 5, 5, 0.9) !important;
 }
-
-.DashBoardSummary .FullText {
-}
-
 
 .pk-dashboard-summary {
   padding: 1em;
@@ -44,7 +41,6 @@
   text-decoration: none;
 }
 
-
 .navbar select.pk-languages {
   margin-top: 1em;
 }
@@ -74,26 +70,10 @@
     padding: 0.5em !important;
   }
 
-  .pk-dashboard-summary .pk-current-time,
-  .pk-dashboard-summary .pk-welcome,
-  .pk-dashboard-summary .pk-welcome.pk-welcome-guest,
-  .pk-dashboard-summary .pk-welcome.pk-welcome-member {
-    
-  }
-
   .pk-navbar-brand-container a,
   .TopMenuComponent a {    
     padding: 1em;
   }
-
-  .pk-navbar-brand-container a:hover,
-  .TopMenuComponent a:hover {    
-  }
-
-  .pk-navbar-brand-container.pk-active a,
-  .TopMenuComponent .pk-active a {    
-  }
-
 
   .navbar select.pk-languages {
     margin-top: 1em;
@@ -103,26 +83,6 @@
     width: 100%;    
     margin-bottom: 0.5em;
   }
-}
-
-//Medium devices (tablets, less than 992px)
-@include media-breakpoint-down(md) {
-}
-
-//Large devices (desktops, less than 1200px)
-@include media-breakpoint-down(lg) {
-}
-
-//Extra large devices (large desktops)
-@include media-breakpoint-down(xl) {
-}
-
-//Extra small devices (portrait phones, less than 576px)
-@include media-breakpoint-up(xs) {
-}
-
-//Small devices (landscape phones, 576px and up)
-@include media-breakpoint-up(sm) {
 }
 
 //Medium devices (tablets, 768px and up)
@@ -135,25 +95,10 @@
     padding: 0.5em !important;
   }
 
-  .pk-dashboard-summary .pk-current-time,
-  .pk-dashboard-summary .pk-welcome,
-  .pk-dashboard-summary .pk-welcome.pk-welcome-guest,
-  .pk-dashboard-summary .pk-welcome.pk-welcome-member {    
-  }
-
   .pk-navbar-brand-container a,
   .TopMenuComponent a {    
     padding: 1em;
   }
-
-  .pk-navbar-brand-container a:hover,
-  .TopMenuComponent a:hover {    
-  }
-
-  .pk-navbar-brand-container.pk-active a,
-  .TopMenuComponent .pk-active a {    
-  }
-
 
   .navbar select.pk-languages {
     margin-top: 1em;
@@ -163,12 +108,4 @@
     width: 100%;    
     margin-bottom: 0.5em;
   }
-}
-
-//Large devices (desktops, 992px and up)
-@include media-breakpoint-up(lg) {
-}
-
-//Extra large devices (large desktops, 1200px and up)
-@include media-breakpoint-up(xl) {
 }

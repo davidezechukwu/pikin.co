@@ -1,16 +1,20 @@
 ﻿import { Component, Injector, OnInit } from '@angular/core';
-import SuperPage from '../../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { SuperPage }from '../../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'CorrespondenceDirectMarketingPreferencesPage',
     templateUrl: './CorrespondenceDirectMarketingPreferencesPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule]
 })
-export default class CorrespondenceDirectMarketingPreferencesPage extends SuperPage {
+export class CorrespondenceDirectMarketingPreferencesPage extends SuperPage {
     constructor(
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
     }
 }

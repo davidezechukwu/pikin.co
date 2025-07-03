@@ -5,13 +5,13 @@ import {LocalisationService}   from './LocalisationService.ng';
 export class NotificationService {
     protected LocalisationService: LocalisationService;
     constructor(
-        protected Injector: Injector
+        public Injector: Injector
     ) { 
         this.LocalisationService = this.Injector.get(LocalisationService);
     };
 
     private Localise(displayName: string, name?: string ): string {        
-        return this.LocalisationService.GetCaptionNow(this.constructor.name, name, displayName);
+        return this.LocalisationService.GetCaptionNow(this.constructor.name, name!, displayName);
     }
 
     public ShowError(err: string): void {        

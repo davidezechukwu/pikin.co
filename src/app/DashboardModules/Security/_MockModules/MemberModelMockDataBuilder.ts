@@ -1,7 +1,7 @@
-﻿import MemberModel from '../Models/MemberModel'
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+﻿import {MemberModel} from '../Models/MemberModel'
+import {SuperModelMockDataBuilder} from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
 
-export default class MemberModelMockDataBuilder extends SuperModelMockDataBuilder {
+export class MemberModelMockDataBuilder extends SuperModelMockDataBuilder {
     BuildMock(): MemberModel[] {
         var listOfMembers = [
             'Homer Jay Simpson',
@@ -36,7 +36,6 @@ export default class MemberModelMockDataBuilder extends SuperModelMockDataBuilde
             'Mona J. Simpsonu'
         ]
 
-        //debugger;
         var members: MemberModel[] = new Array<MemberModel>();
         for (var a = 0; a < listOfMembers.length; a++) {
             var member: MemberModel = new MemberModel();

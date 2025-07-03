@@ -1,9 +1,0 @@
-<nav>    
-    <h1 class='PageBreadCrumb'><a routerLink="/some-route">{{Localise(LocalisationService.CaptionConstants.SomeRoute)}}</a> | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span></h1>
-</nav>
-<main [@PageFlyInOutAnimation]>
-    <RootCollapserComponent></RootCollapserComponent>        
-    <section class="collapse in" id="CollapsableSection">        
-    </section>
-</main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>

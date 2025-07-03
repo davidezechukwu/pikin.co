@@ -1,13 +1,14 @@
-﻿import { Component, Injector, OnInit, DoCheck } from '@angular/core';
+﻿import { Component, Injector, OnInit, DoCheck, Directive } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SuperComponent } from '../../Components/SuperComponent/SuperComponent.ng';
 import { NavigationService } from '../../../CoreModules/Services/NavigationService.ng';
-import SuperPageModel from '../../Models/SuperPageModel';
+import { SuperPageModel } from '../../Models/SuperPageModel';
 
-export default class SuperPage extends SuperComponent implements OnInit, DoCheck {
+@Directive()
+export class SuperPage extends SuperComponent implements OnInit, DoCheck {
     protected NavigationService: NavigationService;
     protected TitleService: Title;
-    protected Page: SuperPageModel;
+    protected Page: SuperPageModel | null | undefined;
     protected PageDoesNotRequiresAuthentication: boolean = false;
     protected PageIsForAuthentication: boolean = false;
     protected PageIsAUseOncePostOnlyPage: boolean = false;
@@ -15,14 +16,14 @@ export default class SuperPage extends SuperComponent implements OnInit, DoCheck
     protected PageTitle: string = "";
 
     public  constructor(
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
         this.NavigationService = this.Injector.get(NavigationService);
         this.TitleService = this.Injector.get(Title);
     }    
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         if (!this.PageDoesNotRequiresAuthentication && !this.AuthenticationService.IsAuthenticated) {
             this.Router.navigate(['/login']);
@@ -35,14 +36,14 @@ export default class SuperPage extends SuperComponent implements OnInit, DoCheck
         }
 
         if (this.PageIsAUseOncePostOnlyPage) {
-            if (this.constructor.name !== this.SessionService.Session.UseOncePage) {
+            if (this.constructor.name !== this.SessionService.Session?.UseOncePage) {
                 this.Router.navigate(this.PageIsAUseOncePostOnlyPageProviderData);                
                 return;
             }            
             this.SessionService.Session.UseOncePage = "";
         }
 
-        this.NavigationService.GetPageByName(this.constructor.name)
+        this.NavigationService.GetPageByName(this.constructor.name)        
             .then(page => {
                 this.Page = page;
                 this.PageTitle = this.Localise(this.Page.PageTitle)                
@@ -51,7 +52,7 @@ export default class SuperPage extends SuperComponent implements OnInit, DoCheck
             .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetPageByNameFailed, this));
     }
 
-    public ngDoCheck(): void {
+    public override ngDoCheck(): void {
         if (this.Page) {
             this.PageTitle = this.Localise(this.Page.PageTitle)
             this.SetPageTitle();
@@ -59,7 +60,7 @@ export default class SuperPage extends SuperComponent implements OnInit, DoCheck
     }
 
     private SetPageTitle() {
-        if (this.Page.PageName === 'HomePage') {
+        if (this.Page?.PageName === 'HomePage') {
             this.TitleService.setTitle('piKinco - ' + this.PageTitle);
         }
         else {

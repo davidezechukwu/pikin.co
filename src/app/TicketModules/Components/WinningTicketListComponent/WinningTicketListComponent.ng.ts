@@ -1,38 +1,35 @@
 ﻿import { Component, Input, OnInit, Injector } from '@angular/core';
 import { SuperComponent } from '../../../CommonModules/SuperModules/Components/SuperComponent/SuperComponent.ng';
-import GameModel from '../../../DashboardModules/Game/Models/GameModel';
 import {GameService}  from '../../../DashboardModules/Game/Services/GameService.ng';
 import {NumberSystemService}  from '../../../DashboardModules/Game/Services/NumberSystemService.ng';
-import NumberSystemModel from '../../../DashboardModules/Game/Models/NumberSystemModel';
 import { TicketService } from '../../Services/TicketService.ng';
-import PrizeModel from '../../Models/PrizeModel';
+import { PrizeModel } from '../../Models/PrizeModel';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
     selector: "WinningTicketListComponent",
     templateUrl: "./WinningTicketListComponent.ng.html",
-    styleUrls: ["./WinningTicketListComponent.scss"]
+    styleUrls: ["./WinningTicketListComponent.scss"],
+    imports: [CommonModule]
 })
 
-export default class WinningTicketListComponent extends SuperComponent implements OnInit  {
-    //public NumberSystems: NumberSystemModel[];
-    //public CurrentNumberSystems: NumberSystemModel;
-    //public Game: GameModel;
-    public WinningTickets: PrizeModel[];   
-    public SelectedWin: PrizeModel;    
+export class WinningTicketListComponent extends SuperComponent implements OnInit  {
+    public WinningTickets: PrizeModel[] = [];    
+    public SelectedWin: PrizeModel = new PrizeModel();    
 
     constructor(        
-        protected Injector: Injector,         
+        injector: Injector,         
         protected GameService: GameService, 
         protected NumberSystemService: NumberSystemService, 
         protected TicketService: TicketService
     ) { 
-        super(Injector);
+        super(injector);
     };    
         
-    ngOnInit(): void {
+    override ngOnInit(): void {
         super.ngOnInit();
-        this.GetWinningTickets(null, null);
+        this.GetWinningTickets(0, 0);
     }    
 
     OnSelect(win: PrizeModel): void {
@@ -45,7 +42,7 @@ export default class WinningTicketListComponent extends SuperComponent implement
 
     GetWinningTickets(fromPage: number, toPage: number): void {
         var me = this;
-        //this.TicketService.GetWinningTickets(this.SessionService.Session.CurrentGame)
+        //this.TicketService.GetWinningTickets(this.SessionService.Session?.CurrentGame)
         //    .then(WinningTickets => this.WinningTickets = WinningTickets)
         //    .catch(reason => {
                 

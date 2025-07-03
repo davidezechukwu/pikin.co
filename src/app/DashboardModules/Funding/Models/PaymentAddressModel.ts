@@ -1,7 +1,7 @@
-﻿//import SuperModel from '../../../CommonModules/SuperModules/Models/SuperModel';
+﻿//import { SuperModel } from '../../../CommonModules/SuperModules/Models/SuperModel';
 //import MemberModel from './MemberModel';
 
-export default class PaymentAddressModel /* extends SuperModel */ {
+export  class PaymentAddressModel /* extends SuperModel */ {
     //public readonly AddressLine: string[];
     //public readonly DependentLocality: string;
     //public readonly City: string;

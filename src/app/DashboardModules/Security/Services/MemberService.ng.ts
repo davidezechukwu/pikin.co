@@ -1,11 +1,8 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
-import MemberModel from '../Models/MemberModel';
-import FundingModel from '../../../DashboardModules/Funding/Models/FundingModel'
-import FormsAuthenticationRegisterModel from '../Models/FormsAuthenticationRegisterModel';
-import FormsAuthenticationResetPasswordModel from '../Models/FormsAuthenticationResetPasswordModel';
+import { MemberModel } from '../Models/MemberModel';
+import { FundingModel } from '../../../DashboardModules/Funding/Models/FundingModel'
+import { FormsAuthenticationRegisterModel } from '../Models/FormsAuthenticationRegisterModel';
 import { MembersMock } from '../_MockModules/MemberModelMockDataBuilder';
-import { SessionService } from '../../../CommonModules/CoreModules/Services/SessionService.ng';
 import { FundingService } from '../../../DashboardModules/Funding/Services/FundingService.ng';
 import { SuperService } from '../../../CommonModules/SuperModules/Services/SuperService.ng';
 
@@ -13,10 +10,10 @@ import { SuperService } from '../../../CommonModules/SuperModules/Services/Super
 export class MemberService extends SuperService {
     protected Members: MemberModel[] = MembersMock;
     constructor(
-        protected Injector: Injector,
+        injector: Injector,
         public FundingService: FundingService
     ) {
-        super(Injector);
+        super(injector);
     }
 
     CreateMember(formsAuthenticationRegisterModel: FormsAuthenticationRegisterModel): Promise<MemberModel> {
@@ -45,8 +42,8 @@ export class MemberService extends SuperService {
             } else {
                 let readMemberObjectsPromise: [Promise<FundingModel>] = [me.FundingService.GetFunding(_member)];
                 Promise.all(readMemberObjectsPromise).then((results: any[]) => {
-                    _member.Funding = results[0];
-                    resolve(_member)
+                    _member!.Funding = results[0];
+                    resolve(_member!)
                 }).catch(reason => reject(reason));
             }
         });
@@ -61,8 +58,8 @@ export class MemberService extends SuperService {
             } else {
                 let readMemberObjectsPromise: [Promise<FundingModel>] = [me.FundingService.GetFunding(_member)];
                 Promise.all(readMemberObjectsPromise).then((results: any[]) => {
-                    _member.Funding = results[0];
-                    resolve(_member)
+                    _member!.Funding = results[0];
+                    resolve(_member!)
                 }).catch(reason => reject(reason));
             }
         });

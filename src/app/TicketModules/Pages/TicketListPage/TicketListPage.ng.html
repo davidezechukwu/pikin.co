@@ -3,7 +3,7 @@
   <RootCollapserComponent></RootCollapserComponent>
   <section class="pk-main-section collapse show" id="CollapsableSection">
     <p>
-      <select>
+      <select title="tickets">
         <option>{{Localise(LocalisationService.CaptionConstants.MyTickets)}}</option>
         <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTickets)}}</option>
         <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastDay)}}</option>
@@ -12,64 +12,11 @@
         <option>{{Localise(LocalisationService.CaptionConstants.MyWinningTicketsInTheLastYear)}}</option>
       </select>
     </p>
-    <!--<div *ngIf="Tickets && Tickets.length > 0" >
-      <kendo-grid [data]="Tickets"
-                  [pageSize]="State.take"
-                  [skip]="State.skip"
-                  [sort]="State.sort"
-                  [sortable]="true"
-                  [pageable]="true"
-                  [scrollable]="'none'"
-                  (dataStateChange)="OnDataStateChange($event)"
-                  class="pk-list">
-        <kendo-grid-column field="ID" [hidden]="true"></kendo-grid-column>
-        <kendo-grid-column field="PickedNumbers">
-          <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
-            {{Localise(LocalisationService.CaptionConstants.Numbers)}}
-          </ng-template>
-          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-            <a routerLink="/tickets/{{dataItem.ID}}">{{dataItem.PickedNumbers}}</a>
-          </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="GameDisplayName">
-          <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
-            {{Localise(LocalisationService.CaptionConstants.Game)}}
-          </ng-template>
-          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-            <span>{{Localise(dataItem.GameDisplayName)}}</span>
-          </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="GamePrice">
-          <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
-            {{Localise(LocalisationService.CaptionConstants.Price)}}
-          </ng-template>
-          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-            <span [innerHTML]="GlobalisationService.FormatCurrency(dataItem.GamePrice, true) | safe"></span>
-          </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="GameDrawDateUTC">
-          <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
-            {{Localise(LocalisationService.CaptionConstants.DrawDate)}}
-          </ng-template>
-          <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-            <span [innerHTML]="GlobalisationService.FormatDate(dataItem.GameDrawDateUTC) | safe"></span>
-          </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="TicketStatus">
-          <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
-            {{Localise(LocalisationService.CaptionConstants.Outcome)}}
-          </ng-template>
-        </kendo-grid-column>
-      </kendo-grid>
-    </div>-->
+    
     <div *ngIf="Tickets && Tickets.length > 0">
-      <kendo-grid [data]="GridData | async"
+      <kendo-grid [data]="Tickets"
                   [skip]="State.skip"
-                  [filterable]="StateOptions.filterable"
-                  [pageSize]="StateOptions.pageSize"
-                  [pageable]="StateOptions.pageable"
-                  [scrollable]="StateOptions.scrollable"
-                  [sortable]="StateOptions.sortable"
+
                   [sort]="State.sort"
                   (dataStateChange)="OnDataStateChange($event)"
                   class="pk-list">
@@ -114,14 +61,13 @@
           <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             {{Localise(dataItem.TicketStatusDisplayName)}}
           </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-messages pagerItemsPerPage="{{Localise(LocalisationService.CaptionConstants.PagerItemsPerPage)}}"></kendo-grid-messages>
+        </kendo-grid-column>        
       </kendo-grid>
     </div>
     <div class="pk-jumbotron" *ngIf="!Tickets || Tickets.length == 0">
-      <h2 class="pk-no-item-in-list">{{Localise(LocalisationService.CaptionConstants.YouDoNotHaveAnyTickets, null)}}</h2>
+      <h2 class="pk-no-item-in-list">{{Localise(LocalisationService.CaptionConstants.YouDoNotHaveAnyTickets, '')}}</h2>
     </div>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>
 

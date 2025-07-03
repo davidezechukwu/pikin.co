@@ -1,17 +1,21 @@
-﻿import { Component, Injector ,OnInit  } from '@angular/core';
-import SuperPage from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+﻿import { Component, Injector   } from '@angular/core';
+import  { SuperPage }  from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'WithdrawFundsPage',
     templateUrl: './WithdrawFundsPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule]
 })
-export default class WithdrawFundsPage extends SuperPage {
+export class WithdrawFundsPage extends SuperPage {
     constructor(
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
     }
         
 }

@@ -1,0 +1,16 @@
+﻿@use "bootstrap/scss/bootstrap" as *;
+@use "bootstrap-overrides" as *;
+@use "@progress/kendo-theme-bootstrap/scss/all" as *;
+@use "variables" as *;
+@use "kendo-variables" as *;
+@use "kendo-overrides" as *;
+@use "copy" as *;
+@use "detail-view" as *;
+@use "list-view" as *;
+@use "form" as *;
+@use "navigation" as *;
+@use "component" as *;
+@use "main" as *;
+@use "dashboard" as *;
+
+

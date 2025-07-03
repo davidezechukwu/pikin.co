@@ -1,7 +1,0 @@
-﻿import SuperModel from '../../SuperModules/Models/SuperModel';
-
-export default class AModel  extends SuperModel {    
-    constructor() { 
-		super( );
-	}    
-}

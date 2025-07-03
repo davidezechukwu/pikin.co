@@ -1,8 +1,7 @@
-﻿import * as _ from 'lodash';
-import LanguageModel from '../Models/LanguageModel';
-import SuperModelMockDataBuilder from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
+﻿import { LanguageModel } from '../Models/LanguageModel';
+import { SuperModelMockDataBuilder } from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
 
-export default class LanguageModelMockDataBuilder extends SuperModelMockDataBuilder {    
+export class LanguageModelMockDataBuilder extends SuperModelMockDataBuilder {    
     BuildLanguagesMock(): LanguageModel[] {
         var rawData = [
             { "code": "ab", "name": "Abkhaz", "nativeName": "аҧсуа", "isrtl" : false},
@@ -186,17 +185,16 @@ export default class LanguageModelMockDataBuilder extends SuperModelMockDataBuil
         ];
         
         let languagesMock: LanguageModel[] = [];
-        _.forEach(rawData, data => {
+        rawData.forEach(( data : any) => {
             let language = new LanguageModel();
             language.ID = this.GetNextID();
             language.Name = data.name;
             language.DisplayName = data.nativeName;
-            language.ISO639_1Code = data.code;
-            language.ISO639_2Code = null;
+            language.ISO639_1Code = data.code;            
             language.IsRTL = data.isrtl;
             languagesMock.push(language);
         });
-        languagesMock = _.sortBy(languagesMock, language => { return language.DisplayName });
+        languagesMock = languagesMock.sort(( a, b) => { return a.DisplayName > b.DisplayName ? 1 : -1;  });
         return languagesMock;
     }
 }

@@ -1,14 +1,14 @@
 ﻿import { Injectable, Injector } from '@angular/core';
 import { SuperService } from '../../../CommonModules/SuperModules/Services/SuperService.ng';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
 import { PaymentMethodModel, PaymentMethodTypeEnum } from '../Models/PaymentMethodModel';
 import { PaymentMethodsMock } from '../_MockModules/PaymentMethodModelMockDataBuilder';
 
 
 @Injectable()
 export class PaymentService extends SuperService {    
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
 
     };
 

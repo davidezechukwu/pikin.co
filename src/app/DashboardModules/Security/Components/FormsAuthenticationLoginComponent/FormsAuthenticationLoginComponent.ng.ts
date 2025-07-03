@@ -1,17 +1,21 @@
 ﻿import { Component, Injector, Input, Output, EventEmitter } from '@angular/core';
 import { SuperComponent } from '../../../../CommonModules/SuperModules/Components/SuperComponent/SuperComponent.ng';
-import FormsAuthenticationLoginModel from '../../Models/FormsAuthenticationLoginModel';
+import { FormsAuthenticationLoginModel } from '../../Models/FormsAuthenticationLoginModel';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({    
     selector: 'FormsAuthenticationLoginComponent',
     templateUrl: "./FormsAuthenticationLoginComponent.ng.html",
-    styleUrls: ['./FormsAuthenticationLoginComponent.scss']
+    styleUrls: ['./FormsAuthenticationLoginComponent.scss'],
+    imports: [FormsModule, RouterModule, CommonModule]
 })
-export default class FormsAuthenticationLoginComponent extends SuperComponent {
+export class FormsAuthenticationLoginComponent extends SuperComponent {
     @Output() OnChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     protected FormsAuthenticationLoginModel: FormsAuthenticationLoginModel;
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
         this.FormsAuthenticationLoginModel = new FormsAuthenticationLoginModel();
         this.FormsAuthenticationLoginModel.Username = "TestMember" + (new Date( ).getTime() % 30)  +"@piKin.co";
     };

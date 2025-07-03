@@ -1,4 +1,4 @@
-﻿export default class GlobalPropertiesModel {
+﻿export class GlobalPropertiesModel {
     public MaxPickers: number = 10;
     public readonly DefaultCurrencyName: string = "GBP";
     public readonly DefaultMinimumPaymentAmount: number = 1;

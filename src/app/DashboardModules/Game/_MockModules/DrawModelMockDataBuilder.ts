@@ -1,33 +1,27 @@
-﻿import * as _ from 'lodash';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-import { CurrenciesMock } from '../../../CommonModules/CoreModules/_MockModules/CurrencyModelMockDataBuilder';
-import CurrencyModel from '../../../CommonModules/CoreModules/Models/CurrencyModel';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import { NumberSystemsMock } from './NumberSystemModelMockDataBuilder';
+﻿
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
 import { NumberSystemService } from '../Services/NumberSystemService.ng';
-import NumberSystemModel from '../Models/NumberSystemModel';
+import { NumberSystemModel } from '../Models/NumberSystemModel';
 import { TradingDayEnum } from '../Models/TradingDayEnum';
-import DrawModel from '../Models/DrawModel';
+import { DrawModel } from '../Models/DrawModel';
 import { DrawStatusEnum } from '../Models/DrawStatusEnum';
 
-export default class DrawModelMockDataBuilder extends SuperModelMockDataBuilder {
+export class DrawModelMockDataBuilder extends SuperModelMockDataBuilder {
     constructor() {
         super();
     }
 
-    public BuildDrawMocks(numberSystems: NumberSystemModel[], numberSystemService: NumberSystemService): DrawModel[] {
-        //debugger;        
+    public BuildDrawMocks(numberSystems: NumberSystemModel[], numberSystemService: NumberSystemService): DrawModel[] {        
         let dayInMilliseconds = 1000 * 60 * 60 * 24;
         let monthDiff = 2;
-        _.forEach(numberSystems, numberSystem => {
-            //debugger            
+        numberSystems.forEach( numberSystem => {            
             let past = new Date(new Date().setMonth(new Date().getMonth() - monthDiff))
             let future = new Date(new Date().setMonth(new Date().getMonth() + 12 + monthDiff))           
             let timeInc = past.getTime();
             let endTime = future.getTime();
             do {
                 let canDrawOnthisDay = false;
-                let drawTime: Date = null;
+                let drawTime: Date = new Date();
                 let drawDate = new Date(timeInc);
 
                 if (drawDate.getDay() == TradingDayEnum.Sunday && numberSystem.IsAvailableOnSunday) {

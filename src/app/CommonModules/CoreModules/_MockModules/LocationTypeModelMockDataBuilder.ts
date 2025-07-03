@@ -1,7 +1,7 @@
-﻿import LocationTypeModel from '../Models/LocationTypeModel';
-import SuperModelMockDataBuilder from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
+﻿import { LocationTypeModel } from '../Models/LocationTypeModel';
+import { SuperModelMockDataBuilder } from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
 
-export default class LocationTypeModelMockDataBuilder extends SuperModelMockDataBuilder {
+export class LocationTypeModelMockDataBuilder extends SuperModelMockDataBuilder {
     BuildMock(): LocationTypeModel[] {
         
         let other = new LocationTypeModel();

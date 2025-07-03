@@ -1,28 +1,26 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
 import { SuperService } from '../../../CommonModules/SuperModules/Services/SuperService.ng';
-import MemberModel from '../../../DashboardModules/Security/Models/MemberModel';
+import { MemberModel } from '../../../DashboardModules/Security/Models/MemberModel';
 import { MemberService } from '../../../DashboardModules/Security/Services/MemberService.ng';
-import FormsAuthenticationLoginModel from '../Models/FormsAuthenticationLoginModel';
-import FormsAuthenticationRegisterModel from '../Models/FormsAuthenticationRegisterModel';
-import FormsAuthenticationResetPasswordModel from '../Models/FormsAuthenticationResetPasswordModel';
+import { FormsAuthenticationLoginModel } from '../Models/FormsAuthenticationLoginModel';
+import { FormsAuthenticationRegisterModel } from '../Models/FormsAuthenticationRegisterModel';
+import { FormsAuthenticationResetPasswordModel } from '../Models/FormsAuthenticationResetPasswordModel';
 
 
 
 @Injectable()
 export class AuthenticationService extends SuperService {
     protected _IsAuthenticated?: boolean;
-    public get IsAuthenticated(): boolean {
+    public get IsAuthenticated(): boolean | undefined {
         var me = this;
         var userName = this.GetCookie("username");            
         if (this._IsAuthenticated === undefined  && userName) {
             var member: MemberModel = new MemberModel();
             member.Username = userName;
-            me.MemberService.ReadMemberByUsername(member).then(_member => {
-                //debugger;
+            me.MemberService.ReadMemberByUsername(member).then(_member => {                
                 this.OnAuthentication(true, _member);                
             }).catch(reason => {
-                this.OnAuthentication(false, null);                
+                this.OnAuthentication(false, new MemberModel());                
             });
         } 
         return this._IsAuthenticated;
@@ -33,10 +31,10 @@ export class AuthenticationService extends SuperService {
     public AuthenticatedMemberID: any;
     
     constructor(
-        protected Injector: Injector,
+        injector: Injector,
         protected MemberService: MemberService
     ) { 
-        super(Injector);
+        super(injector);
     };
 
     SetCookie(cookieName: string, cookieValue: string, cookiePath?: string, keepForDays?:number) {
@@ -52,7 +50,7 @@ export class AuthenticationService extends SuperService {
         document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=" + cookiePath;
     }
 
-    GetCookie(cookieName) {
+    GetCookie(cookieName: any) {
         var name = cookieName + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
         var ca = decodedCookie.split(';');
@@ -68,9 +66,9 @@ export class AuthenticationService extends SuperService {
         return "";
     } 
 
-    GetAuthenticatedMember(): Promise<MemberModel> {
+    GetAuthenticatedMember(): Promise<MemberModel | null> {
         var me = this;
-        return new Promise<MemberModel>((resolve, reject) => {            
+        return new Promise<MemberModel | null>((resolve, reject) => {            
             if (!this.IsAuthenticated || !this.AuthenticatedMemberID) {
                 resolve(null);
             }
@@ -82,9 +80,9 @@ export class AuthenticationService extends SuperService {
         });
     };  
 
-    protected OnAuthentication(isAuthenticated: boolean, member: MemberModel): void {
+    protected OnAuthentication(isAuthenticated: boolean, member: MemberModel | null): void {
         this.IsAuthenticated = isAuthenticated;
-        if (this.IsAuthenticated) {
+        if (this.IsAuthenticated && member) {
             this.AuthenticatedMemberID = member.ID;
             this.SetCookie("username", member.Username, "/");            
         } else {
@@ -104,10 +102,8 @@ export class AuthenticationService extends SuperService {
         var me = this;
         return new Promise<FormsAuthenticationLoginModel>((resolve, reject) => {
             var member: MemberModel = new MemberModel();
-            member.Username = formsAuthenticationLogin.Username;
-            //debugger;
-            me.MemberService.ReadMemberByUsername(member).then(_member => {              
-                //debugger;
+            member.Username = formsAuthenticationLogin.Username;            
+            me.MemberService.ReadMemberByUsername(member).then(_member => {                              
                 this.OnAuthentication(true, _member);
                 resolve(formsAuthenticationLogin);
             }).catch(reason => {

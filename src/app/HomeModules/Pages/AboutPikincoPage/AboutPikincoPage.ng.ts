@@ -1,20 +1,25 @@
 ﻿import { Component, Input, OnInit, Injector } from '@angular/core';
-import SuperPage from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
-import GameModel from '../../../DashboardModules/Game/Models/GameModel';
+import { SuperPage }from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { GameModel } from '../../../DashboardModules/Game/Models/GameModel';
 import { PageAnimations } from '../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { SafePipe } from '../../../CommonModules/CoreModules/Pipes/SafePipe/SafePipe.ng';
 
 @Component({
     selector: 'AboutPikincoPage',
     templateUrl: './AboutPikincoPage.ng.html',
     styleUrls: ["./AboutPikincoPage.scss"],
-    animations: PageAnimations   
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, SafePipe]
 })
-export default class AboutPikincoPage extends SuperPage {
-    public SelectedGame: GameModel;
+export class AboutPikincoPage extends SuperPage {
+    public SelectedGame: GameModel = new GameModel();
     constructor(
-        protected Injector: Injector        
+        injector: Injector        
     ) {
-        super(Injector);
+        super(injector);
         this.PageDoesNotRequiresAuthentication = true;
         this.PageIsForAuthentication = false;
     }    

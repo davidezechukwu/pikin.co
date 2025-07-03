@@ -1,9 +1,21 @@
-﻿import * as _ from 'lodash';
-import CurrencyModel from '../Models/CurrencyModel';
+﻿import { CurrencyModel } from '../Models/CurrencyModel';
 
-export default class CurrencyModelMockDataBuilder {    
+export interface CurrencyInfo {
+    symbol: string
+    name: string
+    symbol_native: string
+    decimal_digits: number
+    rounding: number
+    code: string
+    name_plural: string
+}
+
+// 2) If you want to type a map of codes → CurrencyInfo
+export type CurrencyMap = Record<string, CurrencyInfo>
+
+export class CurrencyModelMockDataBuilder {    
     BuildCurrenciesMock(): CurrencyModel[] {
-        var rawData = {
+        var rawData: CurrencyMap = {
                 "USD": {
                     "symbol": "$",
                     "name": "US Dollar",
@@ -1082,7 +1094,7 @@ export default class CurrencyModelMockDataBuilder {
             currency.NativeSymbol = rawData[c]["symbol_native"];
             currenciesMock.push(currency);
         }
-        currenciesMock = _.sortBy(currenciesMock, currency => { return currency.DisplayName });
+        currenciesMock = currenciesMock.sort((a,b) => a.DisplayName > b.DisplayName ? 1 : -1);
         return currenciesMock;
     }
 }

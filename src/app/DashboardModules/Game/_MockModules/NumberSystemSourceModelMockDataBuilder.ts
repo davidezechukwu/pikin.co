@@ -1,8 +1,7 @@
-﻿import NumberSystemModel from '../Models/NumberSystemModel';
-import SourceModel from '../Models/SourceModel';
-import NumberSystemSourceModel from '../Models/NumberSystemSourceModel';
+﻿import { SourceModel } from '../Models/SourceModel';
+import { NumberSystemSourceModel } from '../Models/NumberSystemSourceModel';
 import { SourcesMock } from '../_MockModules/SourceModelMockDataBuilder';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
 
 export class NumberSystemSourceModelMockDataBuilder extends SuperModelMockDataBuilder{
     public BuildMockDataFor10NumberSystemID(numberSystemID: number | string): SourceModel[] {        

@@ -1,5 +1,5 @@
-﻿@import "../../../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../../../../scss/variables.scss";
+﻿
+@use '../../../../assets/scss/variables' as *;
 
 
 $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
@@ -20,9 +20,6 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
     color: $pk-playcomponent-disabled-input;
   }
 
-  input.pk-form[type=number] {
-    -moz-appearance: textfield;
-  }
 
   .pk-form {
     -moz-box-sizing: content-box;
@@ -107,30 +104,11 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
   }
    
   .pk-game-name {
-    color: #ffffff;
+    color: #ffffff;    
   }
 }
 
 
-/*//Extra small devices (portrait phones, less than 576px)
-@include media-breakpoint-down(xs) {
-}
-
-//Small devices (landscape phones, less than 768px)
-@include media-breakpoint-down(sm) {
-}
-
-//Medium devices (tablets, less than 992px)
-@include media-breakpoint-down(md) {
-}
-
-//Large devices (desktops, less than 1200px)
-@include media-breakpoint-down(lg) {
-}
-
-//Extra large devices (large desktops)
-@include media-breakpoint-down(xl) {
-}*/
 //Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-up(xs) {
   $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
@@ -357,9 +335,7 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
       color: $pk-playcomponent-disabled-input;
     }
 
-    input.pk-form[type=number] {
-      -moz-appearance: textfield;
-    }
+    
 
     .pk-form {
       padding: $pk-playcomponent-pk-form-padding;
@@ -497,10 +473,6 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
   }
 }
 
-//Large devices (desktops, 992px and up)
-@include media-breakpoint-up(lg) {
-}
-
 //Extra large devices (large desktops, 1200px and up)
 @include media-breakpoint-up(xl) {
   $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
@@ -528,10 +500,6 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
 
     .pk-number input[disabled] {
       color: $pk-playcomponent-disabled-input;
-    }
-
-    input.pk-form[type=number] {
-      -moz-appearance: textfield;
     }
 
     .pk-form {
@@ -668,4 +636,8 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
       font-size: 2rem !important;
     }
   }
+}
+
+.pk-game-name { 
+  margin-bottom: 2rem !important;
 }

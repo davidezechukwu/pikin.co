@@ -1,6 +1,6 @@
-﻿import SuperModel from '../../SuperModules/Models/SuperModel';
+﻿import {SuperModel} from '../../SuperModules/Models/SuperModel';
 
-export default class CaptionConstantsModel extends SuperModel {    
+export class CaptionConstantsModel extends SuperModel {    
     public AboutTheCurrentNumberSystem: string = "About the current Number System";
     public AboutpiKinco: string = "About <span style='text-transform:none !important'>piKinco<span>";
     public AboutpiKincoM1: string = "piKinco is a charity-oriented penny lottery in a sleek and simple user interface.";
@@ -29,7 +29,7 @@ export default class CaptionConstantsModel extends SuperModel {
     public BuyTickets: string = "Buy Tickets";
     public BuyTicketNow: string = "Play for {0}";
 
-    public Caution: string = "Please note that you are taking part in a form of financial betting. A financial bet based on the values of financial instruments at an agreed expiry date. Bets are limited in risk, as you do not lose anything other than your wager; however you should be aware that there is still the potential to make losses as well as substantial gains";
+    public Caution: string = "Partially successfull upgrade to Angular 20";
     public ChangeNumberSystem: string = "Change the Number System";
     public ChangePassword: string = "Change your Password";
     public ChangePIN: string = "Change your PIN";
@@ -54,7 +54,7 @@ export default class CaptionConstantsModel extends SuperModel {
     public DefaultCurrency: string = "Default Currency";
     public DefaultLanguage: string = "Default Language";
     public DefaultLocation: string = "Device Location";
-    public DisplayName: string = "Display Name";
+    public override DisplayName: string = "Display Name";
     public DrawClosesIn: string = "Draw closes in <span class='pk-emphasis pk-draw-closes-in'>{0} Hours {1} Minutes {2} Seconds</span>";
     public DrawDate: string = "Draw Date";
     public DrawForHowManyWeeks: string = "Weeks";

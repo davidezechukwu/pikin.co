@@ -15,11 +15,11 @@
         </tr>
         <tr>
           <td>{{Localise(LocalisationService.CaptionConstants.Price)}}</td>
-          <td><span class="pk-value" [innerHTML]="GlobalisationService.FormatCurrency(Ticket.GamePrice, true) | safe"></span></td>
+          <td><span class="pk-value" [innerHTML]="GlobalisationService.FormatCurrency(Ticket.GamePrice!, true)"></span></td>
         </tr>
         <tr>
           <td>{{Localise(LocalisationService.CaptionConstants.DrawDate)}}</td>
-          <td>{{GlobalisationService.FormatDate(Ticket.GameDrawDateUTC)}}</td>
+          <td>{{GlobalisationService.FormatDate(Ticket.GameDrawDateUTC!)}}</td>
         </tr>
         <tr>
           <td>{{Localise(LocalisationService.CaptionConstants.Outcome)}}</td>
@@ -29,14 +29,14 @@
     </article>
     
     <div class="pk-jumbotron">      
-      <h2 class="pk-no-item-in-list">{{Localise(LocalisationService.CaptionConstants.GoodLuck, null)}}</h2>    
-      <!--<h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/aboutus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAboutUs)}}</a></h2>
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/AboutpiKinco"><span [innerHTML]="Localise(LocalisationService.CaptionConstants.AboutpiKinco)| safe"></span></a></h2>
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>-->
-      <!--<h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/rules">{{Localise(LocalisationService.CaptionConstants.GamePlayRules)}}</a></h2>-->      
+      <h2 class="pk-no-item-in-list">{{Localise(LocalisationService.CaptionConstants.GoodLuck, "")}}</h2>    
+      <!--<h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/aboutus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAboutUs)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/AboutpiKinco"><span [innerHTML]="Localise(LocalisationService.CaptionConstants.AboutpiKinco)| safe"></span></a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>-->
+      <!--<h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/rules">{{Localise(LocalisationService.CaptionConstants.GamePlayRules)}}</a></h2>-->      
     </div>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>
 

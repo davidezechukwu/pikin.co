@@ -1,0 +1,129 @@
+﻿// src/assets/scss/_variables.scss
+
+// 1. Core Sass modules
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+
+// 2. Base settings
+$border-radius: 0;
+$primary-color: #ff9933;
+
+// 3. Typography
+$pk-main-color: #888;
+$pk-main-font-family: Arial, Helvetica, sans-serif;
+$pk-h1-font-family: 'Poppins', Arial, Helvetica, sans-serif;
+$pk-h2-font-family: 'Poppins', Arial, Helvetica, sans-serif;
+$pk-h3-font-family: Arial, Helvetica, sans-serif;
+
+// 4. Page colors
+$pk-page-color: yellow;
+$pk-breadcrumb-color: $primary-color;
+$pk-breadcrumb-color-hover: yellow;
+$pk-breadcrumb-background-color: color.adjust(#000, $alpha: 0.8);
+
+$pk-main-content-background-color: color.adjust(#000, $alpha: 0.8);
+$pk-main-content-h2-color: #fff;
+$pk-main-content-h3-color: $primary-color;
+$pk-main-content-h4-color: $primary-color;
+$pk-main-content-label-color: $primary-color;
+
+// 5. Navigation
+$pk-nav-a-color: #607d8b;
+$pk-nav-a-color-hover: #039be5;
+$pk-nav-a-background-color-hover: #cfd8dc;
+$pk-nav-a-color-active: #039be5;
+
+// 6. Forms
+$input-border: 1px solid #000;
+$input-border-radius: $border-radius;
+$input-color: #222;
+$input-background-color: #fff;
+
+// 7. Buttons
+$pk-button-border-radius: $border-radius;
+$pk-button-color: $primary-color;
+$pk-button-color-hover: yellow;
+$pk-button-disabled-color: $primary-color;
+$pk-button-disabled-color-hover: #fff;
+$pk-button-disabled-background-color: transparent;
+$pk-button-background-color-1: #111111;
+$pk-button-background-color-2: #1f1f1f;
+$pk-button-background-color-3: #111111;
+$pk-button-border-width: 1px;
+$pk-button-border-color: $primary-color;
+$pk-button-border-color-hover: $primary-color;
+
+// 8. Clear-background button
+$pk-clear-background-button-color: #69f;
+$pk-clear-background-button-color-hover: #99ccff;
+$pk-clear-background-button-border-color: #333;
+$pk-clear-background-button-border-color-hover: #333;
+$pk-clear-background-button-background-color-1: #2b2b2b;
+$pk-clear-background-button-background-color-2: #2b2b2b;
+$pk-clear-background-button-background-color-3: #2b2b2b;
+
+$pk-clear-background-button-background-color-hover-1: color.adjust($pk-clear-background-button-background-color-1,
+        $lightness: 5%);
+$pk-clear-background-button-background-color-hover-2: color.adjust($pk-clear-background-button-background-color-2,
+        $lightness: 5%);
+$pk-clear-background-button-background-color-hover-3: color.adjust($pk-clear-background-button-background-color-3,
+        $lightness: 5%);
+
+// 9. List styles
+$pk-list-header-row-background-color: #3366ff;
+$pk-list-header-row-color: #e8f2f2;
+$pk-list-body-color: #333;
+$pk-list-body-background-color: #fff;
+$pk-list-body-anchor-color: #007bff;
+$pk-list-body-anchor-color-hover: #6699ff;
+
+// 10. Collapser
+$pk-collapser-color: $primary-color;
+$pk-collapser-color-hover: color.adjust($pk-collapser-color, $lightness: 20%);
+
+// 11. Breakpoints map
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+// 12. Responsive mixins
+
+//–– max-width down to next breakpoint ––
+@mixin media-breakpoint-down($name) {
+    $keys: map.keys($grid-breakpoints);
+    $idx: list.index($keys, $name);
+    $next: $idx + 1;
+
+    @if $idx and $next <=list.length($keys) {
+        $up: list.nth($keys, $next);
+        $max: map.get($grid-breakpoints, $up) - 0.02px;
+
+        @media (max-width: $max) {
+            @content;
+        }
+    }
+
+    @else {
+        @content;
+    }
+}
+
+//–– min-width from given breakpoint ––
+@mixin media-breakpoint-up($name) {
+    $min: map.get($grid-breakpoints, $name);
+
+    @if $min !=null {
+        @media (min-width: $min) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Breakpoint `#{$name}` not found in $grid-breakpoints.";
+    }
+}

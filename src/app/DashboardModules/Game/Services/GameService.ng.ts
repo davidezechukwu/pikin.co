@@ -1,13 +1,10 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import  * as _ from 'lodash';
-import { SessionService } from '../../../CommonModules/CoreModules/Services/SessionService.ng';
-import {SuperService}   from '../../../CommonModules/SuperModules/Services/SuperService.ng';
-import TicketOrderModel from '../../../TicketModules/Models/TicketOrderModel';
+import { SuperService }   from '../../../CommonModules/SuperModules/Services/SuperService.ng';
+import { TicketOrderModel } from '../../../TicketModules/Models/TicketOrderModel';
 import { TicketOrderStatusEnum } from '../../../TicketModules/Models/TicketOrderStatusEnum';
-import GameModel from '../Models/GameModel';
-import NumberSystemModel from '../Models/NumberSystemModel';
-import GameDrawModel from '../Models/GameDrawModel';
-import DrawDaysOptions from '../Models/DrawDaysOptions';
+import { GameModel } from '../Models/GameModel';
+import { GameDrawModel } from '../Models/GameDrawModel';
+import { DrawDaysOptions } from '../Models/DrawDaysOptions';
 import { NumberSystemService } from '../Services/NumberSystemService.ng';
 import { GamesMock } from '../_MockModules/GameModelMockDataBuilder';
 import { GameDrawsMock } from '../_MockModules/GameDrawModelMockDataBuilder';
@@ -15,11 +12,10 @@ import { GameDrawsMock } from '../_MockModules/GameDrawModelMockDataBuilder';
 @Injectable()
 export class GameService extends SuperService {    
     constructor(
-        protected Injector : Injector,
-        protected SessionService: SessionService,
+        injector : Injector,        
         protected NumberSystemService: NumberSystemService
     ) {
-        super(Injector);
+        super(injector);
     };
 
     protected GetNextWorkingDay(fromDate: Date) {
@@ -51,7 +47,7 @@ export class GameService extends SuperService {
     GetGameWithRequiredMatches(numberSystemID: number | string,  numberOfMatches: number): Promise<GameModel> {
         var me = this;
         return new Promise<GameModel>((resolve, reject) => {
-            var game = _.find(GamesMock, game => { return (game.NumberSystemID == numberSystemID) && (game.RequiredMatches == numberOfMatches); });            
+            var game = GamesMock.find((game : any) => { return (game.NumberSystemID == numberSystemID) && (game.RequiredMatches == numberOfMatches); });            
             if (game) { resolve(game); } else { reject("No  game with that number of matching was found"); }
         });
     }
@@ -59,14 +55,14 @@ export class GameService extends SuperService {
     GetGame(gameID: number | string): Promise<GameModel> {
         var me = this;
         return new Promise<GameModel>((resolve, reject) => {
-            var game = _.find(GamesMock, function (game) {
+            var game = GamesMock.find(function (game: any) {
                 return game.ID == gameID;
             });
             if (game) {
-                this.NumberSystemService.GetNumberSystem(game.NumberSystemID)
+                this.NumberSystemService.GetNumberSystem(game.NumberSystemID!)
                     .then(numberSystem => {
-                        game.NumberSystem = numberSystem;
-                        resolve(game);
+                        game!.NumberSystem = numberSystem;
+                        resolve(game!);
                     })
                     .catch(reason => reject(reason));                
             } else {
@@ -77,9 +73,8 @@ export class GameService extends SuperService {
 
     GetNextGameDraw(game: GameModel, currentDateUTC: Date): Promise<GameDrawModel> {
         var me = this;
-        return new Promise<GameDrawModel>((resolve, reject) => {
-            //debugger;            
-            var gameDraw = _.find(GameDrawsMock, _gameDraw => {
+        return new Promise<GameDrawModel>((resolve, reject) => {            
+            var gameDraw = GameDrawsMock.find(_gameDraw => {
                 var nextWorkingDay = this.GetNextWorkingDay(currentDateUTC);                
                 return game.ID == _gameDraw.GameID
                     && nextWorkingDay.getUTCFullYear() == _gameDraw.Draw.DrawDateUTC.getUTCFullYear()
@@ -92,8 +87,7 @@ export class GameService extends SuperService {
 
     GeTicketOrders(game: GameModel, currentDateUTC: Date, pickedNumbers: string,  drawDaysOptions: DrawDaysOptions, weeks: number): Promise<TicketOrderModel[]> {
         var me = this;
-        return new Promise<TicketOrderModel[]>((resolve, reject) => {
-            //debugger;         
+        return new Promise<TicketOrderModel[]>((resolve, reject) => {            
             let id = 0;
             let nextWorkingDay = me.GetNextWorkingDay(currentDateUTC);
             let now = new Date(nextWorkingDay);
@@ -129,7 +123,7 @@ export class GameService extends SuperService {
                 }
 
                 if (canPlay) {
-                    var gameDraw = _.find(GameDrawsMock, _gameDraw => {
+                    var gameDraw = GameDrawsMock.find( _gameDraw => {
                         return game.ID === _gameDraw.GameID
                             && drawDate.getUTCFullYear() === _gameDraw.Draw.DrawDateUTC.getUTCFullYear()
                             && drawDate.getUTCMonth() === _gameDraw.Draw.DrawDateUTC.getUTCMonth()

@@ -3,18 +3,18 @@
     <div class="pk-inputform">
       <label>
         {{Localise(LocalisationService.CaptionConstants.Username)}}
-        <input type="email" name="Username" [(ngModel)]="FormsAuthenticationLoginModel.Username" placeholder="{{Localise(LocalisationService?.CaptionConstants.Username)}}" size="35" disabled="disabled" readonly="readonly" style="background-color:#aaa !important"  />
+        <input type="email" name="Username" [(ngModel)]="FormsAuthenticationLoginModel.Username" placeholder="{{Localise(LocalisationService.CaptionConstants.Username!)}}" size="35" disabled="disabled" readonly="readonly" style="background-color:#aaa !important"  />
       </label>
     </div>
     <div class="pk-inputform">
       <label>
         {{Localise(LocalisationService.CaptionConstants.Password)}}
-        <input type="password" name="Password" [(ngModel)]="FormsAuthenticationLoginModel.Password" placeholder="{{Localise(LocalisationService.CaptionConstants.Password)}}" size="35" />
+        <input type="password" name="Password" [(ngModel)]="FormsAuthenticationLoginModel.Password" placeholder="{{Localise(LocalisationService.CaptionConstants.Password!)}}" size="35" />
       </label>
     </div>
     <div class="pk-inputform">
       <label class="pk-label-for">
-        <input type="checkbox" name="RememberMe" title="{{Localise(LocalisationService.CaptionConstants.RememberMe)}}" [(ngModel)]="FormsAuthenticationLoginModel.RememberMe" />
+        <input type="checkbox" name="RememberMe" title="{{Localise(LocalisationService.CaptionConstants.RememberMe!)}}" [(ngModel)]="FormsAuthenticationLoginModel.RememberMe" />
         {{Localise(LocalisationService.CaptionConstants.RememberMe)}}
       </label>
     </div>

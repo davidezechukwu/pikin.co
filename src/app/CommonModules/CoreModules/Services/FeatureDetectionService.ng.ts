@@ -6,7 +6,7 @@ import { NotificationService } from './NotificationService.ng';
 @Injectable()
 export class FeatureDetectionService {
   constructor(
-    protected Injector: Injector
+    injector: Injector
   ) {
 
   }

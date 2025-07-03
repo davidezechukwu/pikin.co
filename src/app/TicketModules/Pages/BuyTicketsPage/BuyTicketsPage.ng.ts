@@ -1,34 +1,37 @@
-﻿import { Component, Injector, Input, OnInit, DoCheck, EventEmitter } from '@angular/core';
+﻿import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, Injector,  OnInit, DoCheck } from '@angular/core';
 import { PageAnimations } from '../../../CommonModules/CoreModules/Animations/PageAnimations';
-import { Observable, Observer } from 'rxjs/Rx';
-import { ActivatedRouteParams } from '../../../CommonModules/SuperModules/Components/SuperComponent/SuperComponent.ng';
-import * as $ from 'jquery';
-import * as _ from 'lodash';
-import 'rxjs/add/operator/switchMap';
+import { from, forkJoin, timer } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { State } from '@progress/kendo-data-query';
-import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
-import SuperPage from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { SuperPage } from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { NumberSystemService } from '../../../DashboardModules/Game/Services/NumberSystemService.ng';
-import GameModel from '../../../DashboardModules/Game/Models/GameModel';
-import GameDrawModel from '../../../DashboardModules/Game/Models/GameDrawModel';
+import { GameModel } from '../../../DashboardModules/Game/Models/GameModel';
 import { GameService } from '../../../DashboardModules/Game/Services/GameService.ng';
-import DrawDaysOptions from '../../../DashboardModules/Game/Models/DrawDaysOptions';
-import PrizeModel from '../../../TicketModules/Models/PrizeModel';
+import { DrawDaysOptions } from '../../../DashboardModules/Game/Models/DrawDaysOptions';
+import { PrizeModel } from '../../../TicketModules/Models/PrizeModel';
 import { TicketService } from '../../../TicketModules/Services/TicketService.ng';
-import TicketOrderModel from '../../../TicketModules/Models/TicketOrderModel';
-import { TicketOrderStatusEnum } from '../../../TicketModules/Models/TicketOrderStatusEnum';
+import { TicketOrderModel } from '../../../TicketModules/Models/TicketOrderModel';
 import { FundingService } from '../../../DashboardModules/Funding/Services/FundingService.ng';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-
-
+import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { CurrencyModel } from '../../../CommonModules/CoreModules/Models/CurrencyModel';
+import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { SafePipe } from '../../../CommonModules/CoreModules/Pipes/SafePipe/SafePipe.ng';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'BuyTicketsPage',
-    templateUrl: './BuyTicketsPage.ng.html',
-    styleUrls: ['./BuyTicketsPage.scss'],
-    animations: PageAnimations
+    templateUrl: 'BuyTicketsPage.ng.html',
+    styleUrls: ['BuyTicketsPage.scss'],
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, SafePipe, GridModule, FormsModule, CommonModule]
 })
-export default class BuyTicketsPage extends SuperPage implements OnInit, DoCheck {    
+export class BuyTicketsPage extends SuperPage implements OnInit, DoCheck {    
     protected State: State = {        
         skip: 0,        
         take: 5,
@@ -55,42 +58,42 @@ export default class BuyTicketsPage extends SuperPage implements OnInit, DoCheck
         },
         scrollable: "none"
     };    
-    protected TicketOrders: TicketOrderModel[];
-    protected SelectedTicketOrder: TicketOrderModel;
-    protected DrawDaysOptions: DrawDaysOptions;
+    protected TicketOrders: TicketOrderModel[] = [];
+    protected SelectedTicketOrder: TicketOrderModel = new TicketOrderModel();
+    protected DrawDaysOptions: DrawDaysOptions = new DrawDaysOptions();
     protected Weeks: number[] = [];
     protected SelectedWeek: number = 1;
-    private _HasEnoughFunds: boolean;
+    private _HasEnoughFunds: boolean = true;
     public get HasEnoughFunds() {
         return this._HasEnoughFunds;
     }
     public set HasEnoughFunds(HasEnoughFunds: boolean) {
         this._HasEnoughFunds = HasEnoughFunds;
     }
-    protected Balance: CurrencyAmountModel;
-    protected RequiredAmount: CurrencyAmountModel;
-    protected TotalPrice: CurrencyAmountModel;
-    protected RemainingHours: number;
-    protected RemainingMinutes: number;
-    protected RemainingSeconds: number;
-    protected Numbers: string;
-    protected Game: GameModel;
-    protected Prizes: PrizeModel[];
-    protected PickedNumbers: string;
+    protected Balance: CurrencyAmountModel | null |undefined;
+    protected RequiredAmount: CurrencyAmountModel | null | undefined;
+    protected TotalPrice: CurrencyAmountModel | null | undefined;
+    protected RemainingHours: number = 24;
+    protected RemainingMinutes: number  = 60;
+    protected RemainingSeconds: number  = 60;
+    protected Numbers: string   = '';
+    protected Game: GameModel = new GameModel();
+    protected Prizes: PrizeModel[] = [];
+    protected PickedNumbers: string = '';
     protected CurrentTime: Date = new Date();
-    protected LastClosingDateUTC: Date;
-    protected NextClosingDateUTC: Date;
-    protected DrawClosingDateUTC: Date;
-    protected LastClosingNumbers: string
-
+    protected LastClosingDateUTC: Date | null | undefined;
+    protected NextClosingDateUTC: Date | null | undefined;
+    protected DrawClosingDateUTC: Date | null | undefined;
+    protected LastClosingNumbers: string = '';    
     public constructor(
-        protected Injector: Injector,
+        injector: Injector,
         protected GameService: GameService,
         protected TicketService: TicketService,
         protected NumberSystemService: NumberSystemService,
-        protected FundingService: FundingService        
+        protected FundingService: FundingService,
+        protected Route: ActivatedRoute
     ) {
-        super(Injector);
+        super(injector);
         this.PageIsAUseOncePostOnlyPage = true;
         this.PageIsAUseOncePostOnlyPageProviderData = ['/play'];
         for (var week = 1; week < 53; week++) {
@@ -98,91 +101,94 @@ export default class BuyTicketsPage extends SuperPage implements OnInit, DoCheck
         }
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
-        let promises: Promise<any>[] = new Array<Promise<any>>();
-        promises.push(this.NumberSystemService.GetLastClosingDateUTC(this.SessionService.Session.CurrentNumberSystem));
-        promises.push(this.NumberSystemService.GetLastClosingNumbers(this.SessionService.Session.CurrentNumberSystem));
-        promises.push(this.NumberSystemService.GetNextClosingDateUTC(this.SessionService.Session.CurrentNumberSystem));
-        promises.push(this.NumberSystemService.GetDrawClosingDateUTC(this.SessionService.Session.CurrentNumberSystem));
 
-        Promise.all(promises)
-            .then((results: any[]) => {
-                var index = 0;
-                this.LastClosingDateUTC = results[index++];
-                this.LastClosingNumbers = results[index++];
-                this.NextClosingDateUTC = results[index++];
-                this.DrawClosingDateUTC = results[index++];
-            })
-            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorBuyTicketsPageInitFailed, this));
-
-        let inc = 1;
-        this.ActivatedRouteService.paramMap
-            .switchMap((params: ActivatedRouteParams) => this.GameService.GetGame(params.get('gameID')))
-            .subscribe((game: GameModel) => {
-                this.Game = game;
-                this.PickedNumbers = this.SessionService.Session.CurrentPickedNumbers;
-
-                this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID)
-                    .then(numberSystem => {
-                        this.Game.NumberSystem = numberSystem;
-                        this.DrawDaysOptions = this.NumberSystemService.GetDrawDayOptions(numberSystem);
-                        this.OnUpdateDraws();
-                    })
-                    .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game.NumberSystemID.toString()));
-
-                //this.AuthenticationService.GetAuthenticatedMember().then(member => {
-                //    if (member) {
-                //        this.FundingService.IsThereEnoughFunding(member, this.Game.Price)
-                //            .then(fundingCheckBalanceResult => {
-                //                this.HasEnoughFunds = fundingCheckBalanceResult.HasEnoughFunding;
-                //                this.Balance = fundingCheckBalanceResult.Balance;
-                //                this.RequiredAmount = fundingCheckBalanceResult.RequiredAmount;
-                //            })
-                //            .catch(reason => {
-                //                this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorIsThereEnoughFundingFailed, this);
-                //                this.HasEnoughFunds = false;
-                //            });
-                //    }
-                //})
-                //    .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetAuthenticatedMemberFailed, this));
-            });
-
-        let numberRefreshTimer = Observable.timer(this.SessionService.GlobalMockProperties.RefreshTimerRateStart, this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster);
-        numberRefreshTimer.subscribe(t => {
-            this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID)
-                .then(numberSystem => {
-                    this.NumberSystemService.GetCurrentNumbers(numberSystem)
-                        .then(numbers => this.Numbers = numbers)
-                        .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetCurrentNumbersFailed, this));
-                })
-                .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game.NumberSystemID.toString()));
+        // 1) Load all four closing values in parallel:
+        forkJoin({
+            lastDate: from(this.NumberSystemService.GetLastClosingDateUTC(this.SessionService.Session?.CurrentNumberSystem!)),
+            lastNums: from(this.NumberSystemService.GetLastClosingNumbers(this.SessionService.Session?.CurrentNumberSystem!)),
+            nextDate: from(this.NumberSystemService.GetNextClosingDateUTC(this.SessionService.Session?.CurrentNumberSystem!)),
+            drawDate: from(this.NumberSystemService.GetDrawClosingDateUTC(this.SessionService.Session?.CurrentNumberSystem!))
+        }).subscribe({
+            next: ({ lastDate, lastNums, nextDate, drawDate }) => {
+                this.LastClosingDateUTC = lastDate;
+                this.LastClosingNumbers = lastNums;
+                this.NextClosingDateUTC = nextDate;
+                this.DrawClosingDateUTC = drawDate;
+            },
+            error: err => {throw new Error(err)}
         });
 
-        let countDownEndTimer = Observable.timer(this.SessionService.GlobalMockProperties.RefreshTimerRateStart, this.SessionService.GlobalMockProperties.CountDownEndTimerRateAdjuster);
-        countDownEndTimer.subscribe(t => {
-            this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID)
-                .then(numberSystem => {
-                    //this.Game.NumberSystem = numberSystem;
-                    this.NumberSystemService.GetRemainingTime(numberSystem)
-                        .then(remaingTime => {
-                            this.RemainingHours = remaingTime.getHours();
-                            this.RemainingMinutes = remaingTime.getMinutes();
-                            this.RemainingSeconds = remaingTime.getSeconds();
-                        })
-                        .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetRemainingTimeFailed, this));
-                })
-                .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game.NumberSystemID.toString()));
+        // 2) On route change, load game → number system → setup draws
+        this.Route.paramMap.pipe(
+            switchMap((params: ParamMap) =>
+                from(this.GameService.GetGame(params.get('gameID')!))
+            ),
+            tap((game: GameModel) => {
+                this.Game = game;
+                this.PickedNumbers = this.SessionService.Session?.CurrentPickedNumbers!;
+            }),
+            switchMap((game: GameModel) =>
+                from(this.NumberSystemService.GetNumberSystem(game.NumberSystemID!)).pipe(
+                    tap(ns => {
+                        this.Game.NumberSystem = ns;
+                        this.DrawDaysOptions = this.NumberSystemService.GetDrawDayOptions(ns);
+                        this.OnUpdateDraws();
+                    })
+                )
+            )
+        ).subscribe({
+            error: err => { throw new Error(err) }
+        });
+
+        // 3) Periodically refresh CurrentNumbers
+        timer(
+            this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
+            this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster
+        ).pipe(
+            switchMap(() =>
+                from(this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID!))
+            ),
+            switchMap(ns =>
+                from(this.NumberSystemService.GetCurrentNumbers(ns))
+            )
+        ).subscribe({
+            next: nums => this.Numbers = nums,
+            error: err => { throw new Error(err) }
+        });
+
+        // 4) Periodically refresh remaining time countdown
+        timer(
+            this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
+            this.SessionService.GlobalMockProperties.CountDownEndTimerRateAdjuster
+        ).pipe(
+            switchMap(() =>
+                from(this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID!))
+            ),
+            switchMap(ns =>
+                from(this.NumberSystemService.GetRemainingTime(ns))
+            )
+        ).subscribe({
+            next: rt => {
+                this.RemainingHours = rt.getHours();
+                this.RemainingMinutes = rt.getMinutes();
+                this.RemainingSeconds = rt.getSeconds();
+            },
+            error: err => { throw new Error(err) }
         });
     }
 
-    public ngDoCheck(): void {
+    public override ngDoCheck(): void {
         super.ngDoCheck();
         this.CurrentTime = new Date();
     }
     
     public OnDataStateChange(dataStateChangeEvent: DataStateChangeEvent) {
-        this.State = $.extend({}, this.State, dataStateChangeEvent);
+        this.State = {
+            ...this.State,
+            ...dataStateChangeEvent
+          };
     }
 
     public OnSelectDrawOptions(event: any): void {
@@ -195,24 +201,22 @@ export default class BuyTicketsPage extends SuperPage implements OnInit, DoCheck
 
     protected OnUpdateDraws(): void {
         this.AuthenticationService.GetAuthenticatedMember()
-            .then(member => {
-                //debugger;                                
+            .then(member => {                
                 this.TicketOrders = [];
                 this.GameService.GeTicketOrders(this.Game, new Date(), this.PickedNumbers, this.DrawDaysOptions, this.SelectedWeek)
-                    .then(ticketOrders => {
-                        //debugger;
+                    .then(ticketOrders => {                        
                         this.TicketOrders = ticketOrders;
-                        this.TotalPrice = new CurrencyAmountModel(this.Game.Price.Amount, this.Game.Price.Currency);
-                        this.TotalPrice.Amount = this.Game.Price.Amount * ticketOrders.length;
+                        this.TotalPrice = new CurrencyAmountModel(this.Game.Price!.Amount, this.Game.Price!.Currency);
+                        this.TotalPrice.Amount = this.Game.Price!.Amount * ticketOrders.length;
 
 
                         this.AuthenticationService.GetAuthenticatedMember().then(member => {
                             if (member) {
-                                this.FundingService.IsThereEnoughFunding(member, this.TotalPrice)
+                                this.FundingService.IsThereEnoughFunding(member, this.TotalPrice!)
                                     .then(fundingCheckBalanceResult => {
                                         this.HasEnoughFunds = fundingCheckBalanceResult.HasEnoughFunding;
-                                        this.Balance = fundingCheckBalanceResult.Balance;
-                                        this.RequiredAmount = fundingCheckBalanceResult.RequiredAmount;
+                                        this.Balance = fundingCheckBalanceResult.Balance!;
+                                        this.RequiredAmount = fundingCheckBalanceResult.RequiredAmount!;
                                     })
                                     .catch(reason => {
                                         this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorIsThereEnoughFundingFailed, this);
@@ -230,10 +234,9 @@ export default class BuyTicketsPage extends SuperPage implements OnInit, DoCheck
 
     public OnBuyTickets(): void {
         this.AuthenticationService.GetAuthenticatedMember()
-            .then(member => {
-                //debugger;                                
-                _.forEach(this.TicketOrders, ticketOrder => {
-                    this.TicketService.BuyTicket(member, ticketOrder.Game, ticketOrder.GameDraw.Draw, ticketOrder.GameDraw, this.PickedNumbers)
+            .then(member => {            
+                this.TicketOrders.forEach(ticketOrder => {
+                    this.TicketService.BuyTicket(member!, ticketOrder.Game!, ticketOrder.GameDraw!.Draw, ticketOrder.GameDraw!, this.PickedNumbers)
                         .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.Error, this));
                 });
                 this.Router.navigate(['/tickets']);

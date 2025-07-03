@@ -1,0 +1,31 @@
+﻿@use "variables" as *;
+
+// Small and down (≤ 767.98px)
+@include media-breakpoint-down(sm) {
+  .pk-inputform {
+    label {
+      cursor: pointer;
+      width: 100% !important;
+
+      input,
+      select,
+      textarea {
+        width: 100% !important;
+      }
+    }
+
+    label:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Large and up (≥ 992px)
+@include media-breakpoint-up(lg) {
+
+  input,
+  select {
+    padding: 1.5rem 2rem;
+    letter-spacing: 0.2rem;
+  }
+}

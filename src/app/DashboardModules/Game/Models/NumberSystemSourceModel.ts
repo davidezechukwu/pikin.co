@@ -1,8 +1,8 @@
-﻿import SuperModel from '../../../CommonModules/SuperModules/Models/SuperModel';
-import NumberSystemModel from './NumberSystemModel';
-import SourceModel from './SourceModel';
+﻿import { SuperModel }  from '../../../CommonModules/SuperModules/Models/SuperModel';
+import { NumberSystemModel } from './NumberSystemModel';
+import { SourceModel } from './SourceModel';
 
-export default class NumberSystemSourceModel extends SuperModel {
+export class NumberSystemSourceModel extends SuperModel {
     constructor(
         public NumberSystemID: number | string,
         public SourceID: number | string
@@ -11,6 +11,6 @@ export default class NumberSystemSourceModel extends SuperModel {
     }
 
     //Navigation Properties
-    public NumberSystem: NumberSystemModel;
-    public Source: SourceModel;
+    public NumberSystem: NumberSystemModel = new NumberSystemModel();
+    public Source: SourceModel = new SourceModel();
 }

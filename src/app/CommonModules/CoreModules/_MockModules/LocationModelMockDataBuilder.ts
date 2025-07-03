@@ -1,9 +1,9 @@
-﻿import * as _ from 'lodash';
-import LocationModel from '../Models/LocationModel';
+﻿
+import { LocationModel } from '../Models/LocationModel';
 import { LocationTypesMock } from './LocationTypeModelMockDataBuilder';
-import SuperModelMockDataBuilder from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { SuperModelMockDataBuilder } from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
 
-export default class LocationModelMockDataBuilder extends SuperModelMockDataBuilder {    
+export class LocationModelMockDataBuilder extends SuperModelMockDataBuilder {    
     BuildMock(): LocationModel[] {
         var locationsMock: LocationModel[] = [];
         locationsMock = locationsMock.concat(this.BuildNigerianLocationsMock(), this.BuildOtherCountriesMock());
@@ -11,19 +11,18 @@ export default class LocationModelMockDataBuilder extends SuperModelMockDataBuil
     }
 
     BuildNigerianLocationsMock(): LocationModel[] {
-        var other = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "Other".toLowerCase() });
-        var villageOrCityOrTown = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "VillageOrCityOrTown".toLowerCase() });
-        var stateOrRegionOrCountyOrProvince = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "StateOrRegionOrCountyOrProvince".toLowerCase() });
-        var country = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "Country".toLowerCase() });
-        var globalRegion = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "GlobalRegion".toLowerCase() });
+        var other = LocationTypesMock.find(function (locationType : any) { return locationType.Name.toLowerCase() == "Other".toLowerCase() });
+        var villageOrCityOrTown = LocationTypesMock.find(function (locationType: any) { return locationType.Name.toLowerCase() == "VillageOrCityOrTown".toLowerCase() });
+        var stateOrRegionOrCountyOrProvince = LocationTypesMock.find( function (locationType: any) { return locationType.Name.toLowerCase() == "StateOrRegionOrCountyOrProvince".toLowerCase() });
+        var country = LocationTypesMock.find(function (locationType: any) { return locationType.Name.toLowerCase() == "Country".toLowerCase() });
+        var globalRegion = LocationTypesMock.find(function (locationType: any) { return locationType.Name.toLowerCase() == "GlobalRegion".toLowerCase() });
 
         let africa = new LocationModel()
         africa.ID = this.GetNextID();
         africa.Name = "Africa";
         africa.DisplayName = "Africa";
-        africa.Description = "Africa";
-        africa.ParentID = null;
-        africa.LocationType = globalRegion;
+        africa.Description = "Africa";        
+        africa.LocationType = globalRegion!;
 
         let westAfrica = new LocationModel()
         westAfrica.ID = this.GetNextID();
@@ -31,7 +30,7 @@ export default class LocationModelMockDataBuilder extends SuperModelMockDataBuil
         westAfrica.DisplayName = "West Africa";
         westAfrica.Description = "West Africa";
         westAfrica.ParentID = africa.ID;
-        westAfrica.LocationType = globalRegion;
+        westAfrica.LocationType = globalRegion!;
 
         let nigeria = new LocationModel()
         nigeria.ID = this.GetNextID();
@@ -40,7 +39,7 @@ export default class LocationModelMockDataBuilder extends SuperModelMockDataBuil
         nigeria.DisplayName = "Nigeria";
         nigeria.Description = "Nigeria";
         nigeria.ParentID = westAfrica.ID;
-        nigeria.LocationType = country;
+        nigeria.LocationType = country!;
 
         var nigerianLocationsMock = [
             africa,
@@ -301,17 +300,16 @@ export default class LocationModelMockDataBuilder extends SuperModelMockDataBuil
             { name: 'Zimbabwe', code: 'ZW' }
         ];
 
-        var countryLocationType = _.find(LocationTypesMock, function (locationType) { return locationType.Name.toLowerCase() == "Country".toLowerCase() });
+        var countryLocationType = LocationTypesMock.find(function (locationType: any) { return locationType.Name.toLowerCase() == "Country".toLowerCase() });
         let locations: LocationModel[] = [];
-        _.forEach(rawCountryList, function (country) {
+        rawCountryList.forEach(function (country: any) {
             let location: LocationModel = new LocationModel();
             location.ID = me.GetNextID();
             location.ISO2Code = country.code;
             location.Name = country.name;
             location.DisplayName = country.name;
-            location.Description = country.name;
-            location.ParentID = null;
-            location.LocationType = countryLocationType;
+            location.Description = country.name;            
+            location.LocationType = countryLocationType!;
             locations.push(location);
         });
         return locations;

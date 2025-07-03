@@ -1,6 +1,6 @@
-﻿import CurrencyModel from './CurrencyModel';
+﻿import { CurrencyModel } from './CurrencyModel';
 
-export default class CurrencyAmountModel {        
+export class CurrencyAmountModel {        
     constructor(public Amount: number, public Currency: CurrencyModel) {        
     }
 }

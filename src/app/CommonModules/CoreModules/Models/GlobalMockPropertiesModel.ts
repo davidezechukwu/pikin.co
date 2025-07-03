@@ -1,4 +1,4 @@
-﻿export default class GlobalMockPropertiesModel {
+﻿export class GlobalMockPropertiesModel {
     public FundingDailyAmountAdjuster: number = 3;
     public FundingAdjuster: number = 10;
     public RefreshTimerRateStart: number = 3000;     

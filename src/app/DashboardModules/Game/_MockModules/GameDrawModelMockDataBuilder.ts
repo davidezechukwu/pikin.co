@@ -1,15 +1,9 @@
-﻿import * as _ from 'lodash';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-import { CurrenciesMock } from '../../../CommonModules/CoreModules/_MockModules/CurrencyModelMockDataBuilder';
-import CurrencyModel from '../../../CommonModules/CoreModules/Models/CurrencyModel';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import GameModel from '../Models/GameModel';
-import GameDrawModel from '../Models/GameDrawModel';
-import NumberSystemModel from '../Models/NumberSystemModel';
+﻿import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { GameModel } from '../Models/GameModel';
+import { GameDrawModel } from '../Models/GameDrawModel';
+import { NumberSystemModel } from '../Models/NumberSystemModel';
 import { DrawStatusEnum } from '../Models/DrawStatusEnum';
 import { GameDrawStatusEnum } from '../Models/GameDrawStatusEnum';
-import { NumberSystemsMock } from './NumberSystemModelMockDataBuilder';
-import { NumberSystemService } from '../Services/NumberSystemService.ng';
 import { DrawsMock } from '../_MockModules/DrawModelMockDataBuilder';
 
 export enum DayStatusEnum {
@@ -22,19 +16,17 @@ export enum DayStatusEnum {
     Saturday
 }
 
-export default class GameDrawModelMockDataBuilder extends SuperModelMockDataBuilder {
+export class GameDrawModelMockDataBuilder extends SuperModelMockDataBuilder {
     constructor() {
         super();
     }
 
-    public BuildGameDrawMocks(games: GameModel[], numberSystem: NumberSystemModel): GameDrawModel[] {
-        //debugger;
+    public BuildGameDrawMocks(games: GameModel[], numberSystem: NumberSystemModel): GameDrawModel[] {        
         if (GameDrawsMock.length != 0) {
             return GameDrawsMock;
         }
-        _.forEach(games, game => {
-            _.forEach(DrawsMock, draw => {
-                //debugger;
+        games.forEach(game => {
+            DrawsMock.forEach(draw => {                
                 var gameDraw: GameDrawModel = new GameDrawModel();
                 gameDraw.ID = this.GetNextID();
                 gameDraw.CreatedOnUTC = new Date();

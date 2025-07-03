@@ -1,5 +1,5 @@
 ﻿import { trigger, transition, animate, state, style, keyframes } from '@angular/animations';
-import GlobalPropertiesModel from '../../CoreModules/Models/GlobalPropertiesModel'
+import { GlobalPropertiesModel } from '../../CoreModules/Models/GlobalPropertiesModel'
 
 var globalProperties = new GlobalPropertiesModel();
 export const PageFlyInOutAnimation = [

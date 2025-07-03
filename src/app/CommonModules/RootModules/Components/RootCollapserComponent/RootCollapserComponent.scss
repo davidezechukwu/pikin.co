@@ -1,4 +1,4 @@
-﻿@import '../../../../../scss/styles.scss';
+﻿@use '../../../../../assets/scss/variables' as *;
 
 @include media-breakpoint-down(md) {
   .pk-collapser,
@@ -40,9 +40,9 @@
       font-weight: bold;
       line-height: 3rem;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: transform .25s linear;
+      -moz-osx-font-smoothing: grayscale;      
       -webkit-transition: -webkit-transform .25s linear;
+      transition: transform .25s linear;
     }
 
     a:after {

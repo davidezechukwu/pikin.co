@@ -1,10 +1,8 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
-import CurrencyAmountModel from '../Models/CurrencyAmountModel';
-import CurrencyModel from '../Models/CurrencyModel';
-import CurrencyExchangeRateModel from '../Models/CurrencyExchangeRateModel';
-import {SessionService}   from './SessionService.ng';
-import {LocalisationService}   from './LocalisationService.ng';
+import { CurrencyAmountModel } from '../Models/CurrencyAmountModel';
+import { CurrencyModel } from '../Models/CurrencyModel';
+import { SessionService }   from './SessionService.ng';
+import { LocalisationService }   from './LocalisationService.ng';
 
 @Injectable()
 export class GlobalisationService {
@@ -19,8 +17,8 @@ export class GlobalisationService {
 
     public FormatDate(date: Date): string {
         var ret: string = '';
-        if (this.SessionService.Session.ShowDateAsUTC) {
-            if (this.SessionService.Session.ShowFullDates) {
+        if (this.SessionService.Session?.ShowDateAsUTC) {
+            if (this.SessionService.Session?.ShowFullDates) {
                 ret = date.toUTCString();
             }
             else{
@@ -28,11 +26,11 @@ export class GlobalisationService {
                 ret = date.toLocaleString();
             }
         } else {
-            if (this.SessionService.Session.ShowFullDates) {
+            if (this.SessionService.Session?.ShowFullDates) {
                 ret = date.toString();
             }
             else {                
-                ret = date.toLocaleString([this.SessionService.Session.CurrentLanguage.ISO639_1Code]);
+                ret = date.toLocaleString([this.SessionService.Session!.CurrentLanguage!.ISO639_1Code]);
             }
         }
         return this.TidyUpDate( ret );
@@ -40,7 +38,7 @@ export class GlobalisationService {
 
     public FormatLongDate(date: Date): string {
         var ret: string = '';
-        if (this.SessionService.Session.ShowDateAsUTC) {
+        if (this.SessionService.Session?.ShowDateAsUTC) {
             ret = date.toUTCString();
         } else {
             ret = date.toString();
@@ -71,24 +69,27 @@ export class GlobalisationService {
             return fromAmount;
         }
 
-        var fromCurrencyUSDexchangeRate = _.find(this.SessionService.CurrencyExchangeRates, currencyExchangeRate => {
+        var fromCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find((currencyExchangeRate : any) => {
             return (currencyExchangeRate.FromCurrency.ID == fromAmount.Currency.ID &&
                 currencyExchangeRate.ToCurrency.Name == "USD");
         });
 
-        var convertedUSDAmount: number = fromAmount.Amount / fromCurrencyUSDexchangeRate.ToRate;
+        var convertedUSDAmount: number = fromAmount.Amount / fromCurrencyUSDexchangeRate!.ToRate;
         if (toCurrency.Name != "USD") {
-            var toCurrencyUSDexchangeRate = _.find(this.SessionService.CurrencyExchangeRates, currencyExchangeRate => {
+            var toCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find(( currencyExchangeRate : any) => {
                 return (currencyExchangeRate.FromCurrency.ID == toCurrency.ID &&
                     currencyExchangeRate.ToCurrency.Name == "USD");
             });
-            convertedUSDAmount = convertedUSDAmount * toCurrencyUSDexchangeRate.ToRate;
+            convertedUSDAmount = convertedUSDAmount * toCurrencyUSDexchangeRate!.ToRate;
         }
         return new CurrencyAmountModel(convertedUSDAmount, toCurrency);
     }
 
-    public ToSessionCurrency(froCurrencyAmountModel: CurrencyAmountModel): CurrencyAmountModel {
-        return this.SwitchAmountToOtherCurrency(froCurrencyAmountModel, this.SessionService.Session.CurrentCurrency);
+    public ToSessionCurrency(froCurrencyAmountModel: CurrencyAmountModel | undefined | null): CurrencyAmountModel {
+        if ( froCurrencyAmountModel == null || froCurrencyAmountModel == undefined) {
+            return new CurrencyAmountModel(0, this.SessionService.Session?.CurrentCurrency!);
+        }
+        return this.SwitchAmountToOtherCurrency(froCurrencyAmountModel, this.SessionService.Session?.CurrentCurrency!);
     }
 
     

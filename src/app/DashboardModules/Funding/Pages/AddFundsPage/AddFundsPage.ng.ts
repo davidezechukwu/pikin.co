@@ -1,26 +1,31 @@
 ﻿import { Component, Injector,OnInit  } from '@angular/core';
-import SuperPage from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { SuperPage } from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
 import {PaymentService}   from '../../Services/PaymentService.ng';
 import { PaymentMethodModel } from '../../Models/PaymentMethodModel';
-
+import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'AddFundsPage',
     templateUrl: './AddFundsPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    styleUrls: [],
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, CommonModule   ]
 })
-export default class AddFundsPage extends SuperPage implements OnInit {
+export class AddFundsPage extends SuperPage implements OnInit {
     protected PaymentMethods: PaymentMethodModel[] = [];
-    protected SelectedPaymentMethod: PaymentMethodModel;
+    protected SelectedPaymentMethod: PaymentMethodModel = new PaymentMethodModel();
     constructor(
-        protected Injector: Injector,
+        injector: Injector,
         protected PaymentService: PaymentService
     ) {
-        super(Injector);
+        super(injector);
     }
 
-    public ngOnInit(): void {        
+    public override ngOnInit(): void {        
         super.ngOnInit();
         var me = this;
         this.PaymentService.GetPaymentMethods()

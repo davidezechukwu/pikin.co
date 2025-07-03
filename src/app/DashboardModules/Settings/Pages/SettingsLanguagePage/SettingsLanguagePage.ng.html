@@ -4,10 +4,10 @@
   <section class="pk-main-section collapse show" id="CollapsableSection">
     <article>      
       <h3>{{Localise(LocalisationService.CaptionConstants.DefaultLanguage)}}</h3>
-      <select name="LanguagesSelect" [(ngModel)]="SessionService.Session.CurrentLanguage">
+      <select name="LanguagesSelect" [(ngModel)]="SessionService.Session!.CurrentLanguage" title="languages">
         <option *ngFor="let l of SessionService.Languages" [ngValue]="l">{{l.DisplayName}}</option>
       </select>            
     </article>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

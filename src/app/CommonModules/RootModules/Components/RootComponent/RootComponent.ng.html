@@ -1,4 +1,4 @@
-﻿<div dir="{{SessionService.Session.CurrentLanguage.IsRTL? 'rtl' : 'ltr' }}">
+﻿<div dir="{{SessionService.Session?.CurrentLanguage?.IsRTL? 'rtl' : 'ltr' }}">
   <div class="container" *ngIf="IsInitialised">
     <RootTopMenuComponent></RootTopMenuComponent>
     <div class="pk-page">

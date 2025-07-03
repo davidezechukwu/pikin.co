@@ -1,33 +1,47 @@
-﻿import { Component, Injector, OnInit } from '@angular/core';
+﻿
+import { SuperPage } from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { PageAnimations } from '../../../CommonModules/CoreModules/Animations/PageAnimations';
-import { Observable } from 'rxjs/Rx';
-import { ActivatedRouteParams } from '../../../CommonModules/SuperModules/Components/SuperComponent/SuperComponent.ng';
-import * as _ from 'lodash';
-import 'rxjs/add/operator/switchMap';
-import SuperPage from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { TicketService } from '../../Services/TicketService.ng';
 import { TicketModel } from '../../Models/TicketModel';
-
+import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'TicketDetailsPage',
-    templateUrl: './TicketDetailsPage.ng.html',
-    animations: PageAnimations
+    selector: 'app-ticket-details-page',
+    templateUrl: 'TicketDetailsPage.ng.html',
+    styleUrls: [],
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, CommonModule]
 })
-export default class TicketDetailsPage extends SuperPage implements OnInit {
-    protected Ticket: TicketModel;
-    constructor(        
-        protected Injector: Injector,
-        protected TicketService: TicketService
-    ) {        
-        super(Injector);        
-    }  
+export class TicketDetailsPageComponent
+    extends SuperPage
+    implements OnInit {
+    protected Ticket!: TicketModel;
 
-    public ngOnInit(): void {        
+    constructor(
+        injector: Injector,
+        protected TicketService: TicketService,
+        private ActivatedRoute: ActivatedRoute
+    ) {
+        super(injector);
+    }
+
+    override  ngOnInit(): void {
         super.ngOnInit();
 
-        this.ActivatedRouteService.paramMap
-            .switchMap((params: ActivatedRouteParams) => this.TicketService.GetTicket(params.get('id')))
-            .subscribe((ticket: TicketModel) =>  this.Ticket = ticket);        
-    }    
+        this.ActivatedRoute.paramMap
+            .pipe(
+                switchMap((params: ParamMap) =>
+                    this.TicketService.getTicket(params.get('id')!)
+                )
+            )
+            .subscribe((t: any) => {
+                this.Ticket = t;
+            });
+    }
 }

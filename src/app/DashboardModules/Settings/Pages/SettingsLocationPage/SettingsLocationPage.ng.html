@@ -4,10 +4,10 @@
   <section class="pk-main-section collapse show" id="CollapsableSection">
     <article>
       <h3>{{Localise(LocalisationService.CaptionConstants.DefaultLocation)}}</h3>
-      <select name="CountriesSelect" [(ngModel)]="SessionService.Session.CurrentLocation">
+      <select name="CountriesSelect" [(ngModel)]="SessionService.Session!.CurrentLocation" title="countries">
         <option *ngFor="let c of SessionService.Countries" [ngValue]="c">{{Localise(c.DisplayName)}}</option>
       </select>
     </article>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

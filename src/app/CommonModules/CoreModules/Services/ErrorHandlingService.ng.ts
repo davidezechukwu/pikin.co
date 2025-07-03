@@ -14,11 +14,10 @@ export class ErrorHandlingService {
         this.NotificationService = this.Injector.get(NotificationService);
     };
 
-    HandleError(reason: string, displayErrorMessage: string, component?: SuperComponent,  ...formatData: string[]): void {
-        debugger
+    HandleError(reason: string, displayErrorMessage: string, component?: SuperComponent,  ...formatData: string[]): void {        
         console.log(reason);
         if (component) {
-            displayErrorMessage = this.LocalisationService.GetCaptionNow(component.constructor.name, null, displayErrorMessage);
+            displayErrorMessage = this.LocalisationService.GetCaptionNow(component.constructor.name, '',  displayErrorMessage);
             component.ErrorMessage = displayErrorMessage;
         }
         for (var c = 0; c < formatData.length; c++) {

@@ -4,12 +4,12 @@
   <section class="pk-main-section collapse show" id="CollapsableSection">
     <article>            
       <p>
-        <label><input type="checkbox" [(ngModel)]="SessionService.Session.ShowFullDates"/>{{Localise(LocalisationService.CaptionConstants.ShowFullDates)}}</label>
+        <label><input type="checkbox" [(ngModel)]="SessionService.Session!.ShowFullDates!"/>{{Localise(LocalisationService.CaptionConstants.ShowFullDates)}}</label>
       </p>
       <p>
-        <label><input type="checkbox" [(ngModel)]="SessionService.Session.ShowDateAsUTC"/>{{Localise(LocalisationService.CaptionConstants.ShowTimeInUTC)}}</label>
+        <label><input type="checkbox" [(ngModel)]="SessionService.Session!.ShowDateAsUTC!"/>{{Localise(LocalisationService.CaptionConstants.ShowTimeInUTC)}}</label>
       </p>      
     </article>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

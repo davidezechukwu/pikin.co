@@ -2,9 +2,10 @@
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
-	name: 'safe'
+	name: 'safe',
+	standalone: true 
 })
-export default class SafePipe {
+export class SafePipe {
 
 	constructor(protected _sanitizer: DomSanitizer) {
 

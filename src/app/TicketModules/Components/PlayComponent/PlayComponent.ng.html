@@ -1,11 +1,11 @@
 ﻿<article class="pk-component PlayComponent">
   <div *ngIf="Game">
-    <h2 class="pk-game-name">{{Localise(Game.DisplayName)}}. <span [innerHTML]="Localise(LocalisationService.CaptionConstants.EachPlayCosts, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Game.Price))) | safe"></span></h2>
+    <h2 class="pk-game-name">{{Localise(Game.DisplayName)}}. <span [innerHTML]="Localise(LocalisationService.CaptionConstants.EachPlayCosts, '', GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Game.Price))) | safe"></span></h2>
     <form #PickerForm="ngForm">
       <table class="pk-pickers pk-container" *ngIf="NumbersAsArray && NumbersAsArray.length>=1">
         <tr>
           <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
-            <input type="number" [(ngModel)]="PicksAsArray[9]" name="pickReversed10" class="pk-form  pk-form10" [disabled]="!IsPickSelected[9]" [readonly]="!IsPickSelected[9]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[9]" name="pickReversed10" class="pk-form  pk-form10" [disabled]="!IsPickSelected[9]" [readonly]="!IsPickSelected[9]" size="1" min="0" max="9" title="pick"/>
           </td>
           <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[9]}">
@@ -27,7 +27,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
-            <input type="number" [(ngModel)]="PicksAsArray[8]" name="pickReversed9" class="pk-form  pk-form9" [disabled]="!IsPickSelected[8]" [readonly]="!IsPickSelected[8]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[8]" name="pickReversed9" class="pk-form  pk-form9" [disabled]="!IsPickSelected[8]" [readonly]="!IsPickSelected[8]" size="1" min="0" max="9" title="p"/>
           </td>
           <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[8]}">
@@ -49,7 +49,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
-            <input type="number" [(ngModel)]="PicksAsArray[7]" name="pickReversed8" class="pk-form  pk-form8" [disabled]="!IsPickSelected[7]" [readonly]="!IsPickSelected[7]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[7]" name="pickReversed8" class="pk-form  pk-form8" [disabled]="!IsPickSelected[7]" [readonly]="!IsPickSelected[7]" size="1" min="0" max="9" title="p"/>
           </td>
           <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[7]}">
@@ -71,7 +71,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
-            <input type="number" [(ngModel)]="PicksAsArray[6]" name="pickReversed7" class="pk-form  pk-form7" [disabled]="!IsPickSelected[6]" [readonly]="!IsPickSelected[6]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[6]" name="pickReversed7" class="pk-form  pk-form7" [disabled]="!IsPickSelected[6]" [readonly]="!IsPickSelected[6]" size="1" min="0" max="9" title="p"/>
           </td>
           <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[6]}">
@@ -93,7 +93,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
-            <input type="number" [(ngModel)]="PicksAsArray[5]" name="pickReversed6" class="pk-form  pk-form6" [disabled]="!IsPickSelected[5]" [readonly]="!IsPickSelected[5]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[5]" name="pickReversed6" class="pk-form  pk-form6" [disabled]="!IsPickSelected[5]" [readonly]="!IsPickSelected[5]" size="1" min="0" max="9" title="p" />
           </td>
           <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[5]}">
@@ -115,7 +115,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
-            <input type="number" [(ngModel)]="PicksAsArray[4]" name="pickReversed5" class="pk-form  pk-form5" [disabled]="!IsPickSelected[4]" [readonly]="!IsPickSelected[4]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[4]" name="pickReversed5" class="pk-form  pk-form5" [disabled]="!IsPickSelected[4]" [readonly]="!IsPickSelected[4]" size="1" min="0" max="9"  title="p" />
           </td>
           <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[4]}">
@@ -137,7 +137,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
-            <input type="number" [(ngModel)]="PicksAsArray[3]" name="pickReversed4" class="pk-form  pk-form4" [disabled]="!IsPickSelected[3]" [readonly]="!IsPickSelected[3]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[3]" name="pickReversed4" class="pk-form  pk-form4" [disabled]="!IsPickSelected[3]" [readonly]="!IsPickSelected[3]" size="1" min="0" max="9"  title="p" />
           </td>
           <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[3]}">
@@ -159,7 +159,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
-            <input type="number" [(ngModel)]="PicksAsArray[2]" name="pickReversed3" class="pk-form  pk-form3" [disabled]="!IsPickSelected[2]" [readonly]="!IsPickSelected[2]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[2]" name="pickReversed3" class="pk-form  pk-form3" [disabled]="!IsPickSelected[2]" [readonly]="!IsPickSelected[2]" size="1" min="0" max="9" title="p" />
           </td>
           <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[2]}">
@@ -181,7 +181,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
-            <input type="number" [(ngModel)]="PicksAsArray[1]" name="pickReversed2" class="pk-form  pk-form2" [disabled]="!IsPickSelected[1]" [readonly]="!IsPickSelected[1]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[1]" name="pickReversed2" class="pk-form  pk-form2" [disabled]="!IsPickSelected[1]" [readonly]="!IsPickSelected[1]" size="1" min="0" max="9"  title="pick"/>
           </td>
           <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[1]}">
@@ -203,7 +203,7 @@
             </table>
           </td>
           <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
-            <input type="number" [(ngModel)]="PicksAsArray[0]" name="pickReversed1" class="pk-form  pk-form1" [disabled]="!IsPickSelected[0]" [readonly]="!IsPickSelected[0]" size="1" min="0" max="9" />
+            <input type="number" [(ngModel)]="PicksAsArray[0]" name="pickReversed1" class="pk-form  pk-form1" [disabled]="!IsPickSelected[0]" [readonly]="!IsPickSelected[0]" size="1" min="0" max="9" title="picker" />
           </td>
           <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
             <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[0]}">
@@ -226,18 +226,18 @@
           </td>
         </tr>
       </table>
-      <input (click)="OnBuyTicket()"  type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayOnce, null)}}" class="pk-play-button pk-button" />
-      <input (click)="OnSelectDraws()" type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayMultipleTimes, null)}}"  class="pk-play-button pk-button" />
+      <input (click)="OnBuyTicket()"  type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayOnce)}}" class="pk-play-button pk-button" />
+      <input (click)="OnSelectDraws()" type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayMultipleTimes)}}"  class="pk-play-button pk-button" />
     </form>
     <GamePrizeListComponent [Game]="Game"></GamePrizeListComponent>
     <TotalPayoutComponent></TotalPayoutComponent>
 
-    <h4 class="pk-last-closing-numbers-display">{{Localise(LocalisationService.CaptionConstants.LastClosingValue, null)}} </h4>
+    <h4 class="pk-last-closing-numbers-display">{{Localise(LocalisationService.CaptionConstants.LastClosingValue, '')}} </h4>
     <table class="pk-last-closing-numbers pk-numbers">
       <tr *ngIf="LastClosingNumbersAsArray && LastClosingNumbersAsArray.length>=1">
         <ng-template ngFor let-number [ngForOf]="LastClosingNumbersAsArray" let-i="index">
           <td class="pk-number pk-number{{i}}">
-            <span class="pk-display  pk-display{{i}}">{{LastClosingNumbersAsArray[i]}} </span>
+            <span class="pk-display  pk-display{{i}}">{{LastClosingNumbersAsArray && LastClosingNumbersAsArray[i]}} </span>
           </td>
           <td class="pk-container pk-container{{i}}">
             <table class="pk-level1">
@@ -282,8 +282,8 @@
       </tr>
     </table>
 
-    <h4 *ngIf="NextClosingDateUTC" [innerHTML]="Localise(LocalisationService.CaptionConstants.ResultsWouldBeAnnounchedOn, null, GlobalisationService.FormatDate(NextClosingDateUTC)) | safe"></h4>
-    <h4 *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, null, RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h4>    
+    <h4 *ngIf="NextClosingDateUTC" [innerHTML]="Localise(LocalisationService.CaptionConstants.ResultsWouldBeAnnounchedOn, '', GlobalisationService.FormatDate(NextClosingDateUTC)) | safe"></h4>
+    <h4 *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, '', RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h4>    
   </div>
 </article>
 

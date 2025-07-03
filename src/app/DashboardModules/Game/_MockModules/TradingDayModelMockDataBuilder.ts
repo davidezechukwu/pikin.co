@@ -1,34 +1,25 @@
-﻿import * as _ from 'lodash';
-import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-import { CurrenciesMock } from '../../../CommonModules/CoreModules/_MockModules/CurrencyModelMockDataBuilder';
-import CurrencyModel from '../../../CommonModules/CoreModules/Models/CurrencyModel';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import { NumberSystemsMock } from './NumberSystemModelMockDataBuilder';
-import {NumberSystemService}  from '../Services/NumberSystemService.ng';
-import DrawModel from '../Models/DrawModel';
-import { DrawStatusEnum } from '../Models/DrawStatusEnum';
-import NumberSystemModel from '../Models/NumberSystemModel';
+﻿
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
 import { TradingDayEnum } from '../Models/TradingDayEnum';
-import SourceModel from '../Models/SourceModel';
-import TradingDayModel from '../Models/TradingDayModel';
+import { SourceModel } from '../Models/SourceModel';
+import { TradingDayModel } from '../Models/TradingDayModel';
 import { TradingDayStatusEnum } from '../Models/TradingDayStatusEnum';
 
 
-export default class TradingDayModelMockDataBuilder extends SuperModelMockDataBuilder {
+export class TradingDayModelMockDataBuilder extends SuperModelMockDataBuilder {
     constructor() {
         super();
     }
 
-    public BuildTradingDaysMocks(sources: SourceModel[]): TradingDayModel[] {
-        //debugger;                
-        _.forEach(sources, source => {            
+    public BuildTradingDaysMocks(sources: SourceModel[]): TradingDayModel[] {        
+        sources.forEach((source: any) => {            
             let past = new Date(new Date().setDate(-30));
             //let future = new Date(new Date().setDate(30));            
             var days = 30
 
             for (let day = 0; day < days; day++) {
                 let isATradingDay = false;
-                let drawTime: Date = null;
+                let drawTime: Date = new Date(past.getFullYear(), past.getMonth(), past.getDate(), 0, 0, 0); 
                 let tradingDate = past;                
                 tradingDate = new Date(tradingDate.setDate(tradingDate.getDate() + 1));
 

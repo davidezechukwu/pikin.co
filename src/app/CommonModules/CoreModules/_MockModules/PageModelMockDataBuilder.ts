@@ -1,8 +1,8 @@
-﻿import SuperPageModel from '../../SuperModules/Models/SuperPageModel'
-import SuperModelMockDataBuilder from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
+﻿import { SuperPageModel } from '../../SuperModules/Models/SuperPageModel'
+import { SuperModelMockDataBuilder } from '../../SuperModules/_MockModules/SuperModelMockDataBuilder';
 
 
-export default class PageModelMockDataBuilder extends SuperModelMockDataBuilder{
+export class PageModelMockDataBuilder extends SuperModelMockDataBuilder{
     BuildMocks(): SuperPageModel[] {        
 
         var pages: SuperPageModel[] = [];

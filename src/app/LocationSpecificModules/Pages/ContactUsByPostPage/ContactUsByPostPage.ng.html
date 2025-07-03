@@ -1,7 +1,7 @@
 ﻿<nav>
   <h1 class='pk-h1 pk-breadcrumb'>
-    <a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}">{{SessionService.Session.CurrentLocation.Name}}</a>
-    | <a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{LocalisationService.CaptionConstants.LocationSpecificContactUs}}</a>
+    <a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}">{{SessionService.Session?.CurrentLocation?.Name}}</a>
+    | <a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/contactus">{{LocalisationService.CaptionConstants.LocationSpecificContactUs}}</a>
     | <span [@LabelFlyInOutAnimation]>{{PageTitle}}</span>
   </h1>
 </nav>
@@ -15,4 +15,4 @@
     </div>    
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

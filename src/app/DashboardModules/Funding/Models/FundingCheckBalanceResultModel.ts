@@ -1,8 +1,10 @@
-﻿import CurrencyAmountModel from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+﻿import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { CurrencyModel } from '../../../CommonModules/CoreModules/Models/CurrencyModel';
 
-export default class FundingCheckBalanceResultModel {    
-    public HasEnoughFunding: boolean;
-    public Balance: CurrencyAmountModel;    
-    public RequiredAmount: CurrencyAmountModel;    
+export class FundingCheckBalanceResultModel {    
+    public HasEnoughFunding: boolean = false ;
+    public Balance: CurrencyAmountModel | null | undefined;
+    public Message: string = '';    
+    public RequiredAmount: CurrencyAmountModel | null | undefined;
 }
 

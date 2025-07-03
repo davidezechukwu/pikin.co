@@ -1,19 +1,17 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
-import { Observable } from 'rxjs/Rx';
-import { TimerObservable } from "rxjs/observable/TimerObservable";
-import NumberSystemModel from '../Models/NumberSystemModel';
-import DrawModel from '../Models/DrawModel';
-import DrawDaysOptions from '../Models/DrawDaysOptions';
-import SourceModel from '../Models/SourceModel';
-import NumberSystemSourceModel from '../Models/NumberSystemSourceModel';
-import LocationModel from '../../../CommonModules/CoreModules/Models/LocationModel';
+import { timer } from "rxjs";
+import { NumberSystemModel } from '../Models/NumberSystemModel';
+import { DrawModel } from '../Models/DrawModel';
+import { DrawDaysOptions } from '../Models/DrawDaysOptions';
+import { SourceModel } from '../Models/SourceModel';
+import { NumberSystemSourceModel } from '../Models/NumberSystemSourceModel';
+import { LocationModel } from '../../../CommonModules/CoreModules/Models/LocationModel';
 import { NumberSystemsMock } from '../_MockModules/NumberSystemModelMockDataBuilder';
 import { SourcesMock } from '../_MockModules/SourceModelMockDataBuilder';
 import { NumberSystemSourcesMock } from '../_MockModules/NumberSystemSourceModelMockDataBuilder';
-import {SuperService}   from '../../../CommonModules/SuperModules/Services/SuperService.ng';
+import { SuperService }   from '../../../CommonModules/SuperModules/Services/SuperService.ng';
 import { TradingDaysMock } from '../_MockModules/TradingDayModelMockDataBuilder';
-import TradingDayModel from '../Models/TradingDayModel';
+import { TradingDayModel } from '../Models/TradingDayModel';
 import { TradingDayStatusEnum } from '../Models/TradingDayStatusEnum';
 import { DrawsMock } from '../_MockModules/DrawModelMockDataBuilder';
 
@@ -21,32 +19,32 @@ import { DrawsMock } from '../_MockModules/DrawModelMockDataBuilder';
 export class NumberSystemService extends SuperService {
     protected NumberSystems: NumberSystemModel[] = NumberSystemsMock;
 
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
 
     };
 
     public InitMockEnvironment() {
         var me = this;
-        this.GetNumberSystem(this.SessionService.Session.CurrentNumberSystem.ID)
+        this.GetNumberSystem(this.SessionService.Session!.CurrentNumberSystem!.ID)
             .then(numberSystem => {
                 let numberSystemDigitsSourceCount = numberSystem.Sources.length;
-                let numbersRefreshTimer = Observable.timer(
+                let numbersRefreshTimer = timer(
                     this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
                     this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster / numberSystemDigitsSourceCount
-                );
-                numbersRefreshTimer.subscribe(t => {
-                    this.GetSourcesForNumberSystem(me.SessionService.Session.CurrentNumberSystem.ID)
+                ); 
+                numbersRefreshTimer.subscribe((t:any) => {
+                    this.GetSourcesForNumberSystem(me.SessionService.Session!.CurrentNumberSystem!.ID)
                         .then(sources => {
                             for (let a = 0; a < sources.length; a++) {
                                 this.GetSource(sources[a].ID)
                                     .then(source => {
                                         let value = Math.round(Math.random() * me.SessionService.GlobalMockProperties.TradeVolumeAdjuster);
                                         if (Math.random() >= me.SessionService.GlobalMockProperties.MarketSentimentAdjuster) {
-                                            source.Numbers = (parseInt(source.Numbers) + value).toString();
+                                            source!.Numbers = (parseInt(source!.Numbers) + value).toString();
 
                                         } else {
-                                            source.Numbers = (parseInt(source.Numbers) - value).toString();
+                                            source!.Numbers = (parseInt(source!.Numbers) - value).toString();
                                         }
                                     });
                             }
@@ -84,8 +82,8 @@ export class NumberSystemService extends SuperService {
         else if (numberSystem.Sources.length > 1) {            
             for (let a = 0; a < numberSystem.Sources.length; a++) {
                 let sourceNumbers = sourcesNumbers === undefined ? numberSystem.Sources[a].Numbers : sourcesNumbers[a];                
-                sourceNumbers = _.reverse(sourceNumbers.split("")).join("");
-                numbers = _.reverse(sourceNumbers.substring(numberSystem.Sources[a].FromDigit, numberSystem.Sources[a].ToDigit).split("")).join("") + numbers;
+                sourceNumbers = sourceNumbers.split("").reverse().join("");
+                numbers = sourceNumbers.substring(numberSystem.Sources[a].FromDigit, numberSystem.Sources[a].ToDigit).split("").reverse().join("") + numbers;
             };
         }
         else {
@@ -116,27 +114,25 @@ export class NumberSystemService extends SuperService {
         return drawDaysOptions;
     }
 
-    public GetNumberSystem(numberSystemID: number | string): Promise<NumberSystemModel> {
-        //debugger;
+    public GetNumberSystem(numberSystemID: number | string): Promise<NumberSystemModel> {        
         var me = this;
         return new Promise<NumberSystemModel>((resolve, reject) => {
-            var numberSystem = _.find(NumberSystemsMock, numberSystem => { return numberSystem.ID == numberSystemID });
-            this.GetSourcesForNumberSystem(numberSystem.ID)
+            var numberSystem = NumberSystemsMock.find(numberSystem => { return numberSystem.ID == numberSystemID });
+            this.GetSourcesForNumberSystem(numberSystem!.ID)
                 .then(sources => {
-                    numberSystem.Sources = sources;
-                    resolve(numberSystem);
+                    numberSystem!.Sources = sources;
+                    resolve(numberSystem!);
                 })
                 .catch(reason => reject(reason));
         });
     }
     
-    public GetSourcesForNumberSystem(numberSystemID: number | string): Promise<SourceModel[]> {
-        //debugger;
+    public GetSourcesForNumberSystem(numberSystemID: number | string): Promise<SourceModel[]> {        
         var me = this;
         return new Promise<SourceModel[]>((resolve, reject) => {            
-            let numberSystemSources = _.filter(NumberSystemSourcesMock, numberSystemSource => { return numberSystemSource.NumberSystemID == numberSystemID; });
+            let numberSystemSources = NumberSystemSourcesMock.filter(numberSystemSource => { return numberSystemSource.NumberSystemID == numberSystemID; });
             let promises: Promise<any>[] = new Array<Promise<any>>();
-            _.forEach(numberSystemSources, numberSystemSource => {promises.push(this.GetSource(numberSystemSource.SourceID))});                                    
+            numberSystemSources.forEach(numberSystemSource => {promises.push(this.GetSource(numberSystemSource.SourceID))});                                    
             Promise.all(promises)
                 .then((results: any[]) => {                    
                     resolve(results);
@@ -145,12 +141,12 @@ export class NumberSystemService extends SuperService {
         });        
     }
 
-    public GetSource(sourceID: number | string): Promise<SourceModel> {
-        return Promise.resolve(_.find(SourcesMock, digitsSource => { return digitsSource.ID == sourceID}));
+    public GetSource(sourceID: number | string): Promise<SourceModel  | undefined> {
+        return Promise.resolve(SourcesMock.find(digitsSource => { return digitsSource.ID == sourceID}));
     }
     
-    public GetDraw(id: number | string): Promise<DrawModel> {
-        return Promise.resolve(_.find(DrawsMock, draw => { return draw.ID == id; }));
+    public GetDraw(id: number | string): Promise<DrawModel | undefined> {
+        return Promise.resolve(DrawsMock.find(( draw : any)=> { return draw.ID == id; }));
     }
     
     public GetLastClosingNumbers(numberSystem: NumberSystemModel): Promise<string> {
@@ -180,7 +176,7 @@ export class NumberSystemService extends SuperService {
             let sourceClosingValues: string[] = new Array<string>(numberSystem.Sources.length);
             for (let sourceCount = 0; sourceCount < numberSystem.Sources.length; sourceCount++) {
                 let source = numberSystem.Sources[sourceCount];
-                let tradingDay = _.find(TradingDaysMock, _tradingDay => {
+                let tradingDay = TradingDaysMock.find(_tradingDay => {
                     return (
                         _tradingDay.SourceID == source.ID &&
                         _tradingDay.CloseTimeUTC.getFullYear() == drawDate.getFullYear() &&
@@ -210,7 +206,7 @@ export class NumberSystemService extends SuperService {
                         drawedNumbers = this.ConstructNumber(numberSystem, sourceClosingValues);
                         resolve(drawedNumbers);
                     })
-                    .catch(reason => { this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetSourceFailed, null); reject(reason) });
+                    .catch(reason => { this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetSourceFailed, undefined); reject(reason) });
             }
         });
     }
@@ -219,7 +215,7 @@ export class NumberSystemService extends SuperService {
         var me = this;
         return new Promise<string>((resolve, reject) => {
             let numbers: string = "";
-            this.GetSourcesForNumberSystem(me.SessionService.Session.CurrentNumberSystem.ID)
+            this.GetSourcesForNumberSystem(me.SessionService.Session!.CurrentNumberSystem!.ID)
                 .then(sources => {
                     let promises: Promise<any>[] = new Array<Promise<any>>();
                     for (let a = 0; a < sources.length; a++) {
@@ -229,7 +225,7 @@ export class NumberSystemService extends SuperService {
                                 numbers = this.ConstructNumber(numberSystem);
                                 resolve(numbers);
                             })
-                            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetSourceFailed, null));
+                            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetSourceFailed, undefined));
                     }
                 })
         });

@@ -1,18 +1,22 @@
 ﻿import { Component, Injector } from '@angular/core';
 import { SuperComponent } from '../../../../CommonModules/SuperModules/Components/SuperComponent/SuperComponent.ng';
-import FormsAuthenticationResetPasswordModel from '../../Models/FormsAuthenticationResetPasswordModel';
+import { FormsAuthenticationResetPasswordModel } from '../../Models/FormsAuthenticationResetPasswordModel';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({    
     selector: 'FormsAuthenticationResetPasswordComponent',
     templateUrl: "./FormsAuthenticationResetPasswordComponent.ng.html",
-    styleUrls: ["./FormsAuthenticationResetPasswordComponent.scss"]
+    styleUrls: ["./FormsAuthenticationResetPasswordComponent.scss"],
+    imports: [ RouterModule, FormsModule,CommonModule]
 })
 
-export default class FormsAuthenticationResetPasswordComponent extends SuperComponent {
+export class FormsAuthenticationResetPasswordComponent extends SuperComponent {
     FormsAuthenticationResetPasswordModel: FormsAuthenticationResetPasswordModel;
 
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
         this.FormsAuthenticationResetPasswordModel = new FormsAuthenticationResetPasswordModel();
     };
 

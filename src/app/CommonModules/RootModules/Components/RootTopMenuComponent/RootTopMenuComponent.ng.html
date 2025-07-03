@@ -2,7 +2,7 @@
   <span routerLinkActive="pk-active">
     <a class="navbar-brand" routerLink="/home"><span style="text-transform:none !important">piKinco</span></a>
   </span>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#TopMenuComponentNavigation" aria-controls="TopMenuComponentNavigation" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#TopMenuComponentNavigation"  aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="TopMenuComponentNavigation"  >
@@ -27,18 +27,6 @@
     <ul class="nav navbar-nav navbar-right">
       <li>
         <table class="pk-dashboard-summary">
-          <!--<tr>
-            <td>
-              <table>
-                <tr>
-                  <td class="pk-current-time">
-                    {{GlobalisationService.FormatDate(CurrentTime)}}
-                  </td>
-                  <td></td>
-                </tr>
-              </table>
-            </td>
-          </tr>-->
           <tr>
             <ng-container *ngIf="!AuthenticationService.IsAuthenticated">
               <td IsNotAuthenticated class="pk-welcome pk-welcome-guest"><span>{{Localise(this.LocalisationService.CaptionConstants.Welcome)}}</span></td>
@@ -69,15 +57,15 @@
               <table>
                 <tr>
                   <td>
-                    <select name="LanguagesSelect" [(ngModel)]="SessionService.Session.CurrentLanguage" class="pk-languages">
+                    <select name="LanguagesSelect" [(ngModel)]="SessionService.Session!.CurrentLanguage" class="pk-languages" title="languages">
                       <option *ngFor="let l of SessionService.Languages" [ngValue]="l">{{l.DisplayName}}</option>
                     </select>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <select name="CurrenciesSelect" [(ngModel)]="SessionService.Session.CurrentCurrency" class="pk-currencies">
-                      <option *ngFor="let c of SessionService.Currencies" [ngValue]="c">{{Localise(c.DisplayName)}}</option>
+                    <select name="CurrenciesSelect" [(ngModel)]="SessionService.Session!.CurrentCurrency" title="currencies">
+                      <option *ngFor="let c of SessionService.Currencies" [ngValue]="c">{{Localise(c.DisplayName)}}</option>                                             
                     </select>
                   </td>
                 </tr>
@@ -86,11 +74,6 @@
           </tr>
         </table>
       </li>
-    </ul>
-
-    <!--<form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>-->
+    </ul>    
   </div>
 </nav>

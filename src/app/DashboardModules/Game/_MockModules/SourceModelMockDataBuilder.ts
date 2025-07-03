@@ -1,10 +1,9 @@
-﻿import * as _ from 'lodash';
-import SourceModel from '../Models/SourceModel';
+﻿import { SourceModel } from '../Models/SourceModel';
 import { LocationsMock } from '../../../CommonModules/CoreModules/_MockModules/LocationModelMockDataBuilder';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import TradingDayModelMockDataBuilder from './TradingDayModelMockDataBuilder';
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { TradingDayModelMockDataBuilder } from './TradingDayModelMockDataBuilder';
 
-export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilder {    
+export class SourceModelMockDataBuilder extends SuperModelMockDataBuilder {    
     BuildMockData(): SourceModel[] {        
         var PK100 = new SourceModel();
         PK100.ID = this.GetNextID();
@@ -18,7 +17,7 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK100.ToDigit = 4;
         PK100.Numbers = "88806789";
         PK100.NumberOfDigits = 7;
-        PK100.CountryOfOrigin = _.find(LocationsMock, location => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "NG".toLowerCase() });
+        PK100.CountryOfOrigin = LocationsMock.find(location => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "NG".toLowerCase() })!;
         PK100.IsAvailableOnMonday = true;
         PK100.IsAvailableOnTuesday = true;
         PK100.IsAvailableOnWednesday = true;
@@ -36,10 +35,10 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK100.ThursdayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
         PK100.FridayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
         PK100.FridayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
-        PK100.SaturdayStartTimeUTC = null;
-        PK100.SaturdayEndTimeUTC = null;
-        PK100.SundayStartTimeUTC = null;
-        PK100.SundayEndTimeUTC = null;
+        PK100.SaturdayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
+        PK100.SaturdayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
+        PK100.SundayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
+        PK100.SundayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
 
         var PK250 = new SourceModel();
         PK250.ID = this.GetNextID();
@@ -53,7 +52,7 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK250.ToDigit = 3;
         PK250.Numbers = "2220345";
         PK250.NumberOfDigits = 6;
-        PK250.CountryOfOrigin = _.find(LocationsMock, location => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "GB".toLowerCase() });
+        PK250.CountryOfOrigin = LocationsMock.find((location: any) => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "GB".toLowerCase() })!;
         PK250.IsAvailableOnMonday = true;
         PK250.IsAvailableOnTuesday = true;
         PK250.IsAvailableOnWednesday = true;
@@ -71,10 +70,10 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK250.ThursdayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
         PK250.FridayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
         PK250.FridayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
-        PK250.SaturdayStartTimeUTC = null;
-        PK250.SaturdayEndTimeUTC = null;
-        PK250.SundayStartTimeUTC = null;
-        PK250.SundayEndTimeUTC = null;        
+        PK250.SaturdayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
+        PK250.SaturdayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
+        PK250.SundayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
+        PK250.SundayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
 
         var PK500 = new SourceModel();
         PK500.ID = this.GetNextID();
@@ -88,7 +87,7 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK500.ToDigit = 3;
         PK500.Numbers = "330012";
         PK500.NumberOfDigits = 7;
-        PK500.CountryOfOrigin = _.find(LocationsMock, location => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "GB".toLowerCase() });
+        PK500.CountryOfOrigin = LocationsMock.find(location => { return location.ISO2Code != null &&  location.ISO2Code.toLowerCase() == "GB".toLowerCase() })!;
         PK500.IsAvailableOnMonday = true;
         PK500.IsAvailableOnTuesday = true;
         PK500.IsAvailableOnWednesday = true;
@@ -106,10 +105,10 @@ export default class SourceModelMockDataBuilder extends SuperModelMockDataBuilde
         PK500.ThursdayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
         PK500.FridayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
         PK500.FridayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
-        PK500.SaturdayStartTimeUTC = null;
-        PK500.SaturdayEndTimeUTC = null;
-        PK500.SundayStartTimeUTC = null;
-        PK500.SundayEndTimeUTC = null;    
+        PK500.SaturdayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
+        PK500.SaturdayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
+        PK500.SundayStartTimeUTC = new Date(0, 0, 0, 8, 0, 0);
+        PK500.SundayEndTimeUTC = new Date(0, 0, 0, 16, 30, 0);
 
         SourcesMock = [
             PK100,

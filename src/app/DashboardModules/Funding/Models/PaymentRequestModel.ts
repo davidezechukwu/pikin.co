@@ -1,8 +1,5 @@
-﻿//import SuperModel from '../../../CommonModules/SuperModules/Models/SuperModel';
-//import MemberModel from './MemberModel';
-import PaymentAddressModel from './PaymentAddressModel';
-
-export default class PaymentRequestModel /*extends SuperModel*/ {
+﻿
+export  class PaymentRequestModel /*extends SuperModel*/ {
     //public readonly Details: any;
     //public readonly PaymentMethodName: string;
     //public readonly PayerEmail: string | null;

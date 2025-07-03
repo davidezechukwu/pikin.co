@@ -1,6 +1,6 @@
-﻿import SuperModel from '../../SuperModules/Models/SuperModel';
+﻿import { SuperModel } from '../../SuperModules/Models/SuperModel';
 
-export default class LocationTypeModel extends SuperModel {
+export class LocationTypeModel extends SuperModel {
     /*
     Names could be
     1 Other

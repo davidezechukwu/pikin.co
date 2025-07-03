@@ -1,17 +1,20 @@
 ﻿import { Component, Injector } from '@angular/core';
-import SuperPage from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { SuperPage }from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
 
 @Component({
     selector: 'CloseAccountPage',
     templateUrl: './CloseAccountPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent]
 })
-export default class CloseAccountPage extends SuperPage {
+export class CloseAccountPage extends SuperPage {
     constructor(
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
     }
 
 }

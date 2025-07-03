@@ -1,10 +1,10 @@
-﻿import SuperModel from '../../SuperModules/Models/SuperModel';
-import CurrencyModel from './CurrencyModel';
+﻿import { SuperModel } from '../../SuperModules/Models/SuperModel';
+import { CurrencyModel } from './CurrencyModel';
 
-export default class CurrencyExchangeRateModel extends SuperModel {
-    public FromCurrency: CurrencyModel
-    public ToCurrency: CurrencyModel
-    public ToRate: number;
-    public FromRate: number;
-    public LastUpdatedOnUTC: Date;
+export class CurrencyExchangeRateModel extends SuperModel {
+    public FromCurrency: CurrencyModel | null | undefined;
+    public ToCurrency: CurrencyModel | null | undefined;
+    public ToRate: number = 0;
+    public FromRate: number = 0;
+    public LastUpdatedOnUTC: Date | null | undefined;
 }

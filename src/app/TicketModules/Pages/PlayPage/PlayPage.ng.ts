@@ -1,18 +1,26 @@
 ﻿import { Component, Input, Injector } from '@angular/core';
-import SuperPage from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import  { SuperPage }  from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../CommonModules/CoreModules/Animations/PageAnimations';
+import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { PlayComponent } from '../../Components/PlayComponent/PlayComponent.ng';
+import { FormsAuthenticationLoginComponent } from '../../../DashboardModules/Security/Components/FormsAuthenticationLoginComponent/FormsAuthenticationLoginComponent.ng';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'PlayPage',
     templateUrl: './PlayPage.ng.html',
     styleUrls: ['./PlayPage.scss'],
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, PlayComponent, FormsAuthenticationLoginComponent, CommonModule]  
 })
-export default class PlayPage extends SuperPage {
+export class PlayPage extends SuperPage {
     constructor(        
-        protected Injector: Injector
+        injector: Injector
     ) {
-        super(Injector);
+        super(injector);
         this.PageDoesNotRequiresAuthentication = true;
         this.PageIsForAuthentication = false;
     }  

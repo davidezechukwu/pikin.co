@@ -3,7 +3,7 @@ import {SuperService}   from '../../CommonModules/SuperModules/Services/SuperSer
 
 @Injectable()
 export class PlayService  extends SuperService {
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
     };
 }

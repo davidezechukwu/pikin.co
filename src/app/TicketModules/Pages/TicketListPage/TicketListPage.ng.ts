@@ -1,18 +1,24 @@
 ﻿import { Component, Injector, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { State } from '@progress/kendo-data-query';
-import { GridComponent, GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { TicketService } from '../../Services/TicketService.ng';
 import { TicketModel } from '../../Models/TicketModel';
 import { PageAnimations } from '../../../CommonModules/CoreModules/Animations/PageAnimations';
-import SuperPage from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { SuperPage } from '../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { SafePipe } from '../../../CommonModules/CoreModules/Pipes/SafePipe/SafePipe.ng';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'TicketListPage',
     templateUrl: './TicketListPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, GridModule, SafePipe, CommonModule]
 })
-export default class TicketListPage extends SuperPage implements OnInit {
+export class TicketListPage extends SuperPage implements OnInit {
     protected State: State = {
         skip: 0,
         take: 5,
@@ -39,28 +45,28 @@ export default class TicketListPage extends SuperPage implements OnInit {
         },
         scrollable: "none"
     };    
-    protected Tickets: TicketModel[];    
-    protected SelectedTicket: TicketModel;    
+    protected Tickets: TicketModel[] = [];    
+    protected SelectedTicket: TicketModel = new TicketModel();    
     constructor(        
-        protected Injector: Injector,
+        injector: Injector,
         protected TicketService: TicketService
     ) {
-        super(Injector);        
+        super(injector);        
     }  
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         var me = this;
         this.AuthenticationService.GetAuthenticatedMember()
-            .then(member => me.TicketService.GetTickets(member)                
-                .then(tickets => me.Tickets = tickets)
-                .catch(reason => me.ErrorHandlingService.HandleError(reason, me.LocalisationService.CaptionConstants.Error, me)))
-            .catch(reason => me.ErrorHandlingService.HandleError(reason, me.LocalisationService.CaptionConstants.ErrorGetGetAuthenticatedMemberFailed, me));
+            .then( (member: any) => me.TicketService.GetTickets(member)                
+                .then((tickets: any) => me.Tickets = tickets)
+                .catch((reason: any) => { throw new Error(reason )}))
+            .catch((reason: any) => { throw new Error(reason) });
         
     }
 
     public OnDataStateChange(dataStateChangeEvent: DataStateChangeEvent): void {
-        this.State = $.extend({}, this.State, dataStateChangeEvent);
+        this.State = {...this.State, ...dataStateChangeEvent};
     }
 
     public OnSelect(memberTicket : TicketModel): void {

@@ -1,10 +1,6 @@
-﻿import NumberSystemModel from '../Models/NumberSystemModel';
-import SourceModel from '../Models/SourceModel';
-import NumberSystemSourceModel from '../Models/NumberSystemSourceModel';
-import { SourcesMock } from '../_MockModules/SourceModelMockDataBuilder';
+﻿import { NumberSystemModel } from '../Models/NumberSystemModel';
 import { NumberSystemSourceModelMockDataBuilder } from '../_MockModules/NumberSystemSourceModelMockDataBuilder';
-import SuperModelMockDataBuilder from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
-import DrawModelMockDataBuilder from './DrawModelMockDataBuilder';
+import { SuperModelMockDataBuilder } from '../../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
 
 
 export class NumberSystemModelMockDataBuilder extends SuperModelMockDataBuilder{    
@@ -34,10 +30,10 @@ export class NumberSystemModelMockDataBuilder extends SuperModelMockDataBuilder{
         NumberSystem10.ThursdayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
         NumberSystem10.FridayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
         NumberSystem10.FridayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
-        NumberSystem10.SaturdayStartTimeUTC = null;
-        NumberSystem10.SaturdayEndTimeUTC = null;
-        NumberSystem10.SundayStartTimeUTC = null;
-        NumberSystem10.SundayEndTimeUTC = null;
+        NumberSystem10.SaturdayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
+        NumberSystem10.SaturdayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
+        NumberSystem10.SundayStartTimeUTC = new Date(0, 0, 0, 9, 0, 0);
+        NumberSystem10.SundayEndTimeUTC = new Date(0, 0, 0, 15, 0, 0);
 
         NumberSystemsMock = [
             NumberSystem10

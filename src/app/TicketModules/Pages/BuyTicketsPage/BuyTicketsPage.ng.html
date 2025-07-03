@@ -67,13 +67,6 @@
         <h2 class="pk-your-order">{{Localise(LocalisationService.CaptionConstants.YourOrder)}}</h2>
         <div *ngIf="TicketOrders && TicketOrders.length > 0 ">
           <kendo-grid [kendoGridBinding]="TicketOrders"                      
-                      [skip]="State.skip"                                            
-                      [filterable]="StateOptions.filterable"
-                      [pageSize]="StateOptions.pageSize"
-                      [pageable]="StateOptions.pageable"
-                      [scrollable]="StateOptions.scrollable"
-                      [sortable]="StateOptions.sortable"                      
-                      [sort]="State.sort"
                       (dataStateChange)="OnDataStateChange($event)"                      
                       class="pk-list">
             <kendo-grid-column field="ID" [hidden]="true" [filterable]="false"></kendo-grid-column>
@@ -118,22 +111,22 @@
                 {{Localise(dataItem.TicketOrderStatusDisplayName)}}
               </ng-template>
             </kendo-grid-column>
-            <kendo-grid-messages pagerItemsPerPage="{{Localise(LocalisationService.CaptionConstants.PagerItemsPerPage)}}"></kendo-grid-messages>
+            <!-- <kendo-grid-messages pagerItemsPerPage="{{Localise(LocalisationService.CaptionConstants.PagerItemsPerPage)}}"></kendo-grid-messages> -->
           </kendo-grid>
         </div>
         <div *ngIf="HasEnoughFunds">
-          <input *ngIf="TotalPrice" class="pk-buy-tickets-button" type="submit" value="{{Localise(LocalisationService.CaptionConstants.BuyTicketNow, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(TotalPrice)))}}" (click)="OnBuyTickets()" [disabled]="!HasEnoughFunds" />
+          <input *ngIf="TotalPrice" class="pk-buy-tickets-button" type="submit" value="{{Localise(LocalisationService.CaptionConstants.BuyTicketNow, '', GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(TotalPrice)))}}" (click)="OnBuyTickets()" [disabled]="!HasEnoughFunds" />
           <div class="pk-details pk-ticket-details pk-jumbotron">
-            <h2 *ngIf="LastClosingDateUTC && LastClosingNumbers" [innerHTML]="Localise(LocalisationService.CaptionConstants.LastClosingValueOn, null, GlobalisationService.FormatDate(LastClosingDateUTC), LastClosingNumbers) | safe"></h2>
-            <h2 *ngIf="CurrentTime && Numbers" [innerHTML]="Localise(LocalisationService.CaptionConstants.CurrentValueAsOf, null, GlobalisationService.FormatDate(CurrentTime), Numbers) | safe"></h2>
-            <h2 *ngIf="RemainingHours && RemainingMinutes && RemainingSeconds" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, null, RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h2>            
-            <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/rules">{{Localise(LocalisationService.CaptionConstants.GamePlayRules)}}</a></h2>
+            <h2 *ngIf="LastClosingDateUTC && LastClosingNumbers" [innerHTML]="Localise(LocalisationService.CaptionConstants.LastClosingValueOn, '', GlobalisationService.FormatDate(LastClosingDateUTC), LastClosingNumbers) | safe"></h2>
+            <h2 *ngIf="CurrentTime && Numbers" [innerHTML]="Localise(LocalisationService.CaptionConstants.CurrentValueAsOf, '', GlobalisationService.FormatDate(CurrentTime), Numbers) | safe"></h2>
+            <h2 *ngIf="RemainingHours && RemainingMinutes && RemainingSeconds" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, '', RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h2>            
+            <h2><a routerLink="/locations/{{SessionService.Session!.CurrentLocation?.ISO2Code}}/rules">{{Localise(LocalisationService.CaptionConstants.GamePlayRules)}}</a></h2>
           </div>
         </div>
         <div *ngIf="!HasEnoughFunds">
           <div class="pk-jumbotron">
-            <h2 class="pk-sentence" *ngIf="Balance"><a routerLink="/dashboard/funding/viewstatement">{{Localise(LocalisationService.CaptionConstants.YouHaveABalanceOf, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Balance)))}}</a></h2>
-            <h2 class="pk-sentence" *ngIf="RequiredAmount">{{Localise(LocalisationService.CaptionConstants.YouNeedToAddAtLeastToYourAccount, null, GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(RequiredAmount)))}}</h2>
+            <h2 class="pk-sentence" *ngIf="Balance"><a routerLink="/dashboard/funding/viewstatement">{{Localise(LocalisationService.CaptionConstants.YouHaveABalanceOf, '', GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Balance)))}}</a></h2>
+            <h2 class="pk-sentence" *ngIf="RequiredAmount">{{Localise(LocalisationService.CaptionConstants.YouNeedToAddAtLeastToYourAccount, '', GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(RequiredAmount)))}}</h2>
             <h2><a routerLink="/dashboard/funding/addfunds">{{Localise(LocalisationService.CaptionConstants.AddFunds)}}</a></h2>
             <h2><a routerLink="/play">{{Localise(LocalisationService.CaptionConstants.ChooseAnotherGame)}}</a></h2>            
           </div>
@@ -143,4 +136,4 @@
     </div>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

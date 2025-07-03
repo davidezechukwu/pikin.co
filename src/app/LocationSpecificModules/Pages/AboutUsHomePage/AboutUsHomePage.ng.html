@@ -1,18 +1,18 @@
-﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation]>{{SessionService.Session.CurrentLocation.Name}}</span></h1></nav>
+﻿<nav><h1 class='pk-h1 pk-breadcrumb'><span [@LabelFlyInOutAnimation]>{{SessionService.Session?.CurrentLocation?.Name}}</span></h1></nav>
 <main class='pk-main-content HomePage' [@PageFlyInOutAnimation]>
   <RootCollapserComponent></RootCollapserComponent>
   <section class="pk-main-section collapse show" id="CollapsableSection">
     <div class="pk-jumbotron">                              
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>            
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws">{{Localise(LocalisationService.CaptionConstants.LocationSpecificLaws)}}</a></h2>            
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws/privacy">{{Localise(LocalisationService.CaptionConstants.LocationSpecificPrivacy)}}</a></h2>                  
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws/dataprotection">{{Localise(LocalisationService.CaptionConstants.LocationSpecificDataProtection)}}</a></h2>
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws/licences">{{Localise(LocalisationService.CaptionConstants.LocationSpecificLicences)}}</a></h2>            
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/laws/accreditations">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAccreditations)}}</a></h2>                  
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>            
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/statistics">{{Localise(LocalisationService.CaptionConstants.LocationSpecificStatistics)}}</a></h2>            
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/contactus">{{Localise(LocalisationService.CaptionConstants.LocationSpecificContactUs)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws">{{Localise(LocalisationService.CaptionConstants.LocationSpecificLaws)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws/privacy">{{Localise(LocalisationService.CaptionConstants.LocationSpecificPrivacy)}}</a></h2>                  
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws/dataprotection">{{Localise(LocalisationService.CaptionConstants.LocationSpecificDataProtection)}}</a></h2>
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws/licences">{{Localise(LocalisationService.CaptionConstants.LocationSpecificLicences)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/laws/accreditations">{{Localise(LocalisationService.CaptionConstants.LocationSpecificAccreditations)}}</a></h2>                  
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/beresponsible">{{Localise(LocalisationService.CaptionConstants.LocationSpecificBeResponsible)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/statistics">{{Localise(LocalisationService.CaptionConstants.LocationSpecificStatistics)}}</a></h2>            
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>            
     </div>    
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

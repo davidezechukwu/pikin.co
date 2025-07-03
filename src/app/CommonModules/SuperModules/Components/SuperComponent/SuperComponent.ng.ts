@@ -1,7 +1,6 @@
-﻿import { Injector, Component, OnInit, AfterContentChecked, DoCheck } from '@angular/core';
+﻿import { Injector, Component, OnInit, AfterContentChecked, DoCheck,  Directive } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActivatedRoute, Params } from '@angular/router';
-import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../../DashboardModules/Security/Services/AuthenticationService.ng';
 import { MemberService } from '../../../../DashboardModules/Security/Services/MemberService.ng';
 import { GlobalisationService } from '../../../CoreModules/Services/GlobalisationService.ng';
@@ -9,10 +8,10 @@ import { LocalisationService } from '../../../CoreModules/Services/LocalisationS
 import { SessionService } from '../../../CoreModules/Services/SessionService.ng';
 import { ErrorHandlingService } from '../../../CoreModules/Services/ErrorHandlingService.ng';
 import { NotificationService } from '../../../CoreModules/Services/NotificationService.ng';
-import EntityCaptionsModel from '../../../CoreModules/Models/EntityCaptionsModel';
-import CaptionModel from '../../../CoreModules/Models/CaptionModel';
+import { EntityCaptionsModel } from '../../../CoreModules/Models/EntityCaptionsModel';
 
 
+@Directive()
 export class SuperComponent implements OnInit, AfterContentChecked, DoCheck {
     protected ActivatedRouteService: ActivatedRoute;
     protected AuthenticationService: AuthenticationService;
@@ -23,12 +22,12 @@ export class SuperComponent implements OnInit, AfterContentChecked, DoCheck {
     protected MemberService: MemberService;
     protected Router: Router;
     protected SessionService: SessionService;
-    protected EntityCaptions: EntityCaptionsModel = null;
-    public ErrorMessage: string;
-    protected BackgroundVideoUrl: string;
+    protected EntityCaptions?: EntityCaptionsModel;
+    public ErrorMessage?: string;
+
 
     public constructor(
-        protected Injector: Injector
+        public Injector: Injector
     ) {
         this.Router = this.Injector.get(Router);
         this.ActivatedRouteService = this.Injector.get(ActivatedRoute);
@@ -38,9 +37,7 @@ export class SuperComponent implements OnInit, AfterContentChecked, DoCheck {
         this.NotificationService = this.Injector.get(NotificationService);
         this.MemberService = this.Injector.get(MemberService);
         this.GlobalisationService = this.Injector.get(GlobalisationService);
-        this.LocalisationService = this.Injector.get(LocalisationService);
-
-        this.BackgroundVideoUrl = "/assets/videos/sample" + (new Date().getTime() % 33).toString() + ".mp4";
+        this.LocalisationService = this.Injector.get(LocalisationService);        
     }
     
     public ngOnInit(): void {
@@ -70,7 +67,11 @@ export class SuperComponent implements OnInit, AfterContentChecked, DoCheck {
     };
 
     public Localise(displayName: string, name?: string, ...formatData: string[]): string {
-        var phrase = this.LocalisationService.GetCaptionNow(this.constructor.name, name, displayName);
+        var entityName = this.constructor.name;
+        if ( entityName.startsWith("_")){
+            entityName = entityName.substring(1);
+        }
+        var phrase = this.LocalisationService.GetCaptionNow(entityName, name, displayName);
         for (var c = 0; c < formatData.length; c++) {
             phrase = phrase.replace("{" + c + "}", formatData[c]);
         }
@@ -78,4 +79,4 @@ export class SuperComponent implements OnInit, AfterContentChecked, DoCheck {
     }
 }
 
-export { Params as ActivatedRouteParams } from '@angular/router';
+export type { Params as ActivatedRouteParams } from '@angular/router';

@@ -1,29 +1,31 @@
 ﻿import { Component, Injector, OnInit } from '@angular/core';
-import SuperPage from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
+import {SuperPage} from '../../../../CommonModules/SuperModules/Pages/SuperPage/SuperPage.ng';
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
-import CurrencyAmountModel from '../../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
 import { FundingService } from '../../Services/FundingService.ng';
 import {PaymentService}   from '../../Services/PaymentService.ng';
 import { PaymentMethodModel } from '../../Models/PaymentMethodModel';
-
+import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
+import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'PaymentConfirmationPage',
     templateUrl: './PaymentConfirmationPage.ng.html',
-    animations: PageAnimations
+    animations: PageAnimations,
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule]   
 })
-export default class PaymentConfirmationPage extends SuperPage implements OnInit {
-    protected SelectedPaymentMethod: PaymentMethodModel;
-    protected FundingAmount: number
+export class PaymentConfirmationPage extends SuperPage implements OnInit {
+    protected SelectedPaymentMethod: PaymentMethodModel = new PaymentMethodModel();
+    protected FundingAmount: number = 0;
     constructor(
-        protected Injector: Injector,
+        injector: Injector,
         protected PaymentService: PaymentService,
         protected FundingService: FundingService
     ) {
-        super(Injector);
+        super(injector);
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 }

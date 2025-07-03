@@ -12,8 +12,8 @@
         {{Localise(LocalisationService.CaptionConstants.AboutpiKincoM5)}}        
       </h2>
       <br />      
-      <h2><a routerLink="/locations/{{SessionService.Session.CurrentLocation.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>     
+      <h2><a routerLink="/locations/{{SessionService.Session?.CurrentLocation?.ISO2Code}}/termsandconditions">{{Localise(LocalisationService.CaptionConstants.LocationSpecificTermsAndConditions)}}</a></h2>     
     </div>
   </section>
 </main>
-<RootBackgroundComponent [BackgroundVideoUrl]="BackgroundVideoUrl"></RootBackgroundComponent>
+<RootBackgroundComponent ></RootBackgroundComponent>

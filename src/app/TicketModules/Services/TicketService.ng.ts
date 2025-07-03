@@ -1,15 +1,13 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
 import { TicketModel, TicketStatusEnum } from '../Models/TicketModel';
-import PrizeModel from '../Models/PrizeModel';
+import { PrizeModel } from '../Models/PrizeModel';
 import { PrizesMock } from '../_MockModules/PrizeModelMockDataBuilder'
-import MemberModel from '../../DashboardModules/Security/Models/MemberModel';
-import GameModel from '../../DashboardModules/Game/Models/GameModel';
-import GameDrawModel from '../../DashboardModules/Game/Models/GameDrawModel';
-import { NumberSystemService } from '../../DashboardModules/Game/Services/NumberSystemService.ng';
-import DrawModel from '../../DashboardModules/Game/Models/DrawModel';
-import {SuperService}   from '../../CommonModules/SuperModules/Services/SuperService.ng';
-import CurrencyAmountModel from '../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { MemberModel } from '../../DashboardModules/Security/Models/MemberModel';
+import { GameModel } from '../../DashboardModules/Game/Models/GameModel';
+import { GameDrawModel } from '../../DashboardModules/Game/Models/GameDrawModel';
+import { DrawModel } from '../../DashboardModules/Game/Models/DrawModel';
+import { SuperService }   from '../../CommonModules/SuperModules/Services/SuperService.ng';
+import { CurrencyAmountModel } from '../../CommonModules/CoreModules/Models/CurrencyAmountModel';
 
 
 @Injectable()
@@ -17,12 +15,11 @@ export class TicketService extends SuperService{
     private TicketStore: TicketModel[] = [];
     private Prizes: PrizeModel[] = PrizesMock;    
 
-    constructor(protected Injector: Injector) {
-        super(Injector);
+    constructor(injector: Injector) {
+        super(injector);
     };
 
-    public BuyTicket(member: MemberModel, game: GameModel, draw: DrawModel,   gameDraw: GameDrawModel, numbers: string): Promise<TicketModel> {
-        //debugger;
+    public BuyTicket(member: MemberModel, game: GameModel, draw: DrawModel,   gameDraw: GameDrawModel, numbers: string): Promise<TicketModel> {        
         if (!member) {
             throw "Member is invalid in TicketService.BuyTicket";
         }
@@ -60,26 +57,28 @@ export class TicketService extends SuperService{
         member.Tickets.push(ticket);        
 
         //TODO: move to FundingService.
-        member.Funding.Balance.Amount = member.Funding.Balance.Amount - this.GlobalisationService.ToSessionCurrency(game.Price).Amount;
+        member.Funding.Balance!.Amount = member.Funding.Balance!.Amount - this.GlobalisationService.ToSessionCurrency(game.Price).Amount;
         
         return Promise.resolve(ticket);
     }    
 
-    public GetTicket(id: number | string): Promise<TicketModel> {          
-        return Promise.resolve(this.TicketStore.find(ticket => { return ticket.ID == id }));        
-    }   
+    public getTicket(id: number | string): Promise<TicketModel | undefined> {
+        return Promise.resolve(
+            this.TicketStore.find(t => t.ID ===  id)
+        );
+      }
 
     public GetTickets(member: MemberModel, from?: number, to?:number): Promise<TicketModel[]> {
         return Promise.resolve(member.Tickets);
     }   
  
-    public GetPrize(id: any): Promise<PrizeModel> {
-        var prize = _.find(this.Prizes, function (prize) { return prize.ID == id });
+    public GetPrize(id: any): Promise<PrizeModel | undefined> {
+        var prize = this.Prizes.find(function (prize: any ) { return prize.ID == id });
         return Promise.resolve(prize);
     }
 
     public GetPrizes(game: GameModel): Promise<PrizeModel[]> {       
-          var prizes = _.filter(this.Prizes, function (prize) {
+        var prizes = this.Prizes.filter(function (prize: any) {
             return prize.Game.ID == game.ID
         });
         return Promise.resolve(prizes);
@@ -87,8 +86,8 @@ export class TicketService extends SuperService{
 
     public GetTotalPrizes(): Promise<CurrencyAmountModel> {                
         let _totalPrizes: number = 0;
-        let prizeCurrency = this.SessionService.Session.CurrentCurrency;              
-        let totalPrizes: CurrencyAmountModel = this.GlobalisationService.ToSessionCurrency(new CurrencyAmountModel(_totalPrizes, prizeCurrency));
+        let prizeCurrency = this.SessionService.Session?.CurrentCurrency;              
+        let totalPrizes: CurrencyAmountModel = this.GlobalisationService.ToSessionCurrency(new CurrencyAmountModel(_totalPrizes, prizeCurrency!));
         return Promise.resolve(totalPrizes);      
     }    
 

@@ -1,3 +1,3 @@
-﻿export default class FormsAuthenticationResetPasswordModel {
-    Username: string;     
+﻿export class FormsAuthenticationResetPasswordModel {
+    Username: string = "";     
 }

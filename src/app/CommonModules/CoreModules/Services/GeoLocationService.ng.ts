@@ -1,6 +1,5 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import * as _ from 'lodash';
-import * as $ from 'jquery';
+
 import { SessionService } from './SessionService.ng';
 
 @Injectable()
@@ -12,8 +11,8 @@ export class GeoLocationService {
         this.SessionService = this.Injector.get(SessionService);
     };
 
-    public GetCountryCode(date: Date): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+    public GetCountryCode(date: Date): Promise<string | null> {
+        return new Promise<string | null>((resolve, reject) => {
             resolve(null);
             reject(null);
         });

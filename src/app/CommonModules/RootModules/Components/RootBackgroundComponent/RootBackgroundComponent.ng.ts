@@ -1,19 +1,20 @@
 ﻿import { Component, Injector, Input } from '@angular/core';
 import { SuperComponent } from '../../../SuperModules/Components/SuperComponent/SuperComponent.ng';
-import MemberModel from '../../../../DashboardModules/Security/Models/MemberModel';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'RootBackgroundComponent',
     templateUrl: "./RootBackgroundComponent.ng.html",
-    styleUrls: ["./RootBackgroundComponent.scss"]
+    styleUrls: ["./RootBackgroundComponent.scss"],
+    imports: [CommonModule]
 })
-export default class RootBackgroundComponent extends SuperComponent {
-    @Input()
-    public BackgroundVideoUrl: string;
+export class RootBackgroundComponent extends SuperComponent {    
+    @Input() public BackgroundVideoUrl: string = "";
     constructor(
-        protected Injector: Injector,
+        injector: Injector,
     ) {
-        super(Injector);
+        super(injector);
+        this.BackgroundVideoUrl = "/assets/videos/sample" + (new Date().getTime() % 33).toString() + ".mp4";
     };
 }
 

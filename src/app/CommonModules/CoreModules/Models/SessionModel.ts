@@ -1,14 +1,14 @@
-﻿import SuperModel from '../../SuperModules/Models/SuperModel';
-import LocationModel from './LocationModel';
-import CurrencyModel from './CurrencyModel';
-import LanguageModel from './LanguageModel';
-import GameModel from '../../../DashboardModules/Game/Models/GameModel';
-import NumberSystemModel from '../../../DashboardModules/Game/Models/NumberSystemModel';
+﻿
+import { LocationModel } from './LocationModel';
+import { CurrencyModel } from './CurrencyModel';
+import { LanguageModel } from './LanguageModel';
+import { GameModel } from '../../../DashboardModules/Game/Models/GameModel';
+import { NumberSystemModel } from '../../../DashboardModules/Game/Models/NumberSystemModel';
 
-export default class SessionModel  {
-    private _CurrentNumberSystem: NumberSystemModel;
+export class SessionModel  {
+    private _CurrentNumberSystem: NumberSystemModel | null | undefined;
     public UseOncePage: string = "";
-    public get CurrentNumberSystem(): NumberSystemModel {
+    public get CurrentNumberSystem(): NumberSystemModel | null | undefined {
         return this._CurrentNumberSystem;
     }
     public set CurrentNumberSystem(numberSystem: NumberSystemModel) {
@@ -19,12 +19,12 @@ export default class SessionModel  {
 
     }
     public ShowFullDates: boolean=true;
-    public ShowDateAsUTC: boolean;
-    public CurrentCurrency: CurrencyModel;
-    public CurrentLanguage: LanguageModel;
-    public CurrentLocation: LocationModel;    
-    public CurrentGame: GameModel;
-    public CurrentPickedNumbers: string;       
-    public DisableAnimations: boolean;
-    public IsOnLowSpeedConnection: boolean;    
+    public ShowDateAsUTC: boolean = false;
+    public CurrentCurrency: CurrencyModel | null | undefined;
+    public CurrentLanguage: LanguageModel | null | undefined;
+    public CurrentLocation: LocationModel | null | undefined;
+    public CurrentGame: GameModel | null | undefined;
+    public CurrentPickedNumbers: string = "";       
+    public DisableAnimations: boolean = false;
+    public IsOnLowSpeedConnection: boolean  = false;    
 }
