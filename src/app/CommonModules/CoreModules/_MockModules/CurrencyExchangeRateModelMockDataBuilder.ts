@@ -8,7 +8,7 @@ export class CurrencyExchangeRateModelMockDataBuilder extends SuperModelMockData
     BuildCurrencyExchangeRatesMock(currencies: CurrencyModel[], injector: Injector): Promise<CurrencyExchangeRateModel[]> {        
         return new Promise<CurrencyExchangeRateModel[]>((resolve, reject) => {
             var http: HttpClient = injector.get(HttpClient);                        
-            const currencyApiAPPID: string = "cd5914bf506446b4bce35dea6f1bdef2";
+            const currencyApiAPPID: string = "YOUR KEY";
             var baseCurrencyApi: string = "https://openexchangerates.org/api/";
             var currencyApiMethod: string = "latest.json";
             var currencyApi: string = baseCurrencyApi + currencyApiMethod + "?app_id=" + currencyApiAPPID;
