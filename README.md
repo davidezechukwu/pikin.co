@@ -1,16 +1,8 @@
 Available at http://www.pikin.co
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20
+## Built with Migration to Angular v20 
 
-## Development server
+## This is an example of a modern React application written in TypeScript, demonstrating a clean, type-safe codebase and a mobile-first, fully responsive UI. It is architected for parallel development, with the UX showing how contract-driven JSON mocks could be used to allow multiple Database, API and UX teams to build features independently against a stable API schema. The UX service layer abstracts data access behind mock implementations, and are architected to allow for easy switch over to real HTTP calls as soon as back-end endpoints go live. It can also serve as an E2E Test Double Deployed on Ubuntu with Nginx, it leverages production-grade build optimizations—Brotli/Gzip compression, code splitting, lazy loading, and HTTP/2 serving. The folder structure and feature modules keep teams from colliding: each domain owns its components, models, services, and mocks in clearly defined boundaries.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
+### Run locally as you would run any Angular project using ng serve. 
