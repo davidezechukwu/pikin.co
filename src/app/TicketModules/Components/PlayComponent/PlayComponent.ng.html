@@ -294,49 +294,12 @@
             </form>
         </td>
       </tr>
-    </table>
-    
+    </table>    
     <GamePrizeListComponent [Game]="Game"></GamePrizeListComponent>
     <TotalPayoutComponent></TotalPayoutComponent>
-
-    <!-- <h4 class="pk-last-closing-numbers-display">{{Localise(LocalisationService.CaptionConstants.LastClosingValue, '')}} </h4>
-    <table class="pk-last-closing-numbers pk-numbers">
-      <tr *ngIf="LastClosingNumbersAsArray && LastClosingNumbersAsArray.length>=1">
-        <ng-template ngFor let-number [ngForOf]="LastClosingNumbersAsArray" let-i="index">
-          <td class="pk-number pk-number{{i}}">
-            <span class="pk-display  pk-display{{i}}">{{LastClosingNumbersAsArray && LastClosingNumbersAsArray[i]}} </span>
-          </td>
-          <td class="pk-container pk-container{{i}}">
-            <table class="pk-level1">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" style="visibility:hidden"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" style="visibility:hidden"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </ng-template>
-      </tr>
-    </table> -->
-
-    <!-- <h4 class="pk-current-display">{{AsOf}}</h4> -->
-    
-
-    <!-- <h4 *ngIf="NextClosingDateUTC" [innerHTML]="Localise(LocalisationService.CaptionConstants.ResultsWouldBeAnnounchedOn, '', GlobalisationService.FormatDate(NextClosingDateUTC)) | safe"></h4>
-    <h4 *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, '', RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h4>     -->
   </div>
-
   
   <ng-container *ngIf="Winner">
-    <!-- <div class="bubble-container">
-      <div id="bubble-celebration" class="bubble-container"></div>
-      <div class="winner-banner">🎉 Congratulations!!! You are a winner 🎉</div>
-    </div> -->
     <div class="bubble-container">
       <div id="bubble-celebration" class="bubble-layer"></div>
       <div class="winner-banner">🎉 Congratulations!!! You are a winner 🎉</div>

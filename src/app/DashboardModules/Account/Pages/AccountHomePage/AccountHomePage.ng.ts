@@ -3,12 +3,14 @@ import { SuperPage }from '../../../../CommonModules/SuperModules/Pages/SuperPage
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
 import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
 import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'AccountHomePage',
     templateUrl: './AccountHomePage.ng.html',
     animations: PageAnimations,
-    imports: [RootCollapserComponent, RootBackgroundComponent] 
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, CommonModule] 
 })
 export class AccountHomePage extends SuperPage {
     constructor(

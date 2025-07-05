@@ -16,7 +16,9 @@ import { GamesMock } from '../../../DashboardModules/Game/_MockModules/GameModel
 import { GlobalPropertiesModel } from '../Models/GlobalPropertiesModel';
 import { GlobalMockPropertiesModel } from '../Models/GlobalMockPropertiesModel';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class SessionService {
     protected _Session: SessionModel | null = null;
     public get Session(): SessionModel| null {

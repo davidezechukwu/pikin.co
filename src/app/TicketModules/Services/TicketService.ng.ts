@@ -9,12 +9,12 @@ import { DrawModel } from '../../DashboardModules/Game/Models/DrawModel';
 import { SuperService }   from '../../CommonModules/SuperModules/Services/SuperService.ng';
 import { CurrencyAmountModel } from '../../CommonModules/CoreModules/Models/CurrencyAmountModel';
 import { WinningPriceModel } from '../Models/WinningPriceModel';
-import { CurrencyModel } from '../../CommonModules/CoreModules/Models/CurrencyModel';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
-@Injectable()
+@Injectable({ 
+    providedIn: 'root'
+})
 export class TicketService extends SuperService{        
     private TicketStore: TicketModel[] = [];
     private Prizes: PrizeModel[] = PrizesMock;    
@@ -38,13 +38,6 @@ export class TicketService extends SuperService{
         if (!numbers) {
             throw "Picked Number is invalid in TicketService.BuyTicket";
         }
-        //ensure that numbers is with Game pickable range
-        //ensure that member has enough funds
-        //ensure that member is valid and authenticated
-        //ensure that draw is in future
-        //ensure that draw is within drawclosing date
-        //ensure that member can play game in location 
-        //ensure that member has not exceed daily play limit
 
         var ticket = new TicketModel();        
         ticket.ID = (member.Tickets.length + 1).toString();        
@@ -83,16 +76,22 @@ export class TicketService extends SuperService{
         return this.totalPrizes$.asObservable();
     }
     public UpdateTotalPrizes(newTotalPrizes: CurrencyAmountModel): void {
-        this.totalPrizes$.next(newTotalPrizes);
+        this.totalPrizes$.next({...newTotalPrizes});
     }
 
-    public AddWinner(winningPrize: CurrencyAmountModel) {        
-        (this.TotalPrizes as CurrencyAmountModel).Amount = (this.TotalPrizes as CurrencyAmountModel).Amount + winningPrize.Amount;
+    public AddWinner(winningPrize: CurrencyAmountModel) {                     
+        if (this.TotalPrizes!.Currency.ID != this.SessionService.Session?.CurrentCurrency?.ID) {
+            this.TotalPrizes = this.GlobalisationService.ToSessionCurrency(this.TotalPrizes);
+        } 
+        if (winningPrize!.Currency.ID != this.SessionService.Session?.CurrentCurrency?.ID) {
+            winningPrize = this.GlobalisationService.ToSessionCurrency(winningPrize);
+        } 
+
+        this.TotalPrizes!.Amount = this.TotalPrizes!.Amount + winningPrize.Amount;
+        this.UpdateTotalPrizes(this.TotalPrizes!);                
         ++this.WinningTicketsCount;
-        this.UpdateTotalPrizes( this.TotalPrizes!);
-        this.UpdateTotalWinningTickets(this.WinningTicketsCount!)
+        this.UpdateTotalWinningTickets(this.WinningTicketsCount);        
     }
-
 
     public GetWinningPrice(gameName: string, numberOfMatches: number): CurrencyAmountModel {        
         const key = `${gameName}Match${numberOfMatches}WinPrice` as keyof typeof WinningPriceModel;

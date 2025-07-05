@@ -22,7 +22,7 @@ import { LocalisationService } from './app/CommonModules/CoreModules/Services/Lo
 import { NotificationService } from './app/CommonModules/CoreModules/Services/NotificationService.ng';
 import { TicketService } from './app/TicketModules/Services/TicketService.ng';
 import { provideToastr } from 'ngx-toastr';
-import { SubscriptionsService } from './app/CommonModules/CoreModules/Services/SubscriptionsService .ng';
+
 
 enableProdMode();
 
@@ -47,8 +47,7 @@ bootstrapApplication(RootComponent, {
     GlobalisationService,
     LocalisationService,
     NotificationService,
-    TicketService,
-    SubscriptionsService
+    TicketService
   ]
 }).catch(err => console.error(err));
 

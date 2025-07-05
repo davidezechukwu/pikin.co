@@ -2,13 +2,14 @@
 
 export class CaptionConstantsModel extends SuperModel {    
     public AboutTheCurrentNumberSystem: string = "About the current Number System";
-    public AboutpiKinco: string = "About <span style='text-transform:none !important'>piKinco<span>";
-    public AboutpiKincoM1: string = "Angular";
-    public AboutpiKincoM2: string = "Typescript";    
-    public AboutpiKincoM3: string = "SCSS/CSS";
-    public AboutpiKincoM4: string = "Nginx";
-    public AboutpiKincoM5: string = "Ubuntu";
-    public AboutpiKincoM6: string = "Azure";
+    public AboutpiKinco: string = "About piKinco";
+    public AboutpiKincoM1: string = "This is an example of is a modern React application written in TypeScript, demonstrating a clean, type-safe codebase and a mobile-first, fully responsive UI.";
+    public AboutpiKincoM2: string = "It is architected for parallel development, with the UX showing how contract-driven JSON mocks could be used to allow multiple Database, API and UX teams to build features independently against a stable API schema.";
+    public AboutpiKincoM3: string = "The UX service layer abstracts data access behind mock implementations, and are architected to allow for easy switch over to real HTTP calls as soon as back-end endpoints go live. It can also serve as an E2E Test Double";
+    public AboutpiKincoM4: string = "Deployed on Ubuntu with Nginx, it leverages production-grade build optimizations—Brotli/Gzip compression, code splitting, lazy loading, and HTTP/2 serving.";
+    public AboutpiKincoM5: string = "The folder structure and feature modules keep teams from colliding: each domain owns its components, models, services, and mocks in clearly defined boundaries.";
+    public AboutpiKincoM6: string = "Quality and performance are baked in with TypeScript strict mode, ESLint/Prettier linting, unit tests with Jest, and CI-driven accessibility and performance audits.";
+
     
     public Account: string = "Account";
     public AccountHome: string = "Account Home";
@@ -31,7 +32,7 @@ export class CaptionConstantsModel extends SuperModel {
     public BuyTickets: string = "Buy Tickets";
     public BuyTicketNow: string = "Play for {0}";
 
-    public Caution: string = "Partially successfull upgrade to Angular 20";
+    public Caution: string = "This is an example of is a modern React application written in TypeScript, demonstrating a clean, type-safe codebase and a mobile-first, fully responsive UI. It is architected for parallel development, with the UX showing how contract-driven JSON mocks could be used to allow multiple Database, API and UX teams to build features independently against a stable API schema. The UX service layer abstracts data access behind mock implementations, and are architected to allow for easy switch over to real HTTP calls as soon as back-end endpoints go live. It can also serve as an E2E Test Double Deployed on Ubuntu with Nginx, it leverages production-grade build optimizations—Brotli/Gzip compression, code splitting, lazy loading, and HTTP/2 serving. The folder structure and feature modules keep teams from colliding: each domain owns its components, models, services, and mocks in clearly defined boundaries.";
     public ChangeNumberSystem: string = "Change the Number System";
     public ChangePassword: string = "Change your Password";
     public ChangePIN: string = "Change your PIN";
@@ -161,7 +162,7 @@ export class CaptionConstantsModel extends SuperModel {
     public Outcome: string = "Outcome";        
 
     public TotalPrizesPaidOutSoFarTo: string = "paid out so far to";
-    public PageIsUnderConstruction: string = "Angular 20"; 
+    public PageIsUnderConstruction: string = "This is an example of is a modern React application written in TypeScript, demonstrating a clean, type-safe codebase and a mobile-first, fully responsive UI. It is architected for parallel development, with the UX showing how contract-driven JSON mocks could be used to allow multiple Database, API and UX teams to build features independently against a stable API schema. The UX service layer abstracts data access behind mock implementations, and are architected to allow for easy switch over to real HTTP calls as soon as back-end endpoints go live. It can also serve as an E2E Test Double Deployed on Ubuntu with Nginx, it leverages production-grade build optimizations—Brotli/Gzip compression, code splitting, lazy loading, and HTTP/2 serving. The folder structure and feature modules keep teams from colliding: each domain owns its components, models, services, and mocks in clearly defined boundaries."; 
     public PageInConstructionMessage1: string = "Another Configuration Which can mirror 'Financial Fixed Odds' From 'SpreadEx'. SpreadEx, according to wiki, is Private :) with a £50M Turnover in 2016"; 
     public PageNotFound: string = "Page not found";
     public PagerItemsPerPage: string = "Items Per Page";

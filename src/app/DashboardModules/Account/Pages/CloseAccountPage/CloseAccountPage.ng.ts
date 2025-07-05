@@ -3,12 +3,14 @@ import { SuperPage }from '../../../../CommonModules/SuperModules/Pages/SuperPage
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
 import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
 import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'CloseAccountPage',
     templateUrl: './CloseAccountPage.ng.html',
     animations: PageAnimations,
-    imports: [RootCollapserComponent, RootBackgroundComponent]
+    imports: [RootCollapserComponent, RootBackgroundComponent, FormsModule, RouterModule]
 })
 export class CloseAccountPage extends SuperPage {
     constructor(
