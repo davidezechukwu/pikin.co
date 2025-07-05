@@ -6,11 +6,18 @@
 <main class='pk-main-content'  [@PageFlyInOutAnimation]>    
     <RootCollapserComponent></RootCollapserComponent>
     <section class="pk-main-section collapse show"  id="CollapsableSection">
+      <article>
+        <h3>{{Localise(LocalisationService.CaptionConstants.AdjustPlaySpeed)}}</h3>
+        <table>
+          <tr>
+            <td><h2 style="display: inline;">{{Localise(LocalisationService.CaptionConstants.AdjustPlaySpeedMin)}}</h2></td>
+            <td style="padding-top: 10px;"><input type="range" min="150" max="1500" [value]="PlaySpeed" class="slider" id="playspeed"  title="play speed" (change)="OnSliderChange($event)" ></td>
+            <td><h2 style="display: inline;">{{Localise(LocalisationService.CaptionConstants.AdjustPlaySpeedMax)}}</h2></td>
+          </tr>
+        </table>        
+      </article>
       <div class="pk-jumbotron">
         <h2>{{Localise(LocalisationService.CaptionConstants.PageIsUnderConstruction)}}</h2>
-        <h2>Use Asia Financial Instruments</h2>
-        <h2>Use Americas Financial Instruments</h2>
-        <h2>Use Europe Financial Intruments</h2>
       </div>
     </section>
 </main>

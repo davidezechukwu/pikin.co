@@ -1,56 +1,68 @@
 ﻿import { Injectable, Injector } from '@angular/core';
-import { timer } from "rxjs";
+import { Observable, timer } from "rxjs";
 import { NumberSystemModel } from '../Models/NumberSystemModel';
 import { DrawModel } from '../Models/DrawModel';
 import { DrawDaysOptions } from '../Models/DrawDaysOptions';
 import { SourceModel } from '../Models/SourceModel';
-import { NumberSystemSourceModel } from '../Models/NumberSystemSourceModel';
-import { LocationModel } from '../../../CommonModules/CoreModules/Models/LocationModel';
 import { NumberSystemsMock } from '../_MockModules/NumberSystemModelMockDataBuilder';
 import { SourcesMock } from '../_MockModules/SourceModelMockDataBuilder';
 import { NumberSystemSourcesMock } from '../_MockModules/NumberSystemSourceModelMockDataBuilder';
 import { SuperService }   from '../../../CommonModules/SuperModules/Services/SuperService.ng';
 import { TradingDaysMock } from '../_MockModules/TradingDayModelMockDataBuilder';
-import { TradingDayModel } from '../Models/TradingDayModel';
-import { TradingDayStatusEnum } from '../Models/TradingDayStatusEnum';
 import { DrawsMock } from '../_MockModules/DrawModelMockDataBuilder';
+import { Subscription } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class NumberSystemService extends SuperService {
     protected NumberSystems: NumberSystemModel[] = NumberSystemsMock;
+    protected NumbersRefreshTimerSubscription: Subscription | null | undefined;
+    protected _RefreshInterval: number = 1500;
+    public get RefreshInterval(): number{return this._RefreshInterval;}
+    public set RefreshInterval(refreshInterval: number) {this._RefreshInterval =refreshInterval; }
 
+    protected NumbersRefreshTimer: Observable<number> | null | undefined; 
     constructor(injector: Injector) {
-        super(injector);
-
+        super(injector);        
     };
 
-    public InitMockEnvironment() {
-        var me = this;
-        this.GetNumberSystem(this.SessionService.Session!.CurrentNumberSystem!.ID)
-            .then(numberSystem => {
-                let numberSystemDigitsSourceCount = numberSystem.Sources.length;
-                let numbersRefreshTimer = timer(
-                    this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
-                    this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster / numberSystemDigitsSourceCount
-                ); 
-                numbersRefreshTimer.subscribe((t:any) => {
-                    this.GetSourcesForNumberSystem(me.SessionService.Session!.CurrentNumberSystem!.ID)
-                        .then(sources => {
-                            for (let a = 0; a < sources.length; a++) {
-                                this.GetSource(sources[a].ID)
-                                    .then(source => {
-                                        let value = Math.round(Math.random() * me.SessionService.GlobalMockProperties.TradeVolumeAdjuster);
-                                        if (Math.random() >= me.SessionService.GlobalMockProperties.MarketSentimentAdjuster) {
-                                            source!.Numbers = (parseInt(source!.Numbers) + value).toString();
-
-                                        } else {
-                                            source!.Numbers = (parseInt(source!.Numbers) - value).toString();
-                                        }
-                                    });
-                            }
+    protected StartNumbersRefreshTimer(): void {
+        this.StopNumbersRefreshTimer();
+        var timerInterval = (1500/this.RefreshInterval) * 1500;
+        this.NumbersRefreshTimer = timer(0, timerInterval);
+        this.NumbersRefreshTimerSubscription = this.NumbersRefreshTimer.subscribe(t => {           
+            this.GetSourcesForNumberSystem(this.SessionService.Session!.CurrentNumberSystem!.ID)
+                .then(sources => {
+                    for (let source of sources) {
+                        this.GetSource(source.ID).then(fullSource => {
+                            const value = Math.round(Math.random() * 40);
+                            const sentimentPositive = Math.random() >= .499;
+                            const oldNumber = parseInt(fullSource!.Numbers);
+                            fullSource!.Numbers = sentimentPositive
+                                ? (oldNumber + value).toString()
+                                : (oldNumber - value).toString();
                         });
+                    }
                 });
-            })        
+        });
+    }
+
+    protected StopNumbersRefreshTimer(): void {                
+        if (this.NumbersRefreshTimerSubscription) {
+            this.NumbersRefreshTimerSubscription.unsubscribe();
+            this.NumbersRefreshTimerSubscription = null;            
+        }
+    }
+
+    public ChangeNumbersRefreshTimer(refreshInterval: number): void {        
+        this.RefreshInterval = refreshInterval;
+        this.StopNumbersRefreshTimer();
+        this.StartNumbersRefreshTimer()
+    }
+
+    public InitMockEnvironment() {        
+        this.StartNumbersRefreshTimer();
     }
 
     protected GetNextWorkingDay(fromDate: Date, additionalDays: number) {

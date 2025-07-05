@@ -1,4 +1,12 @@
 ﻿.FormsAuthenticationLoginComponent {
     padding-bottom: 3em;
+
+    .pk-login-password{
+        margin-left: 3px;
+    }
+
+    #unbreakable{
+        white-space: nowrap !important;
+    }
 }
 

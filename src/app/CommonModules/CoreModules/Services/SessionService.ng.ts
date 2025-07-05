@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿ import { Injectable } from '@angular/core';
 import { SessionModel } from '../Models/SessionModel';
 import { CurrencyModel } from '../Models/CurrencyModel';
 import { CurrencyAmountModel } from '../Models/CurrencyAmountModel';
@@ -109,14 +109,23 @@ export class SessionService {
         this._MaximumPaymentAmount = maximumPaymentAmount;
     }
 
+    protected _defaultCurrency: CurrencyModel | undefined; 
+    public get DefaultCurrency(): CurrencyModel {
+        var me = this;
+        if (this._defaultCurrency != null && this._defaultCurrency != undefined){
+            return this._defaultCurrency;
+        }
+        this._defaultCurrency = CurrenciesMock.find(function (currency: any) { return currency.Name.toLowerCase() == me.GlobalProperties.DefaultCurrencyName.toLowerCase() })!;
+        return this._defaultCurrency;
+    }
+
     public GlobalMockProperties: GlobalMockPropertiesModel;
     public GlobalProperties: GlobalPropertiesModel;
 
     constructor() {
         this.GlobalMockProperties = new GlobalMockPropertiesModel();
         this.GlobalProperties = new GlobalPropertiesModel();
-        var me = this;
-        var defaultCurrency = CurrenciesMock.find(function (currency: any) { return currency.Name.toLowerCase() == me.GlobalProperties.DefaultCurrencyName.toLowerCase()});
+        var me = this;        
         this._MinimumPaymentAmount = new CurrencyAmountModel(me.GlobalProperties.DefaultMinimumPaymentAmount, new CurrencyModel(me.GlobalProperties.DefaultCurrencyName));
         this._MaximumPaymentAmount = new CurrencyAmountModel(me.GlobalProperties.DefaultMaximumPaymentAmount, new CurrencyModel(me.GlobalProperties.DefaultCurrencyName));
     };

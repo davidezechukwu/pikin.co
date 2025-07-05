@@ -1,0 +1,40 @@
+export class WinningPriceModel{
+
+        public static Pick10Match10WinPrice = 30000000;
+        public static Pick10Match9WinPrice = 3000000;
+        public static Pick10Match8WinPrice = 300000;
+        public static Pick9Match9WinPrice = 6000000;
+        public static Pick9Match8WinPrice = 600000;
+        public static Pick9Match7WinPrice = 60000;
+        public static Pick8Match8WinPrice = 900000;
+        public static Pick8Match7WinPrice = 90000;
+        public static Pick8Match6WinPrice = 9000;
+        public static Pick7Match7WinPrice = 120000;
+        public static Pick7Match6WinPrice = 12000;
+        public static Pick7Match5WinPrice = 1200;
+        public static Pick6Match6WinPrice = 15000;
+        public static Pick6Match5WinPrice = 1500;
+        public static Pick6Match4WinPrice = 150;
+        public static Pick5Match5WinPrice = 1800;
+        public static Pick5Match4WinPrice = 180;
+        public static Pick5Match3WinPrice = 18;
+        public static Pick4Match4WinPrice = 210;
+        public static Pick4Match3WinPrice = 21;
+        public static Pick4Match2WinPrice = 2.10;
+        public static Pick3Match3WinPrice = 24;
+        public static Pick3Match2WinPrice = 2.4;
+        public static Pick3Match1WinPrice = 0.24;
+        public static Pick2Match2WinPrice = 2.70;
+        public static Pick2Match1WinPrice = 0.27;
+        public static Pick1Match1WinPrice = 0.30;    
+        public static Pick10GameName = "Pick10";
+        public static Pick9GameName = "Pick9";
+        public static Pick8GameName = "Pick8";
+        public static Pick7GameName = "Pick7";
+        public static Pick6GameName = "Pick6";
+        public static Pick5GameName = "Pick5";
+        public static Pick4GameName = "Pick4";
+        public static Pick3GameName = "Pick3";
+        public static Pick2GameName = "Pick2";
+        public static Pick1GameName = "Pick1";  
+}

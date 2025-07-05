@@ -4,48 +4,9 @@ import { GamesMock } from '../../DashboardModules/Game/_MockModules/GameModelMoc
 import { CurrencyAmountModel } from '../../CommonModules/CoreModules/Models/CurrencyAmountModel';
 import { CurrencyModel } from '../../CommonModules/CoreModules/Models/CurrencyModel';
 import { SuperModelMockDataBuilder } from '../../CommonModules/SuperModules/_MockModules/SuperModelMockDataBuilder';
+import { WinningPriceModel } from '../Models/WinningPriceModel';
 
 export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
-
-    protected Pick10Match10WinPrice = 30000000;
-    protected Pick10Match9WinPrice = 3000000;
-    protected Pick10Match8WinPrice = 300000;
-    protected Pick9Match9WinPrice = 6000000;
-    protected Pick9Match8WinPrice = 600000;
-    protected Pick9Match7WinPrice = 60000;
-    protected Pick8Match8WinPrice = 900000;
-    protected Pick8Match7WinPrice = 90000;
-    protected Pick8Match6WinPrice = 9000;
-    protected Pick7Match7WinPrice = 120000;
-    protected Pick7Match6WinPrice = 12000;
-    protected Pick7Match5WinPrice = 1200;
-    protected Pick6Match6WinPrice = 15000;
-    protected Pick6Match5WinPrice = 1500;
-    protected Pick6Match4WinPrice = 150;
-    protected Pick5Match5WinPrice = 1800;
-    protected Pick5Match4WinPrice = 180;
-    protected Pick5Match3WinPrice = 18;
-    protected Pick4Match4WinPrice = 210;
-    protected Pick4Match3WinPrice = 21;
-    protected Pick4Match2WinPrice = 2.10;
-    protected Pick3Match3WinPrice = 24;
-    protected Pick3Match2WinPrice = 2.4;
-    protected Pick3Match1WinPrice = 0.24;
-    protected Pick2Match2WinPrice = 2.70;
-    protected Pick2Match1WinPrice = 0.27;
-    protected Pick1Match1WinPrice = 0.30;
-
-    protected Pick10GameName = "Pick10";
-    protected Pick9GameName = "Pick9";
-    protected Pick8GameName = "Pick8";
-    protected Pick7GameName = "Pick7";
-    protected Pick6GameName = "Pick6";
-    protected Pick5GameName = "Pick5";
-    protected Pick4GameName = "Pick4";
-    protected Pick3GameName = "Pick3";
-    protected Pick2GameName = "Pick2";
-    protected Pick1GameName = "Pick1";
-
     constructor() {
         super();
     }
@@ -68,9 +29,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick10Mock(): PrizeModel[] {
         var me = this;
-        let pick10 = GamesMock.find(function (game : any) { return game.Name.toLowerCase() == me.Pick10GameName.toLowerCase() });
+        let pick10 = GamesMock.find(function (game : any) { return game.Name.toLowerCase() == WinningPriceModel.Pick10GameName.toLowerCase() });
         if (!pick10) {
-            throw "The Game " + this.Pick10GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick10GameName + " could not be found";
         }
 
         let pick10Match8 = new PrizeModel();
@@ -79,7 +40,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick10Match8.Description = "If you match all eight numbers in order";
         pick10Match8.MatchingNoDigits = 8;
         pick10Match8.Game = pick10;
-        pick10Match8.WinPrice = new CurrencyAmountModel(this.Pick10Match8WinPrice, this.DefaultCurrency!);
+        pick10Match8.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick10Match8WinPrice, this.DefaultCurrency!);
 
         let pick10Match9 = new PrizeModel();
         pick10Match9.ID = this.GetNextID();
@@ -87,7 +48,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick10Match9.Description = "If you match all nine numbers in order";
         pick10Match9.MatchingNoDigits = 9;
         pick10Match9.Game = pick10;
-        pick10Match9.WinPrice = new CurrencyAmountModel(this.Pick10Match9WinPrice, this.DefaultCurrency!);
+        pick10Match9.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick10Match9WinPrice, this.DefaultCurrency!);
 
         let pick10Match10 = new PrizeModel();
         pick10Match10.ID = this.GetNextID();
@@ -95,7 +56,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick10Match10.Description = "If you match all ten numbers in order";
         pick10Match10.MatchingNoDigits = 10;
         pick10Match10.Game = pick10;
-        pick10Match10.WinPrice = new CurrencyAmountModel(this.Pick10Match10WinPrice, this.DefaultCurrency!);
+        pick10Match10.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick10Match10WinPrice, this.DefaultCurrency!);
 
         return [
             pick10Match8,
@@ -106,9 +67,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick9Mock(): PrizeModel[] {
         var me = this;
-        let pick9 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick9GameName.toLowerCase() });
+        let pick9 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick9GameName.toLowerCase() });
         if (!pick9) {
-            throw "The Game " + this.Pick9GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick9GameName + " could not be found";
         }
 
         let pick9Match7 = new PrizeModel();
@@ -117,7 +78,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick9Match7.Description = "If you match the last seven numbers in order";
         pick9Match7.MatchingNoDigits = 7;
         pick9Match7.Game = pick9;
-        pick9Match7.WinPrice = new CurrencyAmountModel(this.Pick9Match7WinPrice, this.DefaultCurrency!);
+        pick9Match7.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick9Match7WinPrice, this.DefaultCurrency!);
 
         let pick9Match8 = new PrizeModel();
         pick9Match8.ID = this.GetNextID();
@@ -125,7 +86,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick9Match8.Description = "If you match all eight numbers in order";
         pick9Match8.MatchingNoDigits = 8;
         pick9Match8.Game = pick9;
-        pick9Match8.WinPrice = new CurrencyAmountModel(this.Pick9Match8WinPrice, this.DefaultCurrency!);
+        pick9Match8.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick9Match8WinPrice, this.DefaultCurrency!);
 
         let pick9Match9 = new PrizeModel();
         pick9Match9.ID = this.GetNextID();
@@ -133,7 +94,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick9Match9.Description = "If you match all nine numbers in order";
         pick9Match9.MatchingNoDigits = 9;
         pick9Match9.Game = pick9;
-        pick9Match9.WinPrice = new CurrencyAmountModel(this.Pick9Match9WinPrice, this.DefaultCurrency!);
+        pick9Match9.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick9Match9WinPrice, this.DefaultCurrency!);
 
         return [
             pick9Match7,
@@ -144,9 +105,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick8Mock(): PrizeModel[] {
         var me = this;
-        let pick8 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick8GameName.toLowerCase() });
+        let pick8 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick8GameName.toLowerCase() });
         if (!pick8) {
-            throw "The Game " + this.Pick8GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick8GameName + " could not be found";
         }
 
         let pick8Match6 = new PrizeModel();
@@ -155,7 +116,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick8Match6.Description = "If you match the last six numbers in order";
         pick8Match6.MatchingNoDigits = 6;
         pick8Match6.Game = pick8;
-        pick8Match6.WinPrice = new CurrencyAmountModel(this.Pick8Match6WinPrice, this.DefaultCurrency!);
+        pick8Match6.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick8Match6WinPrice, this.DefaultCurrency!);
 
         let pick8Match7 = new PrizeModel();
         pick8Match7.ID = this.GetNextID();
@@ -163,7 +124,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick8Match7.Description = "If you match the last seven numbers in order";
         pick8Match7.MatchingNoDigits = 7;
         pick8Match7.Game = pick8;
-        pick8Match7.WinPrice = new CurrencyAmountModel(this.Pick8Match7WinPrice, this.DefaultCurrency!);
+        pick8Match7.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick8Match7WinPrice, this.DefaultCurrency!);
 
         let pick8Match8 = new PrizeModel();
         pick8Match8.ID = this.GetNextID();
@@ -171,7 +132,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick8Match8.Description = "If you match all eight numbers in order";
         pick8Match8.MatchingNoDigits = 8;
         pick8Match8.Game = pick8;
-        pick8Match8.WinPrice = new CurrencyAmountModel(this.Pick8Match8WinPrice, this.DefaultCurrency!);
+        pick8Match8.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick8Match8WinPrice, this.DefaultCurrency!);
 
         return [
             pick8Match6,
@@ -182,9 +143,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick7Mock(): PrizeModel[] {
         var me = this;
-        let pick7 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick7GameName.toLowerCase() });
+        let pick7 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick7GameName.toLowerCase() });
         if (!pick7) {
-            throw "The Game " + this.Pick7GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick7GameName + " could not be found";
         }
 
         let pick7Match5 = new PrizeModel();
@@ -193,7 +154,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick7Match5.Description = "If you match all 5 numbers in order";
         pick7Match5.MatchingNoDigits = 5;
         pick7Match5.Game = pick7;
-        pick7Match5.WinPrice = new CurrencyAmountModel(this.Pick7Match5WinPrice, this.DefaultCurrency!);
+        pick7Match5.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick7Match5WinPrice, this.DefaultCurrency!);
 
         let pick7Match6 = new PrizeModel();
         pick7Match6.ID = this.GetNextID();
@@ -201,7 +162,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick7Match6.Description = "If you match all six numbers in order";
         pick7Match6.MatchingNoDigits = 6;
         pick7Match6.Game = pick7;
-        pick7Match6.WinPrice = new CurrencyAmountModel(this.Pick7Match6WinPrice, this.DefaultCurrency!);
+        pick7Match6.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick7Match6WinPrice, this.DefaultCurrency!);
 
         let pick7Match7 = new PrizeModel();
         pick7Match7.ID = this.GetNextID();
@@ -209,7 +170,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick7Match7.Description = "If you match all seven numbers in order";
         pick7Match7.MatchingNoDigits = 7;
         pick7Match7.Game = pick7;
-        pick7Match7.WinPrice = new CurrencyAmountModel(this.Pick7Match7WinPrice, this.DefaultCurrency!);
+        pick7Match7.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick7Match7WinPrice, this.DefaultCurrency!);
 
         return [
             pick7Match5,
@@ -220,9 +181,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick6Mock(): PrizeModel[] {
         var me = this;
-        let pick6 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick6GameName.toLowerCase() });
+        let pick6 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick6GameName.toLowerCase() });
         if (!pick6) {
-            throw "The Game " + this.Pick6GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick6GameName + " could not be found";
         }
 
         let pick6Match4 = new PrizeModel();
@@ -231,7 +192,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick6Match4.Description = "If you match the last four numbers in order";
         pick6Match4.MatchingNoDigits = 4;
         pick6Match4.Game = pick6;
-        pick6Match4.WinPrice = new CurrencyAmountModel(this.Pick6Match4WinPrice, this.DefaultCurrency!);
+        pick6Match4.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick6Match4WinPrice, this.DefaultCurrency!);
 
         let pick6Match5 = new PrizeModel();
         pick6Match5.ID = this.GetNextID();
@@ -239,7 +200,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick6Match5.Description = "If you match all 5 numbers in order";
         pick6Match5.MatchingNoDigits = 5;
         pick6Match5.Game = pick6;
-        pick6Match5.WinPrice = new CurrencyAmountModel(this.Pick6Match5WinPrice, this.DefaultCurrency!);
+        pick6Match5.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick6Match5WinPrice, this.DefaultCurrency!);
 
         let pick6Match6 = new PrizeModel();
         pick6Match6.ID = this.GetNextID();
@@ -247,7 +208,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick6Match6.Description = "If you match all six numbers in order";
         pick6Match6.MatchingNoDigits = 6;
         pick6Match6.Game = pick6;
-        pick6Match6.WinPrice = new CurrencyAmountModel(this.Pick6Match6WinPrice, this.DefaultCurrency!);
+        pick6Match6.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick6Match6WinPrice, this.DefaultCurrency!);
 
         return [
             pick6Match4,
@@ -258,9 +219,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick5Mock(): PrizeModel[] {
         var me = this;
-        let pick5 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick5GameName.toLowerCase() });
+        let pick5 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick5GameName.toLowerCase() });
         if (!pick5) {
-            throw "The Game " + this.Pick5GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick5GameName + " could not be found";
         }
 
         let pick5Match3 = new PrizeModel();
@@ -270,7 +231,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick5Match3.Description = "If you match the last three numbers in order";
         pick5Match3.MatchingNoDigits = 3;
         pick5Match3.Game = pick5;
-        pick5Match3.WinPrice = new CurrencyAmountModel(this.Pick5Match3WinPrice, this.DefaultCurrency!);
+        pick5Match3.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick5Match3WinPrice, this.DefaultCurrency!);
 
         let pick5Match4 = new PrizeModel();
         pick5Match4.ID = this.GetNextID();
@@ -278,7 +239,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick5Match4.Description = "If you match the last four numbers in order";
         pick5Match4.MatchingNoDigits = 4;
         pick5Match4.Game = pick5;
-        pick5Match4.WinPrice = new CurrencyAmountModel(this.Pick5Match4WinPrice, this.DefaultCurrency!);
+        pick5Match4.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick5Match4WinPrice, this.DefaultCurrency!);
 
         let pick5Match5 = new PrizeModel();
         pick5Match5.ID = this.GetNextID();
@@ -286,7 +247,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick5Match5.Description = "If you match all 5 numbers in order";
         pick5Match5.MatchingNoDigits = 5;
         pick5Match5.Game = pick5;
-        pick5Match5.WinPrice = new CurrencyAmountModel(this.Pick5Match5WinPrice, this.DefaultCurrency!);
+        pick5Match5.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick5Match5WinPrice, this.DefaultCurrency!);
 
         return [
             pick5Match3,
@@ -297,9 +258,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick4Mock(): PrizeModel[] {
         var me = this;
-        let pick4 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick4GameName.toLowerCase() });
+        let pick4 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick4GameName.toLowerCase() });
         if (!pick4) {
-            throw "The Game " + this.Pick4GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick4GameName + " could not be found";
         }
 
         let pick4Match2 = new PrizeModel();
@@ -309,7 +270,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick4Match2.Description = "If you match the last two numbers in order";
         pick4Match2.MatchingNoDigits = 2;
         pick4Match2.Game = pick4;
-        pick4Match2.WinPrice = new CurrencyAmountModel(this.Pick4Match2WinPrice, this.DefaultCurrency!);
+        pick4Match2.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick4Match2WinPrice, this.DefaultCurrency!);
 
         let pick4Match3 = new PrizeModel();
         pick4Match3.ID = this.GetNextID();
@@ -318,7 +279,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick4Match3.Description = "If you match the last three numbers in order";
         pick4Match3.MatchingNoDigits = 3;
         pick4Match3.Game = pick4;
-        pick4Match3.WinPrice = new CurrencyAmountModel(this.Pick4Match3WinPrice, this.DefaultCurrency!);
+        pick4Match3.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick4Match3WinPrice, this.DefaultCurrency!);
 
         let pick4Match4 = new PrizeModel();
         pick4Match4.ID = this.GetNextID();
@@ -326,7 +287,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick4Match4.Description = "If you match all four numbers in order";
         pick4Match4.MatchingNoDigits = 4;
         pick4Match4.Game = pick4;
-        pick4Match4.WinPrice = new CurrencyAmountModel(this.Pick4Match4WinPrice, this.DefaultCurrency!);
+        pick4Match4.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick4Match4WinPrice, this.DefaultCurrency!);
 
         return [
             pick4Match2,
@@ -337,9 +298,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick3Mock(): PrizeModel[] {
         var me = this;
-        let pick3 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick3GameName.toLowerCase() });
+        let pick3 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick3GameName.toLowerCase() });
         if (!pick3) {
-            throw "The Game " + this.Pick3GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick3GameName + " could not be found";
         }
 
         let pick3Match1 = new PrizeModel();
@@ -349,7 +310,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick3Match1.Description = "If you match the last number";
         pick3Match1.MatchingNoDigits = 1;
         pick3Match1.Game = pick3;
-        pick3Match1.WinPrice = new CurrencyAmountModel(this.Pick3Match1WinPrice, this.DefaultCurrency!);
+        pick3Match1.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick3Match1WinPrice, this.DefaultCurrency!);
 
         let pick3Match2 = new PrizeModel();
         pick3Match2.ID = this.GetNextID();
@@ -358,7 +319,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick3Match2.Description = "If you match the last two numbers";
         pick3Match2.MatchingNoDigits = 2;
         pick3Match2.Game = pick3;
-        pick3Match2.WinPrice = new CurrencyAmountModel(this.Pick3Match2WinPrice, this.DefaultCurrency!);
+        pick3Match2.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick3Match2WinPrice, this.DefaultCurrency!);
 
         let pick3Match3 = new PrizeModel();
         pick3Match3.ID = this.GetNextID();
@@ -367,7 +328,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick3Match3.Description = "If you match all 3 numbers in order";
         pick3Match3.MatchingNoDigits = 3;
         pick3Match3.Game = pick3;
-        pick3Match3.WinPrice = new CurrencyAmountModel(this.Pick3Match3WinPrice, this.DefaultCurrency!);
+        pick3Match3.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick3Match3WinPrice, this.DefaultCurrency!);
 
         return [
             pick3Match1,
@@ -378,9 +339,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick2Mock(): PrizeModel[] {
         var me = this;
-        let pick2 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == me.Pick2GameName.toLowerCase() });
+        let pick2 = GamesMock.find(function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick2GameName.toLowerCase() });
         if (!pick2) {
-            throw "The Game " + this.Pick2GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick2GameName + " could not be found";
         }
 
         let pick2Match1 = new PrizeModel();
@@ -390,7 +351,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick2Match1.Description = "If you match the last number";
         pick2Match1.MatchingNoDigits = 1;
         pick2Match1.Game = pick2;
-        pick2Match1.WinPrice = new CurrencyAmountModel(this.Pick2Match1WinPrice, this.DefaultCurrency!);
+        pick2Match1.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick2Match1WinPrice, this.DefaultCurrency!);
 
         let pick2Match2 = new PrizeModel();
         pick2Match2.ID = this.GetNextID();
@@ -399,7 +360,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick2Match2.Description = "If you match all 2 numbers in order";
         pick2Match2.MatchingNoDigits = 2;
         pick2Match2.Game = pick2;
-        pick2Match2.WinPrice = new CurrencyAmountModel(this.Pick2Match2WinPrice, this.DefaultCurrency!);
+        pick2Match2.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick2Match2WinPrice, this.DefaultCurrency!);
 
         return [
             pick2Match1,
@@ -409,9 +370,9 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
 
     BuildPick1Mock(): PrizeModel[] {
         var me = this;
-        let pick1 = GamesMock.find( function (game: any) { return game.Name.toLowerCase() == me.Pick1GameName.toLowerCase() });
+        let pick1 = GamesMock.find( function (game: any) { return game.Name.toLowerCase() == WinningPriceModel.Pick1GameName.toLowerCase() });
         if (!pick1) {
-            throw "The Game " + this.Pick1GameName + " could not be found";
+            throw "The Game " + WinningPriceModel.Pick1GameName + " could not be found";
         }
 
         let pick1Match1 = new PrizeModel();
@@ -421,7 +382,7 @@ export class PrizeModelMockDataBuilder extends SuperModelMockDataBuilder {
         pick1Match1.Description = "If you match the last number";
         pick1Match1.MatchingNoDigits = 1;
         pick1Match1.Game = pick1;
-        pick1Match1.WinPrice = new CurrencyAmountModel(this.Pick1Match1WinPrice, this.DefaultCurrency!);
+        pick1Match1.WinPrice = new CurrencyAmountModel(WinningPriceModel.Pick1Match1WinPrice, this.DefaultCurrency!);
 
         return [
             pick1Match1

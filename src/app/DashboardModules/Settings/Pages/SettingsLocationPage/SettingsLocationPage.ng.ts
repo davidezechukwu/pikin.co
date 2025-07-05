@@ -5,12 +5,13 @@ import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Co
 import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'SettingsLocationPage',
     templateUrl: './SettingsLocationPage.ng.html',
     animations: PageAnimations,
-    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule]
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule, CommonModule]
 })
 export class SettingsLocationPage extends SuperPage {
     constructor(

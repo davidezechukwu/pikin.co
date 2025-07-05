@@ -4,24 +4,32 @@ import { SuperComponent } from '../../../CommonModules/SuperModules/Components/S
 import { GameModel } from '../../../DashboardModules/Game/Models/GameModel';
 import { GameService }   from '../../../DashboardModules/Game/Services/GameService.ng';
 import { NumberSystemService }  from '../../../DashboardModules/Game/Services/NumberSystemService.ng';
+import { TicketService } from '../../../TicketModules/Services/TicketService.ng';
+import { FundingService } from '../../../DashboardModules/Funding/Services/FundingService.ng';
 import { NumberSystemModel } from '../../../DashboardModules/Game/Models/NumberSystemModel';
 import { SafePipe } from '../../../CommonModules/CoreModules/Pipes/SafePipe/SafePipe.ng';
 import { TotalPayoutComponent } from '../TotalPayoutComponent/TotalPayoutComponent.ng';
 import { GamePrizeListComponent } from '../../../DashboardModules/Game/Components/GamePrizeListComponent/GamePrizeListComponent.ng';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DrawDaysOptions } from '../../../DashboardModules/Game/Models/DrawDaysOptions';
+import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
     selector: 'PlayComponent',
     templateUrl: './PlayComponent.ng.html',
     styleUrls: ['./PlayComponent.scss'],
-    imports: [SafePipe, TotalPayoutComponent, GamePrizeListComponent, CommonModule, FormsModule, ReactiveFormsModule  ],
+    imports: [SafePipe, TotalPayoutComponent, GamePrizeListComponent, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
     @Output() OnGameChanged = new EventEmitter();
     protected IsPristinePickers: boolean = true;
     protected NumberSystem: NumberSystemModel | null | undefined;
     private _Game: GameModel | null | undefined;
+    protected Winner: boolean = false
     get Game(): GameModel | null | undefined {
         return this._Game;
     }
@@ -44,13 +52,17 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
     protected RemainingMinutes: number = 0;
     protected RemainingSeconds: number = 0;
     protected CurrentTime: Date = new Date();
-    protected AsOf: string = '';
-    
+    protected AsOf: string = '';    
+
+    protected TotalWinningTickets: number = 0;
 
     constructor(
         injector: Injector,
         protected GameService: GameService,
-        protected NumberSystemService: NumberSystemService
+        protected NumberSystemService: NumberSystemService,
+        protected TicketService: TicketService,        
+        protected FundingService: FundingService,
+        protected ToastrService: ToastrService
     ) {
         super(injector);
         let promises: Promise<any>[] = new Array<Promise<any>>();
@@ -73,7 +85,6 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
         this.IsPickSelected.fill(false, 4,this.SessionService.GlobalProperties.MaxPickers);
     };
 
-  
     public override ngOnInit(): void {
         super.ngOnInit();
         if (this.SessionService.Session?.CurrentGame && this.SessionService.Session?.CurrentPickedNumbers) {
@@ -105,21 +116,14 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
                     this.NumberSystem.NumberOfDigits
                 );
 
-                //this.NumberSystemService.GetLastClosingNumbers(this.NumberSystem)
-                //    .then(numbers => {
-                //        this.LastClosingNumbers = numbers;
-                //        this.LastClosingNumbersAsArray = this.GetCurrentNumbersAsArrayReversed(this.LastClosingNumbers);
-                //    })
-                //    .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetLastClosingNumbersFailed, this));
-
                 this.GetNumbers();
 
-                let numberRefreshTimer = timer(this.SessionService.GlobalMockProperties.RefreshTimerRateStart, this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster);
+                let numberRefreshTimer = timer(0, 1000);
                 numberRefreshTimer.subscribe((t:any) => {
                     this.GetNumbers();
                 });
 
-                let countDownEndTimer = timer(this.SessionService.GlobalMockProperties.RefreshTimerRateStart, this.SessionService.GlobalMockProperties.CountDownEndTimerRateAdjuster);
+                let countDownEndTimer = timer(0, 1000);
                 countDownEndTimer.subscribe((t: any) => {
                     this.NumberSystemService.GetRemainingTime(this.NumberSystem!)
                         .then(remaingTime => {
@@ -132,44 +136,14 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
 
                 this.Refresh();
             })
-            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game!.NumberSystemID!.toString()));
+            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game!.NumberSystemID!.toString()));        
     };
+
+ 
 
     public override  ngDoCheck(): void {
         super.ngDoCheck();
         this.Refresh();
-    }
-
-    protected OnBuyTicket(): void {
-        if (!this.AuthenticationService.IsAuthenticated) {
-            this.Router.navigate(['/login/']);
-            return;
-        }
-
-        const pickedNumbers: string = this.PicksAsArray
-            .slice(0, this.Game?.RequiredMatches)
-            .reverse()
-            .join('');
-
-        this.SessionService.Session!.CurrentPickedNumbers = pickedNumbers;
-        this.SessionService.Session!.UseOncePage = "BuyTicketPage";
-        this.Router.navigate(['/buyticket/', this.Game?.ID, pickedNumbers,]);
-    }
-
-    protected OnSelectDraws(): void {
-        if (!this.AuthenticationService.IsAuthenticated) {
-            this.Router.navigate(['/login/']);
-            return;
-        }
-
-        const pickedNumbers: string = this.PicksAsArray
-            .slice(0, this.Game?.RequiredMatches)
-            .reverse()
-            .join('');
-
-        this.SessionService.Session!.CurrentPickedNumbers = pickedNumbers;
-        this.SessionService.Session!.UseOncePage = "BuyTicketsPage";
-        this.Router.navigate(['/buytickets/', this.Game?.ID, pickedNumbers,]);
     }
 
     protected OnUp(index: number): void {
@@ -208,28 +182,137 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
         this.PicksAsArray[index] = newValue.toString();;
     }
 
-    protected OnSelectRequiredMatches(numberOfMatches: number): void {        
+    protected OnSelectRequiredMatches(numberOfMatches: number): void {         
+        if (this.IsPickSelected[numberOfMatches - 1]){
+            this.PicksAsArray[numberOfMatches - 1] = '';
+        }else{
+            this.PicksAsArray[numberOfMatches - 1] = '0';     
+            for (let c = ( numberOfMatches - 1); c > 0; c-- ){
+                if ( this.PicksAsArray[c] == ''){
+                    this.PicksAsArray[c] = '0'
+                }
+            }       
+        }
         this.IsPickSelected[numberOfMatches - 1] = !this.IsPickSelected[numberOfMatches - 1];
         if (this.IsPickSelected[numberOfMatches - 1]) {
-            this.IsPickSelected.fill(
-                this.IsPickSelected[numberOfMatches - 1],
-                0,
-                numberOfMatches
-            );
+            this.IsPickSelected.fill(this.IsPickSelected[numberOfMatches - 1],0,numberOfMatches );
         } else {
             numberOfMatches = numberOfMatches - 1;
         }          
-
-        var me = this;
-        me.GameService.GetGameWithRequiredMatches(this.NumberSystem!.ID,  numberOfMatches)
-            .then(game => me.Game = game)
+        
+        this.GameService.GetGameWithRequiredMatches(this.NumberSystem!.ID,  numberOfMatches)
+            .then(game => {                
+                this.Game = game;
+                this.IsPickSelected.fill(false, numberOfMatches + 1);
+                 this.PicksAsArray.fill('',  numberOfMatches + 1);
+            })
             .catch(reason => {
-                this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGameWithRequiredMatchesFailed, me);
-                me.Game = new GameModel();
+                this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGameWithRequiredMatchesFailed, this);
+                this.Game = new GameModel();
             });
     }
 
-  protected GetCurrentNumbersAsArray(numbers: string): string[] {
+    protected OnBuyTicket(): void {        
+        if (!this.AuthenticationService.IsAuthenticated) {
+            this.Router.navigate(['/login/']);
+            return;
+        }        
+        let pickededNumbers: string = this.PicksAsArray.slice(0, this.Game?.RequiredMatches).reverse().join('');        
+        this.SessionService.Session!.CurrentPickedNumbers = pickededNumbers;
+        this.AuthenticationService.GetAuthenticatedMember()
+            .then(member => {
+                var ticketOrders = [];
+                var totalPrice;
+                var winningPot: CurrencyAmountModel | undefined | null;
+                const drawDays: DrawDaysOptions = new DrawDaysOptions();
+                drawDays.Monday = true;
+                drawDays.IsAvailableOnMonday = true;
+                this.GameService.GeTicketOrders(this.Game!, new Date(), pickededNumbers, drawDays, 0)
+                    .then(ticketOrders => {
+                        ticketOrders = ticketOrders;
+                        totalPrice = new CurrencyAmountModel(this.Game!.Price!.Amount, this.Game!.Price!.Currency);
+                        totalPrice.Amount = this.Game!.Price!.Amount * ticketOrders.length;
+                        winningPot = this.TicketService.GetWinningPrice(this.Game?.Name!, pickededNumbers.length );    
+                        this.AuthenticationService.GetAuthenticatedMember().then(member => {
+                            if (member) {
+                                this.FundingService.IsThereEnoughFunding(member, totalPrice!)
+                                    .then((fundingCheckBalanceResult: any) => {
+                                        if ( fundingCheckBalanceResult.HasEnoughFunding)
+                                        {
+                                            ticketOrders.forEach(ticketOrder => {
+                                                this.TicketService.BuyTicket(member!, ticketOrder.Game!, ticketOrder.GameDraw!.Draw, ticketOrder.GameDraw!, pickededNumbers)
+                                                    .catch((reason: any) => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.Error, this));
+                                            });                                        
+                                            let drawnNumbers: string = this.NumbersAsArray.join('');
+                                            drawnNumbers = drawnNumbers.substring((9 - this.Game?.RequiredMatches!) + 1, 10);
+
+                                            //this.Winner = drawnNumbers == pickededNumbers;
+                                            this.Winner = true;
+                                            if (this.Winner) {
+                                                if (this.Winner) {
+                                                    this.FundingService.AddFunding(member, winningPot!)
+                                                    this.TicketService.AddWinner(winningPot!)
+                                                    setTimeout(() => {
+                                                        const container = document.getElementById('bubble-celebration');
+                                                        if (!container) return;
+                                                        for (let i = 0; i < 15; i++) {
+                                                            const bubble = document.createElement('div');
+                                                            bubble.classList.add('bubble');
+                                                            const size = 100 + Math.random() * 80;
+                                                            bubble.style.width = `${size}px`;
+                                                            bubble.style.height = `${size}px`;
+                                                            bubble.style.left = `${Math.random() * 100}%`;
+                                                            bubble.style.animationDuration = `${6 + Math.random() * 4}s`;
+                                                            bubble.style.background = `radial-gradient(circle at 30% 30%, white, transparent),
+                                                                                        radial-gradient(circle at 70% 70%, hsl(${Math.random() * 360}, 80%, 60%), rgba(0, 0, 0, 0.2))`;
+
+                                                            container.appendChild(bubble);
+
+                                                            setTimeout(() => bubble.remove(), 10000);
+                                                        }
+                                                    }, 50); // A short delay to let Angular render the bubble container
+                                                }
+
+                                            } else {
+                                                const toast = `${pickededNumbers} did not match the drawn numbers ${drawnNumbers}`;
+                                                this.ToastrService.success(toast, 'You almost got it. Try again and better luck next time'); 
+                                            }
+                                        }else{
+                                            const toast = `You did not have enough funds to play the game, add more funds or play a lesser game`;
+                                            this.ToastrService.error(toast, 'Not enough funds');
+                                        }
+                                    })
+                                    .catch((reason: any) => {
+                                        // this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorIsThereEnoughFundingFailed, this);
+                                        // this.HasEnoughFunds = false;
+                                        const toast = `You did not have enough funds to play the game, add more funds or play a lesser game`;
+                                        this.ToastrService.error(toast, 'Not enough funds');
+                                        this.Router.navigate(['/funding/Addfunds']);
+                                    });
+                            }
+                        })
+                            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetAuthenticatedMemberFailed, this));
+
+                    })
+                    .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.Error, this));
+            })
+            .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetAuthenticatedMemberFailed, this));
+    }
+
+    protected OnClearGame(): void {
+        if (!this.AuthenticationService.IsAuthenticated) {
+            this.Router.navigate(['/login/']);
+            return;
+        }
+        this.PicksAsArray.fill('0', 0);
+    }
+
+    protected OnAdjustSpeed(): void{
+        this.Router.navigate(['/dashboard/numbersystem/change']);
+        return;
+    }
+
+    protected GetCurrentNumbersAsArray(numbers: string): string[] {
         return numbers.split("");
     }
 

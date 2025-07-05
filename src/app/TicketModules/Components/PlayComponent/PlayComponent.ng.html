@@ -1,238 +1,305 @@
 ﻿<article class="pk-component PlayComponent">
   <div *ngIf="Game">
     <h2 class="pk-game-name">{{Localise(Game.DisplayName)}}. <span [innerHTML]="Localise(LocalisationService.CaptionConstants.EachPlayCosts, '', GlobalisationService.FormatCurrency(GlobalisationService.ToSessionCurrency(Game.Price))) | safe"></span></h2>
-    <form #PickerForm="ngForm">
-      <table class="pk-pickers pk-container" *ngIf="NumbersAsArray && NumbersAsArray.length>=1">
-        <tr>
-          <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
-            <input type="number" [(ngModel)]="PicksAsArray[9]" name="pickReversed10" class="pk-form  pk-form10" [disabled]="!IsPickSelected[9]" [readonly]="!IsPickSelected[9]" size="1" min="0" max="9" title="pick"/>
-          </td>
-          <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[9]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(9)"></i>
+    <table>
+      <tr>
+        <td>
+          <table class="pk-numbers pk-current pk-current-number-control">
+            <tr *ngIf="NumbersAsArray && NumbersAsArray.length>=1">
+              <ng-template ngFor let-number [ngForOf]="NumbersAsArray" let-i="index">
+                <td class="pk-number pk-number{{i}}">
+                  <span class="pk-display  pk-display{{i}}">{{NumbersAsArray[i]}} </span>
                 </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[9]}" aria-hidden="true" (click)="OnSelectRequiredMatches(10)"></i>
+                <td class="pk-container pk-container{{i}}">
+                  <table class="pk-level1">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" style="visibility:hidden"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" style="visibility:hidden"></i>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
-              </tr>
+              </ng-template>
+            </tr>
+            </table>    
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <form #PickerForm="ngForm">
+            <table class="pk-pickers pk-container pk-number-picker-control" *ngIf="NumbersAsArray && NumbersAsArray.length>=1">
               <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(9)"></i>
+                <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
+                  <input type="number" [(ngModel)]="PicksAsArray[9]" name="pickReversed10" class="pk-form  pk-form10"
+                    [disabled]="!IsPickSelected[9]" [readonly]="!IsPickSelected[9]" size="1" min="0" max="9" title="pick10"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[9]" class="pk-number pk-number10">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[9]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(9)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[9]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(10)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(9)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
+                  <input type="number" [(ngModel)]="PicksAsArray[8]" name="pickReversed9" class="pk-form  pk-form9"
+                    [disabled]="!IsPickSelected[8]" [readonly]="!IsPickSelected[8]" size="1" min="0" max="9" title="pick9"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[8]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(8)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[8]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(9)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(8)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
+                  <input type="number" [(ngModel)]="PicksAsArray[7]" name="pickReversed8" class="pk-form  pk-form8"
+                    [disabled]="!IsPickSelected[7]" [readonly]="!IsPickSelected[7]" size="1" min="0" max="9" title="pick8"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[7]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(7)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[7]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(8)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(7)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
+                  <input type="number" [(ngModel)]="PicksAsArray[6]" name="pickReversed7" class="pk-form  pk-form7"
+                    [disabled]="!IsPickSelected[6]" [readonly]="!IsPickSelected[6]" size="1" min="0" max="9" title="pick7"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[6]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(6)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[6]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(7)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(6)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
+                  <input type="number" [(ngModel)]="PicksAsArray[5]" name="pickReversed6" class="pk-form  pk-form6"
+                    [disabled]="!IsPickSelected[5]" [readonly]="!IsPickSelected[5]" size="1" min="0" max="9" title="pick6"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[5]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(5)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[5]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(6)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(5)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
+                  <input type="number" [(ngModel)]="PicksAsArray[4]" name="pickReversed5" class="pk-form  pk-form5"
+                    [disabled]="!IsPickSelected[4]" [readonly]="!IsPickSelected[4]" size="1" min="0" max="9" title="pick5"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[4]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(4)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[4]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(5)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(4)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
+                  <input type="number" [(ngModel)]="PicksAsArray[3]" name="pickReversed4" class="pk-form  pk-form4"
+                    [disabled]="!IsPickSelected[3]" [readonly]="!IsPickSelected[3]" size="1" min="0" max="9" title="pick4"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[3]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(3)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[3]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(4)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(3)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
+                  <input type="number" [(ngModel)]="PicksAsArray[2]" name="pickReversed3" class="pk-form  pk-form3"
+                    [disabled]="!IsPickSelected[2]" [readonly]="!IsPickSelected[2]" size="1" min="0" max="9" title="pick3"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[2]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(2)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[2]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(3)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(2)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
+                  <input type="number" [(ngModel)]="PicksAsArray[1]" name="pickReversed2" class="pk-form  pk-form2"
+                    [disabled]="!IsPickSelected[1]" [readonly]="!IsPickSelected[1]" size="1" min="0" max="9" title="pick2"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[1]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(1)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[1]}"
+                          aria-hidden="true" (click)="OnSelectRequiredMatches(2)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(1)"></i>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
+                  <input type="number" [(ngModel)]="PicksAsArray[0]" name="pickReversed1" class="pk-form  pk-form1"
+                    [disabled]="!IsPickSelected[0]" [readonly]="!IsPickSelected[0]" size="1" min="0" max="9" title="pick1"
+                    maxlength="1" oninput="this.value = this.value.slice(0, 1);" />
+                </td>
+                <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
+                  <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[0]}">
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(0)"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-selector fa fa-check unpickable" aria-hidden="true"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pk-level2">
+                        <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(0)"></i>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
-          </td>
-          <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
-            <input type="number" [(ngModel)]="PicksAsArray[8]" name="pickReversed9" class="pk-form  pk-form9" [disabled]="!IsPickSelected[8]" [readonly]="!IsPickSelected[8]" size="1" min="0" max="9" title="p"/>
-          </td>
-          <td *ngIf="IsPickable[8]" class="pk-number pk-number9">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[8]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(8)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[8]}" aria-hidden="true" (click)="OnSelectRequiredMatches(9)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(8)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
-            <input type="number" [(ngModel)]="PicksAsArray[7]" name="pickReversed8" class="pk-form  pk-form8" [disabled]="!IsPickSelected[7]" [readonly]="!IsPickSelected[7]" size="1" min="0" max="9" title="p"/>
-          </td>
-          <td *ngIf="IsPickable[7]" class="pk-number pk-number8">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[7]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(7)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[7]}" aria-hidden="true" (click)="OnSelectRequiredMatches(8)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(7)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
-            <input type="number" [(ngModel)]="PicksAsArray[6]" name="pickReversed7" class="pk-form  pk-form7" [disabled]="!IsPickSelected[6]" [readonly]="!IsPickSelected[6]" size="1" min="0" max="9" title="p"/>
-          </td>
-          <td *ngIf="IsPickable[6]" class="pk-number pk-number7">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[6]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(6)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[6]}" aria-hidden="true" (click)="OnSelectRequiredMatches(7)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(6)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
-            <input type="number" [(ngModel)]="PicksAsArray[5]" name="pickReversed6" class="pk-form  pk-form6" [disabled]="!IsPickSelected[5]" [readonly]="!IsPickSelected[5]" size="1" min="0" max="9" title="p" />
-          </td>
-          <td *ngIf="IsPickable[5]" class="pk-number pk-number6">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[5]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(5)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[5]}" aria-hidden="true" (click)="OnSelectRequiredMatches(6)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(5)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
-            <input type="number" [(ngModel)]="PicksAsArray[4]" name="pickReversed5" class="pk-form  pk-form5" [disabled]="!IsPickSelected[4]" [readonly]="!IsPickSelected[4]" size="1" min="0" max="9"  title="p" />
-          </td>
-          <td *ngIf="IsPickable[4]" class="pk-number pk-number5">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[4]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(4)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[4]}" aria-hidden="true" (click)="OnSelectRequiredMatches(5)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(4)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
-            <input type="number" [(ngModel)]="PicksAsArray[3]" name="pickReversed4" class="pk-form  pk-form4" [disabled]="!IsPickSelected[3]" [readonly]="!IsPickSelected[3]" size="1" min="0" max="9"  title="p" />
-          </td>
-          <td *ngIf="IsPickable[3]" class="pk-number pk-number4">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[3]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(3)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[3]}" aria-hidden="true" (click)="OnSelectRequiredMatches(4)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(3)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
-            <input type="number" [(ngModel)]="PicksAsArray[2]" name="pickReversed3" class="pk-form  pk-form3" [disabled]="!IsPickSelected[2]" [readonly]="!IsPickSelected[2]" size="1" min="0" max="9" title="p" />
-          </td>
-          <td *ngIf="IsPickable[2]" class="pk-number pk-number3">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[2]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(2)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[2]}" aria-hidden="true" (click)="OnSelectRequiredMatches(3)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(2)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
-            <input type="number" [(ngModel)]="PicksAsArray[1]" name="pickReversed2" class="pk-form  pk-form2" [disabled]="!IsPickSelected[1]" [readonly]="!IsPickSelected[1]" size="1" min="0" max="9"  title="pick"/>
-          </td>
-          <td *ngIf="IsPickable[1]" class="pk-number pk-number2">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[1]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(1)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i [ngClass]="{'pk-selector':true, 'fa':true, 'fa-check':true,'pk-selected':IsPickSelected[1]}" aria-hidden="true" (click)="OnSelectRequiredMatches(2)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(1)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
-            <input type="number" [(ngModel)]="PicksAsArray[0]" name="pickReversed1" class="pk-form  pk-form1" [disabled]="!IsPickSelected[0]" [readonly]="!IsPickSelected[0]" size="1" min="0" max="9" title="picker" />
-          </td>
-          <td *ngIf="IsPickable[0]" class="pk-number pk-number1">
-            <table [ngClass]="{'pk-level1':true,'pk-is-not-selected':!IsPickSelected[0]}">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" (click)="OnUp(0)"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-selector fa fa-check unpickable" aria-hidden="true"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" (click)="OnDown(0)"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <input (click)="OnBuyTicket()"  type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayOnce)}}" class="pk-play-button pk-button" />
-      <input (click)="OnSelectDraws()" type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayMultipleTimes)}}"  class="pk-play-button pk-button" />
-    </form>
+            <input (click)="OnBuyTicket()" type="button" value="{{Localise(LocalisationService.CaptionConstants.PlayOnce)}}"
+              class="pk-play-button pk-button" />&nbsp;            
+            <input (click)="OnAdjustSpeed()" type="button" value="{{Localise(LocalisationService.CaptionConstants.AdjustSpeed)}}"
+                class="pk-play-button pk-button" />&nbsp;
+            <input (click)="OnClearGame()" type="button" value="{{Localise(LocalisationService.CaptionConstants.ClearGame)}}"
+                  class="pk-play-button pk-button"/>
+            </form>
+        </td>
+      </tr>
+    </table>
+    
     <GamePrizeListComponent [Game]="Game"></GamePrizeListComponent>
     <TotalPayoutComponent></TotalPayoutComponent>
 
-    <h4 class="pk-last-closing-numbers-display">{{Localise(LocalisationService.CaptionConstants.LastClosingValue, '')}} </h4>
+    <!-- <h4 class="pk-last-closing-numbers-display">{{Localise(LocalisationService.CaptionConstants.LastClosingValue, '')}} </h4>
     <table class="pk-last-closing-numbers pk-numbers">
       <tr *ngIf="LastClosingNumbersAsArray && LastClosingNumbersAsArray.length>=1">
         <ng-template ngFor let-number [ngForOf]="LastClosingNumbersAsArray" let-i="index">
@@ -255,36 +322,28 @@
           </td>
         </ng-template>
       </tr>
-    </table>
+    </table> -->
 
-    <h4 class="pk-current-display">{{AsOf}}</h4>
-    <table class="pk-numbers pk-current">
-      <tr *ngIf="NumbersAsArray && NumbersAsArray.length>=1">
-        <ng-template ngFor let-number [ngForOf]="NumbersAsArray" let-i="index">
-          <td class="pk-number pk-number{{i}}">
-            <span class="pk-display  pk-display{{i}}">{{NumbersAsArray[i]}} </span>
-          </td>
-          <td class="pk-container pk-container{{i}}">
-            <table class="pk-level1">
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-up fa fa-caret-up" aria-hidden="true" style="visibility:hidden"></i>
-                </td>
-              </tr>
-              <tr>
-                <td class="pk-level2">
-                  <i class="pk-spinner pk-down fa fa-caret-down" aria-hidden="true" style="visibility:hidden"></i>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </ng-template>
-      </tr>
-    </table>
+    <!-- <h4 class="pk-current-display">{{AsOf}}</h4> -->
+    
 
-    <h4 *ngIf="NextClosingDateUTC" [innerHTML]="Localise(LocalisationService.CaptionConstants.ResultsWouldBeAnnounchedOn, '', GlobalisationService.FormatDate(NextClosingDateUTC)) | safe"></h4>
-    <h4 *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, '', RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h4>    
+    <!-- <h4 *ngIf="NextClosingDateUTC" [innerHTML]="Localise(LocalisationService.CaptionConstants.ResultsWouldBeAnnounchedOn, '', GlobalisationService.FormatDate(NextClosingDateUTC)) | safe"></h4>
+    <h4 *ngIf="RemainingHours" [innerHTML]="Localise(LocalisationService.CaptionConstants.DrawClosesIn, '', RemainingHours.toString(), RemainingMinutes.toString(), RemainingSeconds.toString())| safe"></h4>     -->
   </div>
+
+  
+  <ng-container *ngIf="Winner">
+    <!-- <div class="bubble-container">
+      <div id="bubble-celebration" class="bubble-container"></div>
+      <div class="winner-banner">🎉 Congratulations!!! You are a winner 🎉</div>
+    </div> -->
+    <div class="bubble-container">
+      <div id="bubble-celebration" class="bubble-layer"></div>
+      <div class="winner-banner">🎉 Congratulations!!! You are a winner 🎉</div>
+    </div>
+    
+    
+  </ng-container>
 </article>
 
 

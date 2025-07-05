@@ -6,7 +6,7 @@
       <h3>{{Localise(LocalisationService.CaptionConstants.DefaultLanguage)}}</h3>
       <select name="LanguagesSelect" [(ngModel)]="SessionService.Session!.CurrentLanguage" title="languages">
         <option *ngFor="let l of SessionService.Languages" [ngValue]="l">{{l.DisplayName}}</option>
-      </select>            
+      </select>                  
     </article>
   </section>
 </main>

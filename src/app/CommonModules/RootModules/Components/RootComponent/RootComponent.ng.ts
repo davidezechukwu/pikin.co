@@ -26,7 +26,11 @@ export class RootComponent extends SuperComponent implements OnInit {
     @HostBinding('@.disabled')
     public DisableAnimations:boolean =false;
     protected IsInitialised: boolean = false;
-    constructor(injector: Injector) {
+    constructor
+    (
+        injector: Injector,
+        protected NumberSystemService: NumberSystemService 
+    ) {
         super(injector);
     };
 
@@ -38,7 +42,7 @@ export class RootComponent extends SuperComponent implements OnInit {
 
     public InitMockEnvironment() {
         var fundingService: FundingService = new FundingService(this.Injector);
-        var numberSystemService: NumberSystemService = new NumberSystemService(this.Injector);
+        //var numberSystemService: NumberSystemService = new NumberSystemService(this.Injector);
         var membersMock = MembersMock;
         let promises: Promise<any>[] = new Array<Promise<any>>();
         promises.push(new FeatureDetectionService(this.Injector).IsOnLowSpeedConnection());
@@ -51,14 +55,16 @@ export class RootComponent extends SuperComponent implements OnInit {
                 this.SessionService.CurrencyExchangeRates = results[index++];                
                 var numberSystems = new NumberSystemModelMockDataBuilder().BuildMockData();
                 var games = new GameModelMockDataBuilder().BuildMocksFor10NumberSystem();
-                new DrawModelMockDataBuilder().BuildDrawMocks(numberSystems, numberSystemService);
+                //new DrawModelMockDataBuilder().BuildDrawMocks(numberSystems, numberSystemService);
+                new DrawModelMockDataBuilder().BuildDrawMocks(numberSystems, this.NumberSystemService);
                 new GameDrawModelMockDataBuilder().BuildGameDrawMocks(games, numberSystems[0]);
                 new PrizeModelMockDataBuilder().BuildMocks();
                 this.SessionService.NumberSystems = numberSystems;
                 this.SessionService.Games = games;
                 this.SessionService.ClearSession();
                 this.SessionService.Session!.IsOnLowSpeedConnection = isOnLowSpeedConnection;
-                numberSystemService.InitMockEnvironment();
+                //numberSystemService.InitMockEnvironment();
+                this.NumberSystemService.InitMockEnvironment();
                 this.IsInitialised = true;
             })
             .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorRootComponentInitFailed, this));

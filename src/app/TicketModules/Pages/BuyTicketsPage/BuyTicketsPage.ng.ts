@@ -15,7 +15,6 @@ import { TicketService } from '../../../TicketModules/Services/TicketService.ng'
 import { TicketOrderModel } from '../../../TicketModules/Models/TicketOrderModel';
 import { FundingService } from '../../../DashboardModules/Funding/Services/FundingService.ng';
 import { CurrencyAmountModel } from '../../../CommonModules/CoreModules/Models/CurrencyAmountModel';
-import { CurrencyModel } from '../../../CommonModules/CoreModules/Models/CurrencyModel';
 import { RootCollapserComponent } from '../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
 import { RootBackgroundComponent } from '../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
 import { RouterModule } from '@angular/router';
@@ -85,6 +84,7 @@ export class BuyTicketsPage extends SuperPage implements OnInit, DoCheck {
     protected NextClosingDateUTC: Date | null | undefined;
     protected DrawClosingDateUTC: Date | null | undefined;
     protected LastClosingNumbers: string = '';    
+    
     public constructor(
         injector: Injector,
         protected GameService: GameService,
@@ -143,10 +143,7 @@ export class BuyTicketsPage extends SuperPage implements OnInit, DoCheck {
         });
 
         // 3) Periodically refresh CurrentNumbers
-        timer(
-            this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
-            this.SessionService.GlobalMockProperties.NumbersRefreshTimerRateAdjuster
-        ).pipe(
+        timer(0, 1000).pipe(
             switchMap(() =>
                 from(this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID!))
             ),
@@ -159,10 +156,7 @@ export class BuyTicketsPage extends SuperPage implements OnInit, DoCheck {
         });
 
         // 4) Periodically refresh remaining time countdown
-        timer(
-            this.SessionService.GlobalMockProperties.RefreshTimerRateStart,
-            this.SessionService.GlobalMockProperties.CountDownEndTimerRateAdjuster
-        ).pipe(
+        timer(0, 1000).pipe(
             switchMap(() =>
                 from(this.NumberSystemService.GetNumberSystem(this.Game.NumberSystemID!))
             ),

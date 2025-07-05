@@ -5,8 +5,36 @@
 $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
 
 .PlayComponent {  
-  .pk-container {
 
+  .pk-current-number-control {
+  
+      td.pk-number,
+      td.pk-container {
+        background-color:#f0f0f0;
+        height: 2rem;
+      }
+        
+      td.pk-container {
+        background-color: #f0f0f0;
+      }
+
+      .pk-container9 {
+        background-color: transparent !important;
+      }
+  }
+  
+  .pk-number-picker-control {
+    margin-top: 10px;
+  }
+
+  .pk-current-number-control,
+  .pk-number-picker-control {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .pk-container {
+    background-color: #ffffff;
     tr {
       border: none;
 
@@ -20,7 +48,7 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
     color: $pk-playcomponent-disabled-input;
   }
 
-
+ 
   .pk-form {
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
@@ -163,10 +191,10 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
       }
     }
 
-    .pk-pickers.pk-container {
-      margin-top: $pk-playcomponent-pk-pickers-margin-top;
-      margin-bottom: $pk-playcomponent-pk-pickers-margin-bottom;
-    }
+    // .pk-pickers.pk-container {
+    //   margin-top: $pk-playcomponent-pk-pickers-margin-top;
+    //   margin-bottom: $pk-playcomponent-pk-pickers-margin-bottom;
+    // }
 
     .pk-spinner {
       font-size: $pk-playcomponent-pk-spinner-font-size;
@@ -262,8 +290,8 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
     }
 
     .pk-pickers.pk-container {
-      margin-top: $pk-playcomponent-pk-pickers-margin-top;
-      margin-bottom: $pk-playcomponent-pk-pickers-margin-bottom;
+      // margin-top: $pk-playcomponent-pk-pickers-margin-top;
+      // margin-bottom: $pk-playcomponent-pk-pickers-margin-bottom;
     }
 
     .pk-spinner {
@@ -384,8 +412,8 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
 
     .pk-pickers.pk-container {
       background-color: rgba(98, 42, 42, 0.79) !important;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
+      // margin-top: -1rem;
+      // margin-bottom: 1rem;
 
       .pk-number,
       .pk-number .pk-form,
@@ -486,7 +514,7 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
   $pk-playcomponent-pk-up-margin-top: 1.25rem;
   $pk-playcomponent-pk-spinner-pk-down-margin-top: 0.25rem;
 
-  .PlayComponent {
+  .PlayComponent {    
     .pk-container {
 
       tr {
@@ -549,8 +577,8 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
 
     .pk-pickers.pk-container {
       background-color: rgba(98, 42, 42, 0.79) !important;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
+      // margin-top: -1rem;
+      // margin-bottom: 1rem;
 
       .pk-number,
       .pk-number .pk-form,
@@ -639,5 +667,7 @@ $pk-playcomponent-disabled-input: rgba(49, 21, 21, 0.3);
 }
 
 .pk-game-name { 
+  margin-top: 2rem !important;
   margin-bottom: 2rem !important;
 }
+

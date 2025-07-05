@@ -21,6 +21,8 @@ import { GlobalisationService } from './app/CommonModules/CoreModules/Services/G
 import { LocalisationService } from './app/CommonModules/CoreModules/Services/LocalisationService.ng';
 import { NotificationService } from './app/CommonModules/CoreModules/Services/NotificationService.ng';
 import { TicketService } from './app/TicketModules/Services/TicketService.ng';
+import { provideToastr } from 'ngx-toastr';
+import { SubscriptionsService } from './app/CommonModules/CoreModules/Services/SubscriptionsService .ng';
 
 enableProdMode();
 
@@ -29,6 +31,7 @@ bootstrapApplication(RootComponent, {
     provideHttpClient(),
     provideAnimations(),
     provideRouter(RootRoutes),
+    provideToastr(),
     AuthenticationService,
     MemberService,
     GameService,
@@ -44,7 +47,8 @@ bootstrapApplication(RootComponent, {
     GlobalisationService,
     LocalisationService,
     NotificationService,
-    TicketService
+    TicketService,
+    SubscriptionsService
   ]
 }).catch(err => console.error(err));
 

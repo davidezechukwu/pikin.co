@@ -1,4 +1,4 @@
-﻿import { Component, Injector, OnInit, DoCheck, Directive } from '@angular/core';
+﻿import { Injector, OnInit, DoCheck, Directive } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { SuperComponent } from '../../Components/SuperComponent/SuperComponent.ng';
 import { NavigationService } from '../../../CoreModules/Services/NavigationService.ng';

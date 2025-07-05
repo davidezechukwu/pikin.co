@@ -410,7 +410,6 @@ export class PageModelMockDataBuilder extends SuperModelMockDataBuilder{
         licencesPage.PageName = "LicencesPage";
         licencesPage.PageTitle = this.CaptionConstants.LocationSpecificLicences;
         locationPages.push(licencesPage);
-
         return locationPages;
     }
 }

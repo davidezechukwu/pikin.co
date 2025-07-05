@@ -25,7 +25,8 @@ export class FundingService extends SuperService{
 
     AddFunding(member: MemberModel, funds: CurrencyAmountModel): Promise<FundingModel> {
         var fundingInMemberCurrency = this.GlobalisationService.SwitchAmountToOtherCurrency(funds, member.Funding.Balance!.Currency);
-        member.Funding.Balance!.Amount += fundingInMemberCurrency.Amount;        
+        
+        (member.Funding.Balance as CurrencyAmountModel).Amount += fundingInMemberCurrency.Amount;        
         return Promise.resolve(member.Funding);
     }  
 
@@ -35,7 +36,7 @@ export class FundingService extends SuperService{
                 var memberBalanceInGameCurrency = this.GlobalisationService.SwitchAmountToOtherCurrency(funding.Balance!, game.Price!.Currency);
                 var fundingCheckBalanceResult = new FundingCheckBalanceResultModel();
                 fundingCheckBalanceResult.HasEnoughFunding = memberBalanceInGameCurrency.Amount >= game.Price!.Amount;
-                if (fundingCheckBalanceResult.HasEnoughFunding) {
+                if (fundingCheckBalanceResult.HasEnoughFunding == false) {
                     fundingCheckBalanceResult.RequiredAmount = new CurrencyAmountModel(0, game.Price!.Currency);;
                 } else {
                     fundingCheckBalanceResult.RequiredAmount = new CurrencyAmountModel(game.Price!.Amount - memberBalanceInGameCurrency.Amount, game.Price!.Currency);
@@ -52,7 +53,7 @@ export class FundingService extends SuperService{
                 var memberBalanceInGameCurrency = this.GlobalisationService.SwitchAmountToOtherCurrency(funding.Balance!, price.Currency);
                 var fundingCheckBalanceResult = new FundingCheckBalanceResultModel();
                 fundingCheckBalanceResult.HasEnoughFunding = memberBalanceInGameCurrency.Amount >= price.Amount;
-                if (fundingCheckBalanceResult.HasEnoughFunding) {
+                if (fundingCheckBalanceResult.HasEnoughFunding == false)  {
                     fundingCheckBalanceResult.RequiredAmount = new CurrencyAmountModel(0, price.Currency);;
                 } else {
                     fundingCheckBalanceResult.RequiredAmount = new CurrencyAmountModel(price.Amount - memberBalanceInGameCurrency.Amount, price.Currency);

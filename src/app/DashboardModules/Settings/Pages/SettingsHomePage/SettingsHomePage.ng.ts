@@ -3,13 +3,14 @@ import  { SuperPage }  from '../../../../CommonModules/SuperModules/Pages/SuperP
 import { PageAnimations } from '../../../../CommonModules/CoreModules/Animations/PageAnimations';
 import { RootCollapserComponent } from '../../../../CommonModules/RootModules/Components/RootCollapserComponent/RootCollapserComponent.ng';
 import { RootBackgroundComponent } from '../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'SettingsHomePage',
     templateUrl: './SettingsHomePage.ng.html',
     animations: PageAnimations,
     styles: [],
-    imports: [RootCollapserComponent, RootBackgroundComponent]
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule], 
 })
 export class SettingsHomePage extends SuperPage {
     constructor(

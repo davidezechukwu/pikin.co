@@ -8,15 +8,21 @@ import { GameDrawModel } from '../../DashboardModules/Game/Models/GameDrawModel'
 import { DrawModel } from '../../DashboardModules/Game/Models/DrawModel';
 import { SuperService }   from '../../CommonModules/SuperModules/Services/SuperService.ng';
 import { CurrencyAmountModel } from '../../CommonModules/CoreModules/Models/CurrencyAmountModel';
+import { WinningPriceModel } from '../Models/WinningPriceModel';
+import { CurrencyModel } from '../../CommonModules/CoreModules/Models/CurrencyModel';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 @Injectable()
 export class TicketService extends SuperService{        
     private TicketStore: TicketModel[] = [];
     private Prizes: PrizeModel[] = PrizesMock;    
-
+    protected TotalPrizes: CurrencyAmountModel | null | undefined;
+    protected WinningTicketsCount : number = 0;
     constructor(injector: Injector) {
         super(injector);
+        this.TotalPrizes = new CurrencyAmountModel(0, this.SessionService.DefaultCurrency)
     };
 
     public BuyTicket(member: MemberModel, game: GameModel, draw: DrawModel,   gameDraw: GameDrawModel, numbers: string): Promise<TicketModel> {        
@@ -57,10 +63,44 @@ export class TicketService extends SuperService{
         member.Tickets.push(ticket);        
 
         //TODO: move to FundingService.
+        //TODO: Add currency conversion
         member.Funding.Balance!.Amount = member.Funding.Balance!.Amount - this.GlobalisationService.ToSessionCurrency(game.Price).Amount;
         
         return Promise.resolve(ticket);
     }    
+
+    private totalWinningTickets$ = new BehaviorSubject<number>(0);
+    public GetTotalWinningTicketsObservable(): Observable<number> {
+        return this.totalWinningTickets$.asObservable();
+    }
+    public UpdateTotalWinningTickets(newTotal: number): void {
+        this.totalWinningTickets$.next(newTotal);
+    }
+
+    private totalPrizes$ = new BehaviorSubject<CurrencyAmountModel>(new CurrencyAmountModel(0, this.SessionService.Session?.CurrentCurrency!));
+    public GetTotalPrizesObservable(): Observable<CurrencyAmountModel> {
+        return this.totalPrizes$.asObservable();
+    }
+    public UpdateTotalPrizes(newTotalPrizes: CurrencyAmountModel): void {
+        this.totalPrizes$.next(newTotalPrizes);
+    }
+
+    public AddWinner(winningPrize: CurrencyAmountModel) {
+        //TODO: Add currency conversion
+        (this.TotalPrizes as CurrencyAmountModel).Amount = (this.TotalPrizes as CurrencyAmountModel).Amount + winningPrize.Amount;
+        ++this.WinningTicketsCount;
+        this.UpdateTotalPrizes( this.TotalPrizes!);
+        this.UpdateTotalWinningTickets(this.WinningTicketsCount!)
+    }
+
+
+    public GetWinningPrice(gameName: string, numberOfMatches: number): CurrencyAmountModel {
+        debugger
+        const key = `${gameName}Match${numberOfMatches}WinPrice` as keyof typeof WinningPriceModel;
+        let winningAmount = WinningPriceModel[key]! as number;         
+        let winningPrize = new CurrencyAmountModel(winningAmount, this.SessionService.Session!.CurrentCurrency!);
+        return winningPrize;
+    }
 
     public getTicket(id: number | string): Promise<TicketModel | undefined> {
         return Promise.resolve(
@@ -84,14 +124,13 @@ export class TicketService extends SuperService{
         return Promise.resolve(prizes);
     }    
 
-    public GetTotalPrizes(): Promise<CurrencyAmountModel> {                
-        let _totalPrizes: number = 0;
-        let prizeCurrency = this.SessionService.Session?.CurrentCurrency;              
-        let totalPrizes: CurrencyAmountModel = this.GlobalisationService.ToSessionCurrency(new CurrencyAmountModel(_totalPrizes, prizeCurrency!));
+    public GetTotalPrizes(): Promise<CurrencyAmountModel> {                        
+        let prizeCurrency = this.SessionService.DefaultCurrency;              
+        let totalPrizes: CurrencyAmountModel = this.GlobalisationService.ToSessionCurrency(new CurrencyAmountModel(this.TotalPrizes!.Amount, prizeCurrency!));
         return Promise.resolve(totalPrizes);      
     }    
 
     public GetTotalWinningTickets(): Promise<number> {
-        return Promise.resolve(0);
+        return Promise.resolve(this.WinningTicketsCount);
     }    
 }

@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
     templateUrl: './SettingsCurrencyPage.ng.html',
     animations: PageAnimations,
     styles: [],
-    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule]
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule, RouterModule]
 })
 export class SettingsCurrencyPage extends SuperPage {
     constructor(

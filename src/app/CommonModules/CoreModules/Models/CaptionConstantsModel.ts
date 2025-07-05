@@ -3,17 +3,20 @@
 export class CaptionConstantsModel extends SuperModel {    
     public AboutTheCurrentNumberSystem: string = "About the current Number System";
     public AboutpiKinco: string = "About <span style='text-transform:none !important'>piKinco<span>";
-    public AboutpiKincoM1: string = "piKinco is a charity-oriented penny lottery in a sleek and simple user interface.";
-    public AboutpiKincoM2: string = "Tickets start from a penny, or cent, and never exceed £0.10.";    
-    public AboutpiKincoM3: string = "Play with a penny, or cent, (£0.01, $0.01, €0.01), or other supported currencies, pick a number; win up to £30M.";
-    public AboutpiKincoM4: string = "Play responsibly.";
-    public AboutpiKincoM5: string = "Subject to Age, Resposnible Gaming Guidelines, National and Regional Regulations. Winning Prizes start from £0.30.";
-    public AboutpiKincoM6: string = "We also have other forms of free recurring tickets in which could win up to £30,000.";
+    public AboutpiKincoM1: string = "Angular";
+    public AboutpiKincoM2: string = "Typescript";    
+    public AboutpiKincoM3: string = "SCSS/CSS";
+    public AboutpiKincoM4: string = "Nginx";
+    public AboutpiKincoM5: string = "Ubuntu";
+    public AboutpiKincoM6: string = "Azure";
     
     public Account: string = "Account";
     public AccountHome: string = "Account Home";
     public AddFunds: string = "Add Funds";
     public AddSomeFundsToYourAccount: string = "Add some funds to your account";
+    public AdjustPlaySpeed: string = "Adjust Play Speed";
+    public AdjustPlaySpeedMax: string = "Max";
+    public AdjustPlaySpeedMin: string = "Min";
     public AgeRequirements: string = "Players must be [MINIMUM_AGE_ACCORDING_TO_LOCAL_LAWS] or over and physically located in the [LOCATION 1] or [LOCATION 2] or [LOCATION 3 etc] "
     public AllWinningTicketsInTheLastDay: string = "All Winning Tickets in the last day";
     public AllWinningTicketsInTheLastWeek: string = "All Winning Tickets in the last week";
@@ -23,7 +26,6 @@ export class CaptionConstantsModel extends SuperModel {
     public Amount: string = "Amount";
     public AsOf: string = "Current value as of {0} ";
     public AutomaticSignOut: string = "Automatic Sign Out";
-    
     public Balance: string = "Balance";
     public BuyTicket: string = "Buy Ticket";
     public BuyTickets: string = "Buy Tickets";
@@ -159,7 +161,7 @@ export class CaptionConstantsModel extends SuperModel {
     public Outcome: string = "Outcome";        
 
     public TotalPrizesPaidOutSoFarTo: string = "paid out so far to";
-    public PageIsUnderConstruction: string = "This Page is under construction"; 
+    public PageIsUnderConstruction: string = "Angular 20"; 
     public PageInConstructionMessage1: string = "Another Configuration Which can mirror 'Financial Fixed Odds' From 'SpreadEx'. SpreadEx, according to wiki, is Private :) with a £50M Turnover in 2016"; 
     public PageNotFound: string = "Page not found";
     public PagerItemsPerPage: string = "Items Per Page";
@@ -170,8 +172,9 @@ export class CaptionConstantsModel extends SuperModel {
     public PaymentMethodTypeVisa: string = "Visa";
     public Play: string = "Play";
     public PlayNowForTheDraw: string = "Results would be announced on {0}";
-    public PlayMultipleTimes: string = "Play Multiple Times";
-    public PlayOnce: string = "Play Once";    
+    public ClearGame: string = "Clear";
+    public AdjustSpeed: string = "Adjust Speed";
+    public PlayOnce: string = "Play";    
     public PleaseSelect: string = "Please choose one...";
     public Price: string = "Price";    
     public PrizeWin: string = "Win {0} ";
