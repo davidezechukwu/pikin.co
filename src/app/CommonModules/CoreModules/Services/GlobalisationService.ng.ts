@@ -69,28 +69,20 @@ export class GlobalisationService {
             return fromAmount;
         }
 
-        var fromCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find((currencyExchangeRate : any) => {
-            return (currencyExchangeRate.FromCurrency.ID == fromAmount.Currency.ID &&
-                currencyExchangeRate.ToCurrency.Name == "USD");
-        });
-
-        var convertedUSDAmount: number = fromAmount.Amount / fromCurrencyUSDexchangeRate!.ToRate;
+        var fromCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find((currencyExchangeRate : any) => currencyExchangeRate.FromCurrency.ID == fromAmount.Currency.ID &&  currencyExchangeRate.ToCurrency.Name == "USD");
+        var convertedUSDAmount: number = fromAmount.Amount / fromCurrencyUSDexchangeRate?.ToRate!;
+        
         if (toCurrency.Name != "USD") {
-            var toCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find(( currencyExchangeRate : any) => {
-                return (currencyExchangeRate.FromCurrency.ID == toCurrency.ID &&
-                    currencyExchangeRate.ToCurrency.Name == "USD");
-            });
+              var toCurrencyUSDexchangeRate = this.SessionService.CurrencyExchangeRates.find(( currencyExchangeRate : any) => currencyExchangeRate.FromCurrency.ID == toCurrency.ID && currencyExchangeRate.ToCurrency.Name == "USD");
             convertedUSDAmount = convertedUSDAmount * toCurrencyUSDexchangeRate!.ToRate;
         }
         return new CurrencyAmountModel(convertedUSDAmount, toCurrency);
     }
 
-    public ToSessionCurrency(froCurrencyAmountModel: CurrencyAmountModel | undefined | null): CurrencyAmountModel {
-        if ( froCurrencyAmountModel == null || froCurrencyAmountModel == undefined) {
+    public ToSessionCurrency(fromCurrencyAmountModel: CurrencyAmountModel | undefined | null): CurrencyAmountModel {
+        if ( fromCurrencyAmountModel == null || fromCurrencyAmountModel == undefined) {
             return new CurrencyAmountModel(0, this.SessionService.Session?.CurrentCurrency!);
         }
-        return this.SwitchAmountToOtherCurrency(froCurrencyAmountModel, this.SessionService.Session?.CurrentCurrency!);
+        return this.SwitchAmountToOtherCurrency(fromCurrencyAmountModel, this.SessionService.Session?.CurrentCurrency!);
     }
-
-    
 }

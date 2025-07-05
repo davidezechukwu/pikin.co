@@ -54,16 +54,14 @@ export class RootComponent extends SuperComponent implements OnInit {
                 let isOnLowSpeedConnection = results[index++]
                 this.SessionService.CurrencyExchangeRates = results[index++];                
                 var numberSystems = new NumberSystemModelMockDataBuilder().BuildMockData();
-                var games = new GameModelMockDataBuilder().BuildMocksFor10NumberSystem();
-                //new DrawModelMockDataBuilder().BuildDrawMocks(numberSystems, numberSystemService);
+                var games = new GameModelMockDataBuilder().BuildMocksFor10NumberSystem();                
                 new DrawModelMockDataBuilder().BuildDrawMocks(numberSystems, this.NumberSystemService);
                 new GameDrawModelMockDataBuilder().BuildGameDrawMocks(games, numberSystems[0]);
                 new PrizeModelMockDataBuilder().BuildMocks();
                 this.SessionService.NumberSystems = numberSystems;
                 this.SessionService.Games = games;
                 this.SessionService.ClearSession();
-                this.SessionService.Session!.IsOnLowSpeedConnection = isOnLowSpeedConnection;
-                //numberSystemService.InitMockEnvironment();
+                this.SessionService.Session!.IsOnLowSpeedConnection = isOnLowSpeedConnection;                
                 this.NumberSystemService.InitMockEnvironment();
                 this.IsInitialised = true;
             })

@@ -139,8 +139,6 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
             .catch(reason => this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorGetGetNumberSystemFailed, this, this.Game!.NumberSystemID!.toString()));        
     };
 
- 
-
     public override  ngDoCheck(): void {
         super.ngDoCheck();
         this.Refresh();
@@ -245,9 +243,7 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
                                             });                                        
                                             let drawnNumbers: string = this.NumbersAsArray.join('');
                                             drawnNumbers = drawnNumbers.substring((9 - this.Game?.RequiredMatches!) + 1, 10);
-
-                                            //this.Winner = drawnNumbers == pickededNumbers;
-                                            this.Winner = true;
+                                            this.Winner = drawnNumbers == pickededNumbers;
                                             if (this.Winner) {
                                                 if (this.Winner) {
                                                     this.FundingService.AddFunding(member, winningPot!)
@@ -272,7 +268,6 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
                                                         }
                                                     }, 50); // A short delay to let Angular render the bubble container
                                                 }
-
                                             } else {
                                                 const toast = `${pickededNumbers} did not match the drawn numbers ${drawnNumbers}`;
                                                 this.ToastrService.success(toast, 'You almost got it. Try again and better luck next time'); 
@@ -283,8 +278,6 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
                                         }
                                     })
                                     .catch((reason: any) => {
-                                        // this.ErrorHandlingService.HandleError(reason, this.LocalisationService.CaptionConstants.ErrorIsThereEnoughFundingFailed, this);
-                                        // this.HasEnoughFunds = false;
                                         const toast = `You did not have enough funds to play the game, add more funds or play a lesser game`;
                                         this.ToastrService.error(toast, 'Not enough funds');
                                         this.Router.navigate(['/funding/Addfunds']);
@@ -337,5 +330,4 @@ export class PlayComponent extends SuperComponent implements OnInit, DoCheck {
         this.CurrentTime = new Date();
         this.AsOf = this.Localise(this.LocalisationService.CaptionConstants.AsOf, '', this.GlobalisationService.FormatDate(this.CurrentTime));        
     }
-
 }

@@ -41,8 +41,12 @@
   text-decoration: none;
 }
 
+.navbar select.pk-currencies{  
+  padding: 0;
+}
+
 .navbar select.pk-languages {
-  margin-top: 1em;
+  padding: 0;
 }
 
 .navbar select {

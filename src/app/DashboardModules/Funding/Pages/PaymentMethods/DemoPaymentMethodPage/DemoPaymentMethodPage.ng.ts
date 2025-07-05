@@ -9,18 +9,19 @@ import { RootCollapserComponent } from '../../../../../CommonModules/RootModules
 import { RootBackgroundComponent } from '../../../../../CommonModules/RootModules/Components/RootBackgroundComponent/RootBackgroundComponent.ng';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'DemoPaymentMethodPage',
     templateUrl: './DemoPaymentMethodPage.ng.html',
     animations: PageAnimations,
-    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule]
+    imports: [RootCollapserComponent, RootBackgroundComponent, RouterModule, FormsModule, CommonModule]
 })
 export class DemoPaymentMethodPage extends SuperPage implements OnInit {
     protected SelectedPaymentMethod: PaymentMethodModel = new PaymentMethodModel();
     protected FundingAmount: number = 0;
     protected MinimumPaymentAmount: number = 0;
-    protected MaximumPaymentAmount: number = 0;
+    protected MaximumPaymentAmount: number = 10000000;
 
     constructor(
         injector: Injector,

@@ -8,15 +8,13 @@
   <div class="collapse navbar-collapse" id="TopMenuComponentNavigation"  >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/play">{{Localise(this.LocalisationService.CaptionConstants.Play)}}</a></li>
-      <ng-container *ngIf="AuthenticationService.IsAuthenticated">
-        <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/tickets">{{Localise(this.LocalisationService.CaptionConstants.MyTickets)}}</a></li>
+      <ng-container *ngIf="AuthenticationService.IsAuthenticated">        
       </ng-container>
       <ng-container *ngIf="!AuthenticationService.IsAuthenticated">
         <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/register">{{Localise(this.LocalisationService.CaptionConstants.Register)}}</a></li>
         <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/login">{{Localise(this.LocalisationService.CaptionConstants.LogIn)}}</a></li>
         <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/resetpassword">{{Localise(this.LocalisationService.CaptionConstants.ResetPassword)}}</a></li>
-      </ng-container>
-      <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/winningtickets">{{Localise(this.LocalisationService.CaptionConstants.WinningTickets)}}</a></li>
+      </ng-container>      
       <ng-container *ngIf="AuthenticationService.IsAuthenticated">
         <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" routerLink="/dashboard">{{Localise(this.LocalisationService.CaptionConstants.Dashboard)}}</a></li>
       </ng-container>
@@ -24,7 +22,7 @@
         <li class="nav-item" routerLinkActive="pk-active"><a class="nav-link" (click)="onSignOut()">{{Localise(this.LocalisationService.CaptionConstants.SignOut)}}</a></li>
       </ng-container>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="navbar-nav ms-auto">
       <li>
         <table class="pk-dashboard-summary">
           <tr>
@@ -44,7 +42,7 @@
                   <td>
                     <a routerLink="dashboard/funding/viewstatement" class="text-nowrap"><span>{{Localise(this.LocalisationService.CaptionConstants.Balance)}} </span><span [innerHTML]="GlobalisationService.FormatCurrency(this.GlobalisationService.ToSessionCurrency(AutheticatedMember.Funding.Balance), true) | safe"></span></a>
                     &nbsp;&nbsp;
-                    <a routerLink="dashboard/funding/addfunds"><span>{{Localise(this.LocalisationService.CaptionConstants.AddFunds)}}</span></a>
+                    <a routerLink="/dashboard/funding/paymentmethods/demo"><span>{{Localise(this.LocalisationService.CaptionConstants.AddFunds)}}</span></a>
                     &nbsp;&nbsp;
                     <a routerLink="dashboard/funding/withdrawfunds"><span>{{Localise(this.LocalisationService.CaptionConstants.WithdrawFunds)}}</span></a>
                   </td>
@@ -56,19 +54,15 @@
             <td>
               <table>
                 <tr>
-                  <td>
+                  <td style="padding-right: 1rem;">
                     <select name="LanguagesSelect" [(ngModel)]="SessionService.Session!.CurrentLanguage" class="pk-languages" title="languages">
                       <option *ngFor="let l of SessionService.Languages" [ngValue]="l">{{l.DisplayName}}</option>
                     </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select name="CurrenciesSelect" [(ngModel)]="SessionService.Session!.CurrentCurrency" title="currencies">
-                      <option *ngFor="let c of SessionService.Currencies" [ngValue]="c">{{Localise(c.DisplayName)}}</option>                                             
+                    <select name="CurrenciesSelect" [(ngModel)]="SessionService.Session!.CurrentCurrency" class="pk-currencies"  title="currencies">
+                      <option *ngFor="let c of SessionService.Currencies" [ngValue]="c">{{Localise(c.DisplayName)}}</option>
                     </select>
                   </td>
-                </tr>
+                </tr>               
               </table>
             </td>
           </tr>

@@ -13,6 +13,7 @@
       <label>
         <strong>{{Localise(LocalisationService.CaptionConstants.Amount)}} {{SessionService.Session?.CurrentCurrency?.Symbol}}</strong>
         <input type="number" required="required" name="FundingAmountForm"
+               step="1" 
                [min]="MinimumPaymentAmount"
                [max]="MaximumPaymentAmount"
                [(ngModel)]="FundingAmount" />

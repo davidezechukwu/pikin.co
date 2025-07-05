@@ -62,10 +62,11 @@ export class TicketService extends SuperService{
         this.TicketStore.push(ticket);
         member.Tickets.push(ticket);        
 
-        //TODO: move to FundingService.
-        //TODO: Add currency conversion
+        //TODO: move to FundingService.                
+        if (member.Funding.Balance!.Currency.ID != this.SessionService.Session?.CurrentCurrency?.ID){
+            member.Funding.Balance = this.GlobalisationService.ToSessionCurrency(member.Funding.Balance);
+        }        
         member.Funding.Balance!.Amount = member.Funding.Balance!.Amount - this.GlobalisationService.ToSessionCurrency(game.Price).Amount;
-        
         return Promise.resolve(ticket);
     }    
 
@@ -85,8 +86,7 @@ export class TicketService extends SuperService{
         this.totalPrizes$.next(newTotalPrizes);
     }
 
-    public AddWinner(winningPrize: CurrencyAmountModel) {
-        //TODO: Add currency conversion
+    public AddWinner(winningPrize: CurrencyAmountModel) {        
         (this.TotalPrizes as CurrencyAmountModel).Amount = (this.TotalPrizes as CurrencyAmountModel).Amount + winningPrize.Amount;
         ++this.WinningTicketsCount;
         this.UpdateTotalPrizes( this.TotalPrizes!);
@@ -94,12 +94,11 @@ export class TicketService extends SuperService{
     }
 
 
-    public GetWinningPrice(gameName: string, numberOfMatches: number): CurrencyAmountModel {
-        debugger
+    public GetWinningPrice(gameName: string, numberOfMatches: number): CurrencyAmountModel {        
         const key = `${gameName}Match${numberOfMatches}WinPrice` as keyof typeof WinningPriceModel;
         let winningAmount = WinningPriceModel[key]! as number;         
-        let winningPrize = new CurrencyAmountModel(winningAmount, this.SessionService.Session!.CurrentCurrency!);
-        return winningPrize;
+        let winningPrize = new CurrencyAmountModel(winningAmount, this.SessionService.DefaultCurrency);        
+        return this.GlobalisationService.ToSessionCurrency(winningPrize);
     }
 
     public getTicket(id: number | string): Promise<TicketModel | undefined> {

@@ -23,10 +23,9 @@ export class FundingService extends SuperService{
         return Promise.resolve(member.Funding);        
     }   
 
-    AddFunding(member: MemberModel, funds: CurrencyAmountModel): Promise<FundingModel> {
+    AddFunding(member: MemberModel, funds: CurrencyAmountModel): Promise<FundingModel> {        
         var fundingInMemberCurrency = this.GlobalisationService.SwitchAmountToOtherCurrency(funds, member.Funding.Balance!.Currency);
-        
-        (member.Funding.Balance as CurrencyAmountModel).Amount += fundingInMemberCurrency.Amount;        
+        member.Funding.Balance!.Amount! += fundingInMemberCurrency.Amount;                
         return Promise.resolve(member.Funding);
     }  
 

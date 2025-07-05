@@ -9,7 +9,7 @@ export class FundingModelMockDataBuilder extends SuperModelMockDataBuilder {
         super();
     }
 
-    BuildMock(member: MemberModel): FundingModel {        
+    BuildMock(member: MemberModel): FundingModel {                
         let sessionService = new SessionService()        
         member.Funding = new FundingModel();
         member.Funding.ID = this.GetNextID();
